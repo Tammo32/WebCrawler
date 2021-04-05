@@ -47,6 +47,10 @@ body {
   font-size: 16px;
 }
 
+.header {
+    margin-bottom: 10rem;
+}
+
 a.navbar-brand {
   font-family: 'Rubik', sans-serif;
   white-space: normal;
@@ -64,7 +68,7 @@ a.navbar-brand {
     background-color: var(--purple-dark);
     color: var(--grey-light);
     border-radius: 0px;
-    margin-top: 10rem;
+    
 }
 
 .nav-item:hover {
