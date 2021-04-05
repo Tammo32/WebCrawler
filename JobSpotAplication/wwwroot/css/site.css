@@ -1,15 +1,85 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    /* pink - highlights*/
+    --pink-dark: #f93f71;
+    --pink-regular: #fa5883;
+    --pink-light: #fb8aa8;
+    --pink-extra-light: #fca2ba;
+
+    /*purple - Main Brand Colour*/
+    --purple-dark: #6500bd;
+    --purple-regular: #8d0aff;
+    --purple-light: #9924ff;
+    --purple-extra-light: #b157ff;
+
+    /*blue - Secondary colour*/
+    --blue-dark: #5c94f2;
+    --blue-regular: #8bb3f6;
+    --blue-light: #a3c3f8;
+    --blue-extra-light: #d2e2fc;
+
+    /*black*/
+    --black-dark: #050505;
+    --black-regular: #333333;
+    --black-light: #4d4d4d;
+    --black-extra-light: #666666;
+
+    /*grey/white*/
+    --grey-dark: #999999;
+    --grey-regular: #CCCCCC;
+    --grey-light: #e6e6e6;
+    --grey-extra-light: #F5F5F5;
+
+    /*social media colours*/
+    --facebook-blue: #3b5998;
+    --google-red: #DB4437;
+    --twitter-blue: #1da1f2;
+}
+
+/* Imports Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
+
+body {
+  font-family: 'Rubik', 'Roboto', sans-serif;
+  background: var(--blue-extra-light);
+  font-size: 16px;
+}
+
 a.navbar-brand {
+  font-family: 'Rubik', sans-serif;
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
+.nav-item {
+    color: var(--black-light);
+    padding: 0.5rem 0.7rem;
+    text-decoration: none;
+}
+
+.jumbotron {
+    background-color: var(--purple-dark);
+    color: var(--grey-light);
+    border-radius: 0px;
+    margin-top: 10rem;
+}
+
+.nav-item:hover {
+  background-color: var(--purple-light);
+  border:none;
+  border-radius: 3px;
+}
+
+.nav-link {
+    color: white;
+}
+
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+a:hover {
+  color: var(--grey-light);
 }
 
 .btn-primary {
