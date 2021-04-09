@@ -81,6 +81,28 @@ a.navbar-brand {
     color: white;
 }
 
+.introduction {
+    width: 75%;
+    padding-top: 2rem;
+    margin: 0 auto;
+}
+
+.introduction hr {
+    border-top: 2px solid var(--black-light);
+    width: 95%;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.fa-search, .fa-pen-alt, .fa-star {
+    font-size: 3.8em;
+    margin: 1rem;
+}
+
+.padding {
+    padding-bottom: 2rem;
+}
+
 /* Provide sufficient contrast against white background */
 a:hover {
   color: var(--grey-light);
