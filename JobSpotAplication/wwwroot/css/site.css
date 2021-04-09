@@ -65,7 +65,7 @@ a.navbar-brand {
 }
 
 .jumbotron {
-    background-color: var(--purple-dark);
+    background-color: var(--purple-regular);
     color: var(--grey-light);
     border-radius: 0px;
     
