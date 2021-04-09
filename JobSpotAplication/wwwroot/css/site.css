@@ -70,11 +70,24 @@ a.navbar-brand {
     border-radius: 0px;
     
 }
+.jumbotron .btn-primary {
+    background-color: var(--pink-regular);
+    border-color: var(--pink-dark);
+}
+
+.navbar-toggler {
+    font-size: 2rem;
+    background-color: var(--purple-regular);
+}
 
 .nav-item:hover {
   background-color: var(--purple-light);
   border:none;
   border-radius: 3px;
+}
+
+.bg-light {
+    background-color: var(--grey-extra-light) !important;
 }
 
 .nav-link {
@@ -105,7 +118,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a:hover {
-  color: var(--grey-light);
+    color: var(--grey-light);
 }
 
 .btn-primary {
