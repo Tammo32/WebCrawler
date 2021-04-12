@@ -36,6 +36,24 @@ namespace JobSpotAplication
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>{
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+                })
+                .AddGoogle(googleOptions => {
+                    IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"]; })
+                /**
+                .AddTwitter(twitterOptions => {
+                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                    twitterOptions.RetrieveUserDetails = true; }) 
+                    **/
+                ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
