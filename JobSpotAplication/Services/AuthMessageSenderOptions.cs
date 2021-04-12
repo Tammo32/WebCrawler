@@ -7,7 +7,7 @@ namespace JobSpotAplication.Services
 {
     public class AuthMessageSenderOptions
     {
-        public string SenderGridUser { get; set; }
-        public string SenderGridKey { get; set; }
+        public string SendGridUser { get; set; }
+        public string SendGridKey { get; set; }
     }
 }
