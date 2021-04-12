@@ -25,7 +25,7 @@ namespace JobSpotAplication.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Craig@jobspot.com", Options.SendGridUser),
+                From = new EmailAddress("craigpryan80@gmail.com", Options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
