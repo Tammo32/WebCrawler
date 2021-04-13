@@ -47,13 +47,10 @@ namespace JobSpotAplication
                     Configuration.GetSection("Authentication:Google");
                     googleOptions.ClientId = googleAuthNSection["ClientId"];
                     googleOptions.ClientSecret = googleAuthNSection["ClientSecret"]; })
-                /**
                 .AddTwitter(twitterOptions => {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true; }) 
-                    **/
-                ;
+                    twitterOptions.RetrieveUserDetails = true; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
