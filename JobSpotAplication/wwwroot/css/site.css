@@ -178,3 +178,169 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/* Styling for Login.cshtml"
+ -------------------------------------------------- */
+h1 {
+    margin: 0 0 20px 0;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+#login-panel {
+    position: relative;
+    display: flex;
+    margin: 8% auto;
+    width: 760px;
+    height: 550px;
+    border-radius: 5px;
+    background: #f2f2f2;
+    box-shadow: 7px 7px 22px #cecece;
+    background-image: url(/images/jobSpot_logo.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+.left-panel {
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+    align-content: stretch;
+    width: 50%;
+}
+
+.right-panel {
+    display: flex;
+    padding: 30px;
+    flex-direction: column-reverse;
+    width: 50%;
+    align-content: center;
+    text-align: right;
+}
+
+    .right-panel .sign-up-link {
+        align-self: flex-end;
+    }
+
+.or {
+    color: var(--purple);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    margin-bottom: 15px;
+}
+
+.divider-lines {
+    content: '';
+    display: block;
+    height: 0.09em;
+    min-width: 80px;
+    background: var(--purple-regular);
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+input[type=email], input[type=password] {
+    width: 100%;
+    padding-left: 40px;
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    border: none;
+    font-size: 16px;
+    border-bottom: 1px solid var(--purple-regular);
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+    input[type=email] {
+        background-image: url(/images/account.svg);
+        background-repeat: no-repeat;
+        background-position: 10px 10px;
+        padding-left: 40px;
+    }
+
+    input[type=password] {
+        background-image: url(/images/lock.svg);
+        background-repeat: no-repeat;
+        background-position: 10px 10px;
+        padding-left: 40px;
+    }
+
+
+        input[type=email]:focus,
+        input[type=password]:focus {
+            border: 1px solid var(--purple-regular);
+            color: var(--purple);
+            transition: 0.2s ease;
+        }
+
+    input[type=submit] {
+        width: 150px;
+        margin-top: 10px;
+        background: var(--purple-regular);
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+        opacity: 0.8;
+        box-shadow: 2px 2px 5px #cecece;
+        transition: 0.1s ease;
+    }
+
+    input[type="submit"]:active {
+        opacity: 1;
+        box-shadow: 2px 2px 5px #5e5e5e;
+        transition: 0.1s ease;
+    }
+
+
+button.btn-primary {
+    width: 100%;
+    height: 36px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 12px;
+    background: var(--purple);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    button.btn-primary:hover,
+    button.btn-primary:focus {
+        opacity: 0.8;
+        box-shadow: 2px 2px 5px #cecece;
+        transition: 0.1s ease;
+    }
+
+    button.btn-primary:active {
+        opacity: 1;
+        box-shadow: 2px 2px 5px #5e5e5e;
+        transition: 0.1s ease;
+    }
+
+
+    button.btn-primary[value=Login] {
+        width: 60%;
+    }
+
+    button.btn-primary[value=Facebook] {
+        background-color: #3b5998;
+    }
+
+    button.btn-primary[value=Google] {
+        background-color: #1da1f2;
+    }
+
+    button.btn-primary[value=Twitter] {
+        background-color: #DB4437;
+    }
