@@ -1,15 +1,124 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+:root {
+    /* pink - highlights*/
+    --pink-dark: #f93f71;
+    --pink-regular: #fa5883;
+    --pink-light: #fb8aa8;
+    --pink-extra-light: #fca2ba;
+
+    /*purple - Main Brand Colour*/
+    --purple-dark: #6500bd;
+    --purple-regular: #8d0aff;
+    --purple-light: #9924ff;
+    --purple-extra-light: #b157ff;
+
+    /*blue - Secondary colour*/
+    --blue-dark: #5c94f2;
+    --blue-regular: #8bb3f6;
+    --blue-light: #a3c3f8;
+    --blue-extra-light: #d2e2fc;
+
+    /*black*/
+    --black-dark: #050505;
+    --black-regular: #333333;
+    --black-light: #4d4d4d;
+    --black-extra-light: #666666;
+
+    /*grey/white*/
+    --grey-dark: #999999;
+    --grey-regular: #CCCCCC;
+    --grey-light: #e6e6e6;
+    --grey-extra-light: #F5F5F5;
+
+    /*social media colours*/
+    --facebook-blue: #3b5998;
+    --google-red: #DB4437;
+    --twitter-blue: #1da1f2;
+}
+
+/* Imports Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
+
+body {
+  font-family: 'Rubik', 'Roboto', sans-serif;
+  background: var(--blue-extra-light);
+  font-size: 16px;
+}
+
+.header {
+    margin-bottom: 10rem;
+}
+
 a.navbar-brand {
+  font-family: 'Rubik', sans-serif;
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
+.nav-item {
+    color: var(--black-light);
+    padding: 0.5rem 0.7rem;
+    text-decoration: none;
+}
+
+.jumbotron {
+    background-color: var(--purple-regular);
+    color: var(--grey-light);
+    border-radius: 0px;
+    
+}
+.jumbotron .btn-primary {
+    background-color: var(--pink-regular);
+    border-color: var(--pink-dark);
+}
+
+.navbar-toggler {
+    font-size: 2rem;
+    background-color: var(--purple-regular);
+}
+
+.nav-item:hover {
+  background-color: var(--purple-light);
+  border:none;
+  border-radius: 3px;
+}
+
+.bg-light {
+    background-color: var(--grey-extra-light) !important;
+}
+
+.nav-link {
+    color: white;
+}
+
+.introduction {
+    width: 75%;
+    padding-top: 2rem;
+    margin: 0 auto;
+}
+
+.introduction hr {
+    border-top: 2px solid var(--black-light);
+    width: 95%;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.fa-search, .fa-pen-alt, .fa-star {
+    font-size: 3.8em;
+    margin: 1rem;
+}
+
+.padding {
+    padding-bottom: 2rem;
+}
+
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+a:hover {
+    color: var(--grey-light);
 }
 
 .btn-primary {
@@ -69,3 +178,169 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+/* Styling for Login.cshtml"
+ -------------------------------------------------- */
+h1 {
+    margin: 0 0 20px 0;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+#login-panel {
+    position: relative;
+    display: flex;
+    margin: 8% auto;
+    width: 760px;
+    height: 550px;
+    border-radius: 5px;
+    background: #f2f2f2;
+    box-shadow: 7px 7px 22px #cecece;
+    background-image: url(/images/jobSpot_logo.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+.left-panel {
+    display: flex;
+    padding: 30px;
+    flex-direction: column;
+    align-content: stretch;
+    width: 50%;
+}
+
+.right-panel {
+    display: flex;
+    padding: 30px;
+    flex-direction: column-reverse;
+    width: 50%;
+    align-content: center;
+    text-align: right;
+}
+
+    .right-panel .sign-up-link {
+        align-self: flex-end;
+    }
+
+.or {
+    color: var(--purple);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    margin-bottom: 15px;
+}
+
+.divider-lines {
+    content: '';
+    display: block;
+    height: 0.09em;
+    min-width: 80px;
+    background: var(--purple-regular);
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+input[type=email], input[type=password] {
+    width: 100%;
+    padding-left: 40px;
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    border: none;
+    font-size: 16px;
+    border-bottom: 1px solid var(--purple-regular);
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+    input[type=email] {
+        background-image: url(/images/account.svg);
+        background-repeat: no-repeat;
+        background-position: 10px 10px;
+        padding-left: 40px;
+    }
+
+    input[type=password] {
+        background-image: url(/images/lock.svg);
+        background-repeat: no-repeat;
+        background-position: 10px 10px;
+        padding-left: 40px;
+    }
+
+
+        input[type=email]:focus,
+        input[type=password]:focus {
+            border: 1px solid var(--purple-regular);
+            color: var(--purple);
+            transition: 0.2s ease;
+        }
+
+    input[type=submit] {
+        width: 150px;
+        margin-top: 10px;
+        background: var(--purple-regular);
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        text-transform: uppercase;
+    }
+
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+        opacity: 0.8;
+        box-shadow: 2px 2px 5px #cecece;
+        transition: 0.1s ease;
+    }
+
+    input[type="submit"]:active {
+        opacity: 1;
+        box-shadow: 2px 2px 5px #5e5e5e;
+        transition: 0.1s ease;
+    }
+
+
+button.btn-primary {
+    width: 100%;
+    height: 36px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 12px;
+    background: var(--purple);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    button.btn-primary:hover,
+    button.btn-primary:focus {
+        opacity: 0.8;
+        box-shadow: 2px 2px 5px #cecece;
+        transition: 0.1s ease;
+    }
+
+    button.btn-primary:active {
+        opacity: 1;
+        box-shadow: 2px 2px 5px #5e5e5e;
+        transition: 0.1s ease;
+    }
+
+
+    button.btn-primary[value=Login] {
+        width: 60%;
+    }
+
+    button.btn-primary[value=Facebook] {
+        background-color: #3b5998;
+    }
+
+    button.btn-primary[value=Google] {
+        background-color: #1da1f2;
+    }
+
+    button.btn-primary[value=Twitter] {
+        background-color: #DB4437;
+    }
