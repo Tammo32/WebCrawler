@@ -47,8 +47,23 @@ body {
   font-size: 16px;
 }
 
+footer {
+    padding-top: 2rem;
+}
+
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+hr.dark {
+    width: 80%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
 .header {
-    margin-bottom: 10rem;
+    margin-bottom: 6rem;
 }
 
 a.navbar-brand {
