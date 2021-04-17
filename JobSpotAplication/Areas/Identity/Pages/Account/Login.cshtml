@@ -1,0 +1,90 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<link rel="stylesheet" href="~/css/site.css">
+<meta name="google-signin-client_id" content="867196046966-08qftlfoqjt7e8katudbrfurhj58aifn.apps.googleusercontent.com">
+
+<!--div class="row" d-flex justify-content-center col-12"-->
+<div id="login-panel">
+    <!--div class="col-4 border border-primary rounded m-20"-->
+    <div class="left-panel">
+        <h1>@ViewData["Title"]</h1>
+        <section>
+            <form id="account" method="post">
+                <!--<h4>Use a local account to log in.</h4>-->
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <!--<label asp-for="Input.Email"></label>-->
+                    <input asp-for="Input.Email" class="form-control" placeholder="E-mail or Username" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <!--<label asp-for="Input.Password"></label>-->
+                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="Login">LOG IN</button>
+                </div>
+            </form>
+        </section>
+        <section>
+            <div class="or">
+                <span class="divider-lines"></span>
+                <span>OR</span>
+                <span class="divider-lines"></span>
+            </div>
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+    <div class="right-panel">
+        <div class="form-group">
+            <p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+            </p>
+            <p>
+                Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Create one!</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+}
