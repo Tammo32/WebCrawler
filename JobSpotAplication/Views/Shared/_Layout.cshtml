@@ -16,10 +16,9 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-camera"></i>JobSpotApplication</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -28,6 +27,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -38,9 +39,28 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - JobSpotAplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="bg-white">
+        <div class="container padding">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <hr class="dark" />
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-camera"></i>JobSpotApplication</a>
+                    <p>address@email.com</p>
+                    <p><a href="#"><i class="fab fa-twitter"></i>Twitter</a></p>
+                    <p><a href="#"><i class="fab fa-facebook"></i>Facebook</a></p>
+                </div>
+                <div class="col-md-6">
+                    <hr class="light" />
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                </div>
+                <div class="col-md-12">
+                    <hr class="dark" />
+                    &copy; 2021 - JobSpotApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
