@@ -80,7 +80,7 @@ a.navbar-brand {
 }
 
 .jumbotron {
-    background-color: var(--purple-regular);
+    background-color: var(--purple-dark);
     color: var(--grey-light);
     border-radius: 0px;
     
@@ -107,6 +107,11 @@ a.navbar-brand {
 
 .nav-link {
     color: white;
+}
+
+/* Provide sufficient contrast against white background */
+a:hover {
+    color: var(--grey-light);
 }
 
 .introduction {
