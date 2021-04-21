@@ -24,8 +24,7 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -34,7 +33,7 @@ namespace JobSpotAplication
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddRazorPages();
             services.AddAuthentication()
-                .AddFacebook(facebookOptions =>{
+                .AddFacebook(facebookOptions => {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
@@ -43,11 +42,13 @@ namespace JobSpotAplication
                     IConfigurationSection googleAuthNSection =
                     Configuration.GetSection("Authentication:Google");
                     googleOptions.ClientId = googleAuthNSection["ClientId"];
-                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"]; })
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
+                })
                 .AddTwitter(twitterOptions => {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true; });
+                    twitterOptions.RetrieveUserDetails = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
