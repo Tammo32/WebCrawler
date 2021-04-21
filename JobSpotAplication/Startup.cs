@@ -24,8 +24,7 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -35,18 +34,17 @@ namespace JobSpotAplication
             services.AddRazorPages();
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>{
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.AppId = "771874213445629";
+                    facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 })
                 .AddGoogle(googleOptions => {
-                    IConfigurationSection googleAuthNSection =
-                    Configuration.GetSection("Authentication:Google");
-                    googleOptions.ClientId = googleAuthNSection["ClientId"];
-                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"]; })
+                    googleOptions.ClientId = "867196046966-08qftlfoqjt7e8katudbrfurhj58aifn.apps.googleusercontent.com";
+                    googleOptions.ClientSecret = "MxHE8oBHg1k15Fxnxh2Ithfl"; 
+                })
                 .AddTwitter(twitterOptions => {
-                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
-                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                    twitterOptions.ConsumerKey = "JOxmWjKXK5SkbWDTSxRdH50Ga";
+                    twitterOptions.ConsumerSecret = "bBDfRy8itq3hsm33hhHxDdIFpOYF4TgtiryLQ91QrstODvfDSa";
                     twitterOptions.RetrieveUserDetails = true; });
         }
 

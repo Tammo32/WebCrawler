@@ -17,7 +17,7 @@ namespace JobSpotAplication.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute(Options.SendGridKey, subject, message, email);
+            return Execute(Options.GetSendGridKey(), subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
@@ -25,7 +25,7 @@ namespace JobSpotAplication.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("craigpryan80@gmail.com", Options.SendGridUser),
+                From = new EmailAddress("craigpryan80@gmail.com", Options.GetSendGridUser()),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
