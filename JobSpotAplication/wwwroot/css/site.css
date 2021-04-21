@@ -213,7 +213,7 @@ h1 {
     display: flex;
     margin: 8% auto;
     width: 760px;
-    height: 550px;
+    min-height: 250px;
     border-radius: 5px;
     background: #f2f2f2;
     box-shadow: 7px 7px 22px #cecece;
@@ -221,6 +221,10 @@ h1 {
     background-repeat: no-repeat;
     background-position: top right;
 }
+
+    #login-panel.register_panel {
+        height: 550px;
+    }
 
 .left-panel {
     display: flex;
@@ -364,3 +368,4 @@ button.btn-primary {
     button.btn-primary[value=Twitter] {
         background-color: #DB4437;
     }
+
