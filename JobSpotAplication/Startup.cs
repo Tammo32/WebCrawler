@@ -33,19 +33,22 @@ namespace JobSpotAplication
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddRazorPages();
             services.AddAuthentication()
-                .AddFacebook(facebookOptions =>{
-                    facebookOptions.AppId = "771874213445629";
-                    facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
+                .AddFacebook(facebookOptions => {
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 })
                 .AddGoogle(googleOptions => {
-                    googleOptions.ClientId = "867196046966-08qftlfoqjt7e8katudbrfurhj58aifn.apps.googleusercontent.com";
-                    googleOptions.ClientSecret = "MxHE8oBHg1k15Fxnxh2Ithfl"; 
+                    IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
                 })
                 .AddTwitter(twitterOptions => {
-                    twitterOptions.ConsumerKey = "JOxmWjKXK5SkbWDTSxRdH50Ga";
-                    twitterOptions.ConsumerSecret = "bBDfRy8itq3hsm33hhHxDdIFpOYF4TgtiryLQ91QrstODvfDSa";
-                    twitterOptions.RetrieveUserDetails = true; });
+                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                    twitterOptions.RetrieveUserDetails = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
