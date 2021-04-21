@@ -21,7 +21,7 @@ namespace JobSpotAplication.Controllers
             // Get the secret value from configuration. This can be done anywhere
             // we have access to IConfiguration. This does not call the Key Vault
             // API, because the secrets were loaded at startup.
-            var secretName = "AppId";
+            var secretName = "Authentication:Facebook:AppId";
             var secretValue = _configuration[secretName];
 
             if (secretValue == null)
