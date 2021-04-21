@@ -33,11 +33,11 @@ namespace JobSpotAplication
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddRazorPages();
             services.AddAuthentication()
-               .AddFacebook(facebookOptions => {
-                   facebookOptions.AppId = "771874213445629";
-                   facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
-                   facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
-               })
+                .AddFacebook(facebookOptions => {
+                    facebookOptions.AppId = "771874213445629";
+                    facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
+                    facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
+                })
                 .AddGoogle(googleOptions => {
                     googleOptions.ClientId = "867196046966-08qftlfoqjt7e8katudbrfurhj58aifn.apps.googleusercontent.com";
                     googleOptions.ClientSecret = "MxHE8oBHg1k15Fxnxh2Ithfl";
@@ -48,7 +48,6 @@ namespace JobSpotAplication
                     twitterOptions.RetrieveUserDetails = true;
                 });
         }
-    }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
