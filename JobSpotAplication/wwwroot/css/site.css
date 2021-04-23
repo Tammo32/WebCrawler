@@ -200,7 +200,7 @@ body {
 }
 
 
-/* Styling for Login.cshtml"
+/* Styling for Login.cshtml, registration and steps between"
  -------------------------------------------------- */
 h1 {
     margin: 0 0 20px 0;
@@ -212,7 +212,7 @@ h1 {
     position: relative;
     display: flex;
     margin: 8% auto;
-    width: 760px;
+    max-width: 740px;
     min-height: 250px;
     border-radius: 5px;
     background: #f2f2f2;
@@ -223,18 +223,23 @@ h1 {
 }
 
     #login-panel.register_panel {
-        height: 550px;
+        min-height: 550px;
     }
 
-.left-panel {
+#left-panel {
     display: flex;
     padding: 30px;
     flex-direction: column;
     align-content: stretch;
     width: 50%;
+    text-align: left;
 }
 
-.right-panel {
+#left-panel form {
+    /*margin-left: 30px;*/
+}
+
+#right-panel {
     display: flex;
     padding: 30px;
     flex-direction: column-reverse;
@@ -243,7 +248,7 @@ h1 {
     text-align: right;
 }
 
-    .right-panel .sign-up-link {
+    #right-panel .sign-up-link {
         align-self: flex-end;
     }
 
@@ -252,6 +257,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     margin: 5px;
     margin-bottom: 15px;
 }
@@ -264,6 +270,37 @@ h1 {
     background: var(--purple-regular);
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.subhead {
+    padding-top: 200px;
+}
+
+@media (max-width: 767.98px) {
+    #login-panel {
+        max-width: auto;
+        min-height: auto;
+        margin: 8%;
+        padding-bottom: 0;
+    }
+
+    #left-panel {
+        width: auto;
+    }
+
+    #right-panel {
+        width: auto;
+        padding-top: 0;
+    }
+    
+    .subhead {
+        padding-top: 0px;
+    }
+}
+@media (max-width: 575.98px) {
+    #login-panel {
+        background-size: 50%;
+    }
 }
 
 input[type=email], input[type=password] {
