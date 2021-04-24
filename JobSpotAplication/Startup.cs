@@ -46,7 +46,12 @@ namespace JobSpotAplication
                 .AddTwitter(twitterOptions => {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true; });
+                    twitterOptions.RetrieveUserDetails = true; 
+                });
+
+                services.AddTransient<IEmailSender, EmailSender>();
+                services.Configure<AuthMessageSenderOptions>(Configuration);
+                services.AddRazorPages();
         }
 
 
