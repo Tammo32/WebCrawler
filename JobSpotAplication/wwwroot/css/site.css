@@ -252,7 +252,7 @@ h1 {
         align-self: flex-end;
     }
 
-.or {
+    .or {
     color: var(--purple);
     display: flex;
     justify-content: center;
@@ -273,7 +273,7 @@ h1 {
 }
 
 .subhead {
-    padding-top: 200px;
+    padding: 0px;
 }
 
 @media (max-width: 767.98px) {
@@ -292,17 +292,24 @@ h1 {
         width: auto;
         padding-top: 0;
     }
-    
-    .subhead {
-        padding-top: 0px;
-    }
 }
+
 @media (max-width: 575.98px) {
     #login-panel {
         background-size: 50%;
     }
+
+    #right-panel {
+        width: auto;
+        padding-top: 0;
+    }
 }
 
+@media (min-width: 768px) {
+    .subhead {
+        padding-top: 200px;
+    }
+}
 input[type=email], input[type=password] {
     width: 100%;
     padding-left: 40px;
