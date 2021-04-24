@@ -24,8 +24,7 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                   Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -33,7 +32,7 @@ namespace JobSpotAplication
            
             
             services.AddAuthentication()
-                .AddFacebook(facebookOptions =>{
+                .AddFacebook(facebookOptions => {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
@@ -47,12 +46,7 @@ namespace JobSpotAplication
                 .AddTwitter(twitterOptions => {
                     twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
                     twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                    twitterOptions.RetrieveUserDetails = true; 
-                });
-
-                services.AddTransient<IEmailSender, EmailSender>();
-                services.Configure<AuthMessageSenderOptions>(Configuration);
-                services.AddRazorPages();
+                    twitterOptions.RetrieveUserDetails = true; });
         }
 
 
