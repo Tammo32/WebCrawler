@@ -235,10 +235,6 @@ h1 {
     text-align: left;
 }
 
-#left-panel form {
-    /*margin-left: 30px;*/
-}
-
 #right-panel {
     display: flex;
     padding: 30px;
@@ -413,3 +409,6 @@ button.btn-primary {
         background-color: #DB4437;
     }
 
+
+/* Styling for Dashboard"
+ -------------------------------------------------- */
