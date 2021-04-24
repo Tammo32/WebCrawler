@@ -30,18 +30,37 @@ namespace WebScraper.Models
 			ScrapeSeekData(searchUrl);
 		}
 
+		/// <summary>
+		/// Method scrapes data on large job listing from search criteria
+		/// </summary>
+		/// <param name="searchUrl">Search criteria for jobs</param>
 		private void ScrapeSeekData(string searchUrl)
 		{
 			var web = new HtmlWeb();
 			var doc = web.Load(searchUrl);
-			var jobs = doc.DocumentNode.SelectNodes("//*[@class = '_1UfdD4q']");
-
+			var list = doc.DocumentNode.SelectSingleNode("//*[@class = '_1UfdD4q']");
+			var jobs = list.SelectNodes(".//article");
 			foreach (var job in jobs)
 			{
-				var details = job.SelectSingleNode(".//article");
-				var title = HttpUtility.HtmlDecode(details.SelectSingleNode(".//a[@class = '_2S5REPk']").InnerText);
-				Debug.Print($"Title: {title}\n");
+				var title = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_2S5REPk']").InnerText);
+				var url = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_2S5REPk']").GetAttributeValue("href", ""));
+				var company = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_17sHMz8']").InnerText);
+				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
+				var nodes = job.SelectNodes(".//span[@class = '_2cFajGc']");
+
+				Debug.Print($"{title}\n{company}\n{description}\nhttps://seek.com.au/{url}\n");
 			}
+		}
+
+		// TODO - Scrape web page for all details about a job listing
+		/// <summary>
+		/// Method used to scrape seek for a full job listing
+		/// </summary>
+		/// <param name="url">Url that directs to a single job listing</param>
+		private void ScrapeSeekForJobDetails(string url)
+		{
+			var web = new HtmlWeb();
+			var doc = web.Load(url);
 		}
 	}
 }
