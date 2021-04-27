@@ -45,6 +45,13 @@ body {
   font-family: 'Rubik', 'Roboto', sans-serif;
   background: var(--blue-extra-light);
   font-size: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
 }
 
 a {
@@ -57,6 +64,7 @@ a:hover {
 
 footer {
     padding-top: 2rem;
+    flex-shrink: 0;
 }
 
 .container {
