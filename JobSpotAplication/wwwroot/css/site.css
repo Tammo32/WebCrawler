@@ -47,6 +47,14 @@ body {
   font-size: 16px;
 }
 
+a {
+    color: var(--blue-regular);
+}
+
+a:hover {
+    color: var(--blue-dark);
+}
+
 footer {
     padding-top: 2rem;
 }
@@ -73,6 +81,11 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.navbar-brand img {
+    height: 50px;
+    margin-right: 10px;
+}
+
 .nav-item {
     color: var(--black-light);
     padding: 0.5rem 0.7rem;
@@ -83,11 +96,16 @@ a.navbar-brand {
     background-color: var(--purple-dark);
     color: var(--grey-light);
     border-radius: 0px;
+    margin-bottom: 0;
     
 }
 .jumbotron .btn-primary {
     background-color: var(--pink-regular);
     border-color: var(--pink-dark);
+}
+
+.description {
+    background-color: #FFF;
 }
 
 .navbar-toggler {
@@ -101,18 +119,8 @@ a.navbar-brand {
   border-radius: 3px;
 }
 
-.bg-light {
-    background-color: var(--grey-extra-light) !important;
-}
-
-.nav-link {
-    color: white;
-}
 
 /* Provide sufficient contrast against white background */
-a:hover {
-    color: var(--grey-light);
-}
 
 .introduction {
     width: 75%;
@@ -137,9 +145,6 @@ a:hover {
 }
 
 /* Provide sufficient contrast against white background */
-a:hover {
-    color: var(--grey-light);
-}
 
 .btn-primary {
   color: #fff;
@@ -187,10 +192,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 .footer {
   position: absolute;
   bottom: 0;
@@ -216,7 +217,6 @@ h1 {
     min-height: 250px;
     border-radius: 5px;
     background: #f2f2f2;
-    box-shadow: 7px 7px 22px #cecece;
     background-image: url(/images/jobSpot_logo.png);
     background-repeat: no-repeat;
     background-position: top right;
@@ -398,15 +398,15 @@ button.btn-primary {
     }
 
     button.btn-primary[value=Facebook] {
-        background-color: #3b5998;
+        background-color: var(--facebook-blue);
     }
 
     button.btn-primary[value=Google] {
-        background-color: #1da1f2;
+        background-color: var(--google-red);
     }
 
     button.btn-primary[value=Twitter] {
-        background-color: #DB4437;
+        background-color: var(--twitter-blue);
     }
 
 
