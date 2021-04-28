@@ -42,7 +42,7 @@ for details on configuring this project to bundle and minify static web assets. 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
 
 body {
-  font-family: 'Rubik', 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
   background: var(--blue-extra-light);
   font-size: 16px;
   min-height: 100vh;
@@ -76,7 +76,7 @@ footer i {
     padding-left: 0px;
 }
 
-hr.dark {
+hr .dark {
     width: 80%;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
@@ -108,12 +108,12 @@ a.navbar-brand {
 }
 
 .jumbotron {
-    background-color: var(--purple-dark);
+    background-image: linear-gradient(to right, var(--purple-light), var(--purple-regular));
     color: var(--grey-light);
     border-radius: 0px;
     margin-bottom: 0;
-    
 }
+
 .jumbotron .btn-primary {
     background-color: var(--pink-regular);
     border-color: var(--pink-dark);
@@ -126,6 +126,11 @@ a.navbar-brand {
 
 .description {
     background-color: #FFF;
+}
+
+.icon-format {
+    color: var(--purple-extra-light);
+    padding-bottom: 15px;
 }
 
 .navbar-toggler {
