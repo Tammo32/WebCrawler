@@ -56,10 +56,6 @@ body {
 
 /* Top Nav Formatting */
 
-a {
-    color: var(--blue-regular);
-}
-
 h1 {
     font-family: proxima-nova, sans-serif;
 }
@@ -126,7 +122,7 @@ a.navbar-brand {
     background-image: linear-gradient(to right, var(--purple-light), var(--purple-dark));
     color: var(--grey-light);
     border-radius: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 1rem;
 }
 
 .jumbotron .btn-primary {
@@ -188,6 +184,25 @@ a.nav-link:hover {
     color: var(--purple-light) !important;
     text-decoration: underline;
     text-decoration-thickness: 2px;
+}
+
+@media screen and (max-width: 600px) {
+    
+    .jumbotron {
+        border-radius: 0;
+    }
+
+    .description {
+        border-radius: 0;
+    }
+
+    .features {
+        border-radius: 0;
+    }
+    
+    .jumbotron-image {
+        display: none;
+    }
 }
 
 
@@ -287,7 +302,6 @@ h1 {
     max-width: 740px;
     min-height: 250px;
     border-radius: 24px;
-    background: #f2f2f2;
     background-image: url(/images/jobspot_logo.svg);
     background-size: 100px 100px;
     background-repeat: no-repeat;
@@ -385,9 +399,10 @@ input[type=email], input[type=password] {
     margin-bottom: 16px;
     border: none;
     font-size: 16px;
-    border-bottom: 1px solid var(--purple-regular);
+    border-bottom: 2px solid var(--purple-regular);
     box-sizing: border-box;
     transition: 0.2s ease;
+    background: var(--grey-light);
 }
 
     input[type=email] {
