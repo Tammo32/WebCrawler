@@ -138,11 +138,24 @@ a.navbar-brand {
     background-color: var(--purple-regular);
 }
 
+a.nav-link {
+    font-family: proxima-nova, 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+a.nav-link:hover {
+    color: var(--purple-light) !important;
+    text-decoration: underline;
+}
+
+/*
 .nav-item:hover {
   background-color: var(--purple-light);
   border:none;
   border-radius: 3px;
 }
+*/
 
 
 /* Provide sufficient contrast against white background */
@@ -348,7 +361,7 @@ input[type=email], input[type=password] {
         background-image: url(/images/account.svg);
         opacity: 0.5;
         background-repeat: no-repeat;
-        background-position: 10px 10px;
+        background-position: 10px;
         padding-left: 40px;
     }
 
@@ -356,7 +369,7 @@ input[type=password] {
     background-image: url(/images/lock.svg);
     opacity: 0.5;
     background-repeat: no-repeat;
-    background-position: 10px 10px;
+    background-position: 10px;
     padding-left: 40px;
 }
 
