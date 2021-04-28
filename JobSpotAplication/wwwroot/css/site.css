@@ -346,17 +346,19 @@ input[type=email], input[type=password] {
 
     input[type=email] {
         background-image: url(/images/account.svg);
+        opacity: 0.5;
         background-repeat: no-repeat;
         background-position: 10px 10px;
         padding-left: 40px;
     }
 
-    input[type=password] {
-        background-image: url(/images/lock.svg);
-        background-repeat: no-repeat;
-        background-position: 10px 10px;
-        padding-left: 40px;
-    }
+input[type=password] {
+    background-image: url(/images/lock.svg);
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    padding-left: 40px;
+}
 
 
         input[type=email]:focus,
@@ -364,6 +366,7 @@ input[type=email], input[type=password] {
             border: 1px solid var(--purple-regular);
             color: var(--purple);
             transition: 0.2s ease;
+            opacity: 1;
         }
 
     input[type=submit] {
@@ -398,8 +401,8 @@ button.btn-primary {
     height: 36px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 12px;
-    background: var(--purple);
-    color: rgb(255, 255, 255);
+    background: var(--pink-regular);
+    color: var(--grey-extra-light);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -410,6 +413,7 @@ button.btn-primary {
         opacity: 0.8;
         box-shadow: 2px 2px 5px #cecece;
         transition: 0.1s ease;
+        background: var(--pink-regular);
     }
 
     button.btn-primary:active {
