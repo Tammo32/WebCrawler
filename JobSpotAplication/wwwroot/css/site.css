@@ -68,6 +68,10 @@ h1.display-3 {
     font-weight: 500;
 }
 
+h1.display-4 {
+    font-weight: 500;
+}
+
 a:hover {
     color: var(--blue-dark);
 }
@@ -119,10 +123,10 @@ a.navbar-brand {
 }
 
 .jumbotron {
-    background-image: linear-gradient(to right, var(--purple-light), var(--purple-regular));
+    background-image: linear-gradient(to right, var(--purple-light), var(--purple-dark));
     color: var(--grey-light);
-    border-radius: 0px;
-    margin-bottom: 0;
+    border-radius: 24px;
+    margin-bottom: 30px;
 }
 
 .jumbotron .btn-primary {
@@ -135,8 +139,13 @@ a.navbar-brand {
     transform: scale(1.1);
 }
 
-.description {
+.description{
     background-color: #FFF;
+    border-radius: 24px 24px 0px 0px;
+}
+
+.features {
+    border-radius: 0px 0px 24px 24px;
 }
 
 .icon-format {
@@ -277,7 +286,7 @@ h1 {
     margin: 8% auto;
     max-width: 740px;
     min-height: 250px;
-    border-radius: 5px;
+    border-radius: 24px;
     background: #f2f2f2;
     background-image: url(/images/jobspot_logo.svg);
     background-size: 100px 100px;
