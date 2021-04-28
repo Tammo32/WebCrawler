@@ -4,11 +4,13 @@ using System.Text;
 
 namespace WebScraper.Models
 {
-	public class JobEntryModel
+	public abstract class JobEntryModel
 	{
-		private string Title { get; }
-		private string Description { get; }
-		private string Url { get; }
-		private decimal Salary { get; }
+		public string Title { get; protected set; }
+		public string Company { get; protected set; }
+		public string Description { get; protected set; }
+		public string Type { get; protected set; }
+		public string Url { get; protected set; }
+		public string SalaryRange { get; protected set; }
 	}
 }

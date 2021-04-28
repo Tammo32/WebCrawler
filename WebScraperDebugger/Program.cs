@@ -9,9 +9,11 @@ namespace WebScraperDebugger
 		{
 			ScraperModel scraper;
 
-			string[] seachParameters = { "Web-Developer-jobs", "in-Melbourne" };
+			string[] seachParameters = { "Web-Developer-jobs", "in-All-Melbourne-VIC" };
 			scraper = new ScraperModel();
 			scraper.ScrapeSeek(seachParameters);
+
+			var details = scraper.ScrapeSeekForJobDetails("https://www.seek.com.au/job/52075142");
 		}
 	}
 }
