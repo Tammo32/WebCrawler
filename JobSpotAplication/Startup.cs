@@ -29,10 +29,9 @@ namespace JobSpotAplication
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddRazorPages();
-            services.AddAuthentication()
+           
+            
+             services.AddAuthentication()
                 .AddFacebook(facebookOptions => {
                     facebookOptions.AppId = "771874213445629";
                     facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
@@ -47,7 +46,12 @@ namespace JobSpotAplication
                     twitterOptions.ConsumerSecret = "bBDfRy8itq3hsm33hhHxDdIFpOYF4TgtiryLQ91QrstODvfDSa";
                     twitterOptions.RetrieveUserDetails = true;
                 });
+
+                services.AddTransient<IEmailSender, EmailSender>();
+                services.Configure<AuthMessageSenderOptions>(Configuration);
+                services.AddRazorPages();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
