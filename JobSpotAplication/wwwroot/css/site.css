@@ -41,6 +41,11 @@ for details on configuring this project to bundle and minify static web assets. 
 /* Imports Google Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
 
+/* Styling for Homepage (_Layout and Index)
+ -------------------------------------------------- */
+
+/* Main */
+
 body {
   font-family: 'Rubik', sans-serif;
   background: var(--blue-extra-light);
@@ -54,7 +59,10 @@ body {
     flex: 1 0 auto;
 }
 
-/* Top Nav Formatting */
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+}
 
 h1 {
     font-family: proxima-nova, sans-serif;
@@ -68,43 +76,38 @@ h1.display-4 {
     font-weight: 500;
 }
 
-a:hover {
-    color: var(--blue-dark);
-}
-
-footer {
-    padding-top: 2rem;
-    flex-shrink: 0;
-}
-
-footer i {
-    margin-right: 10px;
-    font-size: 1.5rem;
-}
-
-.container {
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-hr .dark {
-    width: 80%;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-}
+/* Top Nav Formatting */
 
 .header {
     margin-bottom: 5.8rem;
 }
 
+
+.navbar-toggler {
+    font-size: 2rem;
+    background-color: var(--purple-regular);
+}
+
+a.nav-link {
+    font-family: proxima-nova, 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+a.nav-link:hover {
+    color: var(--purple-light) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
 a.navbar-brand {
-  font-family: 'Rubik', sans-serif;
-  font-size: 25px;
-  font-weight: 500;
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-  margin-right: 40px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    margin-right: 40px;
 }
 
 .navbar-brand img {
@@ -117,6 +120,8 @@ a.navbar-brand {
     padding: 0.5rem 0.7rem;
     text-decoration: none;
 }
+
+/* Banner/Jumbotron */
 
 .jumbotron {
     background-image: linear-gradient(to right, var(--purple-light), var(--purple-dark));
@@ -133,6 +138,14 @@ a.navbar-brand {
 
 .jumbotron .btn-primary:hover {
     transform: scale(1.1);
+}
+
+/* Description/Features */
+
+hr .dark {
+    width: 80%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .description{
@@ -160,6 +173,18 @@ a.navbar-brand {
     color: var(--blue-dark);
 }
 
+/* Footer */
+
+footer {
+    padding-top: 2rem;
+    flex-shrink: 0;
+}
+
+footer i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
 footer a {
     color: var(--black-light);
     transition: 0.2s;
@@ -167,23 +192,6 @@ footer a {
 
 footer a:hover {
     color: var(--purple-light);
-}
-
-.navbar-toggler {
-    font-size: 2rem;
-    background-color: var(--purple-regular);
-}
-
-a.nav-link {
-    font-family: proxima-nova, 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-}
-
-a.nav-link:hover {
-    color: var(--purple-light) !important;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
 }
 
 @media screen and (max-width: 600px) {
