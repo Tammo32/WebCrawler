@@ -5,6 +5,7 @@ using HtmlAgilityPack;
 
 namespace WebScraper.Models.WebScraper
 {
+	// TODO - Create unit tests for this class
 	public class SeekWebScraperModel : IWebScraper
 	{
 		private string SeekUrl { get; set; }
