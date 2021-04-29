@@ -19,17 +19,13 @@ namespace WebScraperDebugger
 			searchParams.Add("startingPayRange", "50000");
 			searchParams.Add("endingPayRange", "80000");
 			var url = seekScraper.BuildUrl(searchParams);
+			var seekJobs = seekScraper.ScrapeMultipleJobs(searchParams);
+			Debug.Print($"Url: {url}\n\n");
 
-			Debug.Print($"Url: {url}");
-
-			//ScraperModel scraper;
-			//string[] seachParameters = { "Web-Developer-jobs", "in-All-Melbourne-VIC" };
-			//scraper = new ScraperModel();
-			//scraper.ScrapeSeek(seachParameters);
-
-			//var details = scraper.ScrapeSeekForJobDetails("https://www.seek.com.au/job/52075142");
-
-
+			foreach (var job in seekJobs) 
+			{
+				Debug.Print($"{job.Title}\n{job.Company}\n{job.Description}\n{job.Url}\n\n");
+			}
 		}
 	}
 }

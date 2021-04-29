@@ -7,12 +7,12 @@ namespace WebScraper.Models
 	public class SeekJobEntryModel : JobEntryModel
 	{
 
-		public SeekJobEntryModel(string title, string company, string type, string description)
+		public SeekJobEntryModel(string title, string company, string description, string url)
 		{
 			Title = title;
 			Company = company;
 			Description = description;
-			Type = type;
+			Url = url;
 		}
 	}
 }
