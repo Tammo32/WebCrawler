@@ -51,6 +51,7 @@ namespace JobSpotAplication
 
                 services.AddTransient<IEmailSender, EmailSender>();
                 services.Configure<AuthMessageSenderOptions>(Configuration);
+                services.AddSingleton<IScheduledTask, ScheduleTask>();
                 services.AddRazorPages();
         }
 
