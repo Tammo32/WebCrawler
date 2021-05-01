@@ -28,4 +28,8 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebScraperApplication\WebScraper.csproj" />
+  </ItemGroup>
+
 </Project>
