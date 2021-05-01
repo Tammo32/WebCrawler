@@ -31,16 +31,25 @@ namespace WebScraper.WebScraper
 		// TODO - Check to see if this is enough information scraped, or if more is required
 		public List<JobEntryModel> ScrapeMultipleJobs(string searchUrl, Dictionary<string, string> searchParams)
 		{
+			string title = "", company = "", description = "", url = "";
 			var web = new HtmlWeb();
 			var doc = web.Load(searchUrl);
-			var list = doc.DocumentNode.SelectSingleNode("//*[@class = '_1UfdD4q _3r68laR _3E_2Q1X']");
-			var jobs = list.SelectNodes(".//article");
+			var jobs = doc.DocumentNode.SelectNodes(".//article");
+
 			foreach (var job in jobs)
 			{
-				var title = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_2S5REPk']").InnerText);
-				var url = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_2S5REPk']").GetAttributeValue("href", ""));
-				var company = HttpUtility.HtmlDecode(job.SelectSingleNode(".//a[@class = '_17sHMz8']").InnerText);
-				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
+				foreach (var node in job.SelectNodes(".//*[@data-automation]"))
+				{
+					if (node.GetAttributeValue("data-automation", "") == "jobTitle") {
+						title = node.InnerText;
+						url = node.GetAttributeValue("href", "");
+					}
+					if (node.GetAttributeValue("data-automation", "") == "jobCompany")
+					{
+						company = node.InnerText;
+					}
+				}
+				description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
 				_entries.Add(new SeekJobEntryModel(title, company, description, $"https://seek.com.au/{url}")); 
 			}
 			return _entries;
@@ -65,21 +74,47 @@ namespace WebScraper.WebScraper
 
 			if (searchParams.ContainsKey("availability"))
 			{
-				var availability = searchParams["availability"];
+				string availability;
+				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("availability", "")))
+				{
+					availability = "full-time";
+				}
+				else
+				{
+					availability = searchParams["availability"];
+				}
+				
 				SeekUrl += $"{availability}?";
 			}
 
 			if (searchParams.ContainsKey("daterange"))
 			{
-				var dateRange = searchParams["daterange"];
+				string dateRange;
+				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
+				{
+					dateRange = "full-time";
+				}
+				else
+				{
+					dateRange = searchParams["daterange"];
+				}
+				
 				SeekUrl += $"daterange={dateRange}";
 			}
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
 			{
-				var start = searchParams["startingPayRange"];
-				var end = searchParams["endingPayRange"];
-
+				string start, end;
+				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
+				{
+					start = "0";
+					end = "999999";
+				}
+				else
+				{
+					start = searchParams["startingPayRange"];
+					end = searchParams["endingPayRange"];
+				}
 				SeekUrl += $"&salaryrange={start}-{end}";
 			}
 

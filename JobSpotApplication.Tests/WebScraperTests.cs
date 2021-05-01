@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using WebScraper.Models.WebScraper;
+using WebScraper.WebScraper;
 using Xunit;
 
 namespace JobSpotApplication.Tests
