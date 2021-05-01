@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using WebScraper.Models;
-using WebScraper.Models.WebScraper;
+using WebScraper.WebScraper;
 
 namespace WebScraperDebugger
 {
