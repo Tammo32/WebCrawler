@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Web;
 using HtmlAgilityPack;
+using WebScraper.Models;
 
-namespace WebScraper.Models.WebScraper
+namespace WebScraper.WebScraper
 {
 	// TODO - Create unit tests for this class
-	public class SeekWebScraperModel : IWebScraper
+	public class SeekWebScraperModel : IWebScraper, ISeekWebScraper
 	{
 		private string SeekUrl { get; set; }
 		private List<JobEntryModel> _entries;
@@ -28,11 +29,11 @@ namespace WebScraper.Models.WebScraper
 		}
 
 		// TODO - Check to see if this is enough information scraped, or if more is required
-		public List<JobEntryModel> ScrapeMultipleJobs(Dictionary<string, string> searchParams)
+		public List<JobEntryModel> ScrapeMultipleJobs(string searchUrl, Dictionary<string, string> searchParams)
 		{
 			var web = new HtmlWeb();
-			var doc = web.Load(BuildUrl(searchParams));
-			var list = doc.DocumentNode.SelectSingleNode("//*[@class = '_1UfdD4q']");
+			var doc = web.Load(searchUrl);
+			var list = doc.DocumentNode.SelectSingleNode("//*[@class = '_1UfdD4q _3r68laR _3E_2Q1X']");
 			var jobs = list.SelectNodes(".//article");
 			foreach (var job in jobs)
 			{

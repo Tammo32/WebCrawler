@@ -14,12 +14,12 @@ namespace WebScraperDebugger
 
 			searchParams.Add("title", "web developer");
 			searchParams.Add("location", "melbourne");
-			searchParams.Add("availability", "part-time");
+			searchParams.Add("availability", "full-time");
 			searchParams.Add("daterange", "7");
 			searchParams.Add("startingPayRange", "50000");
 			searchParams.Add("endingPayRange", "80000");
 			var url = seekScraper.BuildUrl(searchParams);
-			var seekJobs = seekScraper.ScrapeMultipleJobs(searchParams);
+			var seekJobs = seekScraper.ScrapeMultipleJobs(url, searchParams);
 			Debug.Print($"Url: {url}\n\n");
 
 			foreach (var job in seekJobs) 

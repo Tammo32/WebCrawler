@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using WebScraper.Models;
 
-namespace WebScraper.Models.WebScraper
+namespace WebScraper.WebScraper
 {
 	public interface IWebScraper
 	{
@@ -11,7 +10,7 @@ namespace WebScraper.Models.WebScraper
 		/// </summary>
 		/// <param name="searchParams">Search parameters provided by end user</param>
 		/// <returns>A list containing Job Entry Models</returns>
-		List<JobEntryModel> ScrapeMultipleJobs(Dictionary<string, string> searchParams);
+		List<JobEntryModel> ScrapeMultipleJobs(string url, Dictionary<string, string> searchParams);
 
 		/// <summary>
 		/// Scrapes data for a single job from provided url
