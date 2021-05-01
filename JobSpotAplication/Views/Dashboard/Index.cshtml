@@ -1,8 +1,46 @@
-﻿@{
+﻿@model IEnumerable<WebScraper.Models.JobEntryModel>
+@{
 	ViewData["title"] = "Dashboard";
 }
 
-@if (ViewData["url"] != null)
+@if (ViewData["seekJobs"] != null)
 {
-	<p>Seek url: @ViewData["url"]</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Title
+				</th>
+				<th>
+					Company
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Url
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Title)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Company)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Url)
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 }
