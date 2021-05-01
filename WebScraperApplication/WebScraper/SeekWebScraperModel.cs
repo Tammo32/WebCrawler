@@ -71,7 +71,7 @@ namespace WebScraper.Models.WebScraper
 			if (searchParams.ContainsKey("daterange"))
 			{
 				var dateRange = searchParams["daterange"];
-				SeekUrl += $"&daterange={dateRange}";
+				SeekUrl += $"daterange={dateRange}";
 			}
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
