@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 using WebScraper.Models;
 
 namespace WebScraper.WebScraper
 {
-	// TODO - Create unit tests for this class
 	public class SeekWebScraperModel : IWebScraper, ISeekWebScraper
 	{
-		public bool MultiplePages { get; set; }
+		public string NextPage { get; set; }
 		public string Url { get; set; }
 
+		private readonly string _baseUrl;
 		private List<JobEntryModel> _entries;
-		private readonly Dictionary<string, string> _searchparams;
 
 		// TODO - Finish implementing this feature
 		public JobEntryModel ScrapeSingleJob(string searchurl)
@@ -31,19 +31,37 @@ namespace WebScraper.WebScraper
 			return new SeekJobEntryModel(title, company, type, "To be implemented");
 		}
 
-		// TODO - Check to see if this is enough information scraped, or if more is required
-		public List<JobEntryModel> ScrapeMultipleJobs()
+		public async Task<List<JobEntryModel>> ScrapeMultipleJobs()
 		{
-			string title = "", company = "", description = "", url = "";
-			var web = new HtmlWeb();
-			var doc = web.Load(Url);
-			var jobs = doc.DocumentNode.SelectNodes(".//article");
-
-			foreach (var job in jobs)
+			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
-				foreach (var node in job.SelectNodes(".//*[@data-automation]"))
+				HtmlDocument doc = LoadHtmlDocument();
+				Url = GetNextPage(doc);
+				NextPage = Url;
+				Console.WriteLine(NextPage);
+				await Task.Run(() => ScrapeJobs(doc));
+			}
+			return _entries;
+		}
+
+		private HtmlDocument LoadHtmlDocument()
+		{
+			HtmlWeb web = new HtmlWeb();
+			HtmlDocument doc = web.Load(Url);
+			return doc;
+		}
+
+		private void ScrapeJobs(HtmlDocument doc)
+		{
+			string title = "", company = "", url = "";
+			HtmlNodeCollection jobs = doc.DocumentNode.SelectNodes(".//article");
+
+			foreach (HtmlNode job in jobs)
+			{
+				foreach (HtmlNode node in job.SelectNodes(".//*[@data-automation]"))
 				{
-					if (node.GetAttributeValue("data-automation", "") == "jobTitle") {
+					if (node.GetAttributeValue("data-automation", "") == "jobTitle")
+					{
 						title = node.InnerText;
 						url = node.GetAttributeValue("href", "");
 					}
@@ -52,10 +70,26 @@ namespace WebScraper.WebScraper
 						company = node.InnerText;
 					}
 				}
-				description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
-				_entries.Add(new SeekJobEntryModel(title, company, description, $"https://seek.com.au/{url}")); 
+				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
+				_entries.Add(new SeekJobEntryModel(title, company, description, $"https://seek.com.au/{url}"));
 			}
-			return _entries;
+		}
+
+		private string GetNextPage(HtmlDocument doc)
+		{
+			string next = "";
+			HtmlNodeCollection nodes;
+			if ((nodes = doc.DocumentNode.SelectNodes(".//a[@data-automation]")) != null)
+			{
+				foreach (HtmlNode node in nodes)
+				{
+					if (node.GetAttributeValue("data-automation", "") == "page-next")
+					{
+						next = _baseUrl + HttpUtility.HtmlDecode(node.GetAttributeValue("href", null));
+					}
+				}
+			}
+			return next;
 		}
 
 
@@ -125,11 +159,11 @@ namespace WebScraper.WebScraper
 			return url;
 		}
 
-		public SeekWebScraperModel(string url, Dictionary<string, string> searchparams)
+		public SeekWebScraperModel(string url)
 		{
+			_baseUrl = "https://seek.com.au/";
 			_entries = new List<JobEntryModel>();
-			Url = "https://seek.com.au/" + url;
-			_searchparams = searchparams;
+			Url = _baseUrl + url;
 		}
 	}
 }
