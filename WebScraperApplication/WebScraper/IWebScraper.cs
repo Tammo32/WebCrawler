@@ -5,12 +5,15 @@ namespace WebScraper.WebScraper
 {
 	public interface IWebScraper
 	{
+
+		public bool MultiplePages { get; set; }
+
 		/// <summary>
 		/// Scrapes job websites for jobs based on search parameters provided
 		/// </summary>
 		/// <param name="searchParams">Search parameters provided by end user</param>
 		/// <returns>A list containing Job Entry Models</returns>
-		List<JobEntryModel> ScrapeMultipleJobs(string url, Dictionary<string, string> searchParams);
+		List<JobEntryModel> ScrapeMultipleJobs();
 
 		/// <summary>
 		/// Scrapes data for a single job from provided url
@@ -24,6 +27,6 @@ namespace WebScraper.WebScraper
 		/// </summary>
 		/// <param name="searchParams">Search parameters to combine into a url to scrape</param>
 		/// <returns>The complete string of the url to scrape</returns>
-		string BuildUrl(Dictionary<string, string> searchParams);
+		//string BuildUrl(Dictionary<string, string> searchParams);
 	}
 }

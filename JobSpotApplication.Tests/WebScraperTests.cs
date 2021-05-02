@@ -12,12 +12,13 @@ namespace JobSpotApplication.Tests
 		{
 			// Arrange
 			Dictionary<string, string> _searchParameters = new Dictionary<string, string>();
+			string _url = SeekWebScraperModel.BuildUrl(_searchParameters);
 			_searchParameters.Add("title", "Web Developer");
 			_searchParameters.Add("location", "Melbourne");
 			string expected = "https://seek.com.au/Web-Developer-jobs/in-Melbourne/";
 
 			// Act
-			string actual = new SeekWebScraperModel().BuildUrl(_searchParameters);
+			string actual = new SeekWebScraperModel(_url, _searchParameters);
 			
 			// Assert
 			Assert.Equal(expected, actual);
@@ -28,13 +29,14 @@ namespace JobSpotApplication.Tests
 		{
 			// Arrange
 			Dictionary<string, string> _searchParameters = new Dictionary<string, string>();
+			string _url = SeekWebScraperModel.BuildUrl(_searchParameters);
 			_searchParameters.Add("title", "Web Developer");
 			_searchParameters.Add("location", "Melbourne");
 			_searchParameters.Add("availability", "full-time");
 			string expected = "https://seek.com.au/Web-Developer-jobs/in-Melbourne/full-time?";
 
 			// Act
-			string actual = new SeekWebScraperModel().BuildUrl(_searchParameters);
+			string actual = new SeekWebScraperModel(_url, _searchParameters);
 
 			// Assert
 			Assert.Equal(expected, actual);
@@ -45,6 +47,7 @@ namespace JobSpotApplication.Tests
 		{
 			// Arrange
 			Dictionary<string, string> _searchParameters = new Dictionary<string, string>();
+			string _url = SeekWebScraperModel.BuildUrl(_searchParameters);
 			_searchParameters.Add("title", "Web Developer");
 			_searchParameters.Add("location", "Melbourne");
 			_searchParameters.Add("availability", "full-time");
@@ -52,7 +55,7 @@ namespace JobSpotApplication.Tests
 			string expected = "https://seek.com.au/Web-Developer-jobs/in-Melbourne/full-time?daterange=5";
 
 			// Act
-			string actual = new SeekWebScraperModel().BuildUrl(_searchParameters);
+			string actual = new SeekWebScraperModel(_url, _searchParameters);
 
 			// Assert
 			Assert.Equal(expected, actual);
@@ -63,6 +66,7 @@ namespace JobSpotApplication.Tests
 		{
 			// Arrange
 			Dictionary<string, string> _searchParameters = new Dictionary<string, string>();
+			string _url = SeekWebScraperModel.BuildUrl(_searchParameters);
 			_searchParameters.Add("title", "Web Developer");
 			_searchParameters.Add("location", "Melbourne");
 			_searchParameters.Add("availability", "full-time");
@@ -72,7 +76,7 @@ namespace JobSpotApplication.Tests
 			string expected = "https://seek.com.au/Web-Developer-jobs/in-Melbourne/full-time?daterange=5&salaryrange=50000-80000";
 
 			// Act
-			string actual = new SeekWebScraperModel().BuildUrl(_searchParameters);
+			string actual = new SeekWebScraperModel(_url, _searchParameters);
 
 			// Assert
 			Assert.Equal(expected, actual);

@@ -9,8 +9,11 @@ namespace WebScraper.WebScraper
 	// TODO - Create unit tests for this class
 	public class SeekWebScraperModel : IWebScraper, ISeekWebScraper
 	{
-		private string SeekUrl { get; set; }
+		public bool MultiplePages { get; set; }
+		public string Url { get; set; }
+
 		private List<JobEntryModel> _entries;
+		private readonly Dictionary<string, string> _searchparams;
 
 		// TODO - Finish implementing this feature
 		public JobEntryModel ScrapeSingleJob(string searchurl)
@@ -29,11 +32,11 @@ namespace WebScraper.WebScraper
 		}
 
 		// TODO - Check to see if this is enough information scraped, or if more is required
-		public List<JobEntryModel> ScrapeMultipleJobs(string searchUrl, Dictionary<string, string> searchParams)
+		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
 			string title = "", company = "", description = "", url = "";
 			var web = new HtmlWeb();
-			var doc = web.Load(searchUrl);
+			var doc = web.Load(Url);
 			var jobs = doc.DocumentNode.SelectNodes(".//article");
 
 			foreach (var job in jobs)
@@ -56,20 +59,21 @@ namespace WebScraper.WebScraper
 		}
 
 
-		public string BuildUrl(Dictionary<string, string> searchParams)
+		public static string BuildUrl(Dictionary<string, string> searchParams)
 		{
+			string url = "";
 			if (searchParams.ContainsKey("title"))
 			{
 				var titleArray = searchParams["title"].Split(" ");
 				var title = string.Join("-", titleArray);
-				SeekUrl += $"{title}-jobs/";
+				url += $"{title}-jobs/";
 			}
 
 			if (searchParams.ContainsKey("location"))
 			{
 				var locationArray = searchParams["location"].Split(" ");
 				var location = string.Join("-", locationArray);
-				SeekUrl += $"in-{location}/";
+				url += $"in-{location}/";
 			}
 
 			if (searchParams.ContainsKey("availability"))
@@ -83,8 +87,8 @@ namespace WebScraper.WebScraper
 				{
 					availability = searchParams["availability"];
 				}
-				
-				SeekUrl += $"{availability}?";
+
+				url += $"{availability}?";
 			}
 
 			if (searchParams.ContainsKey("daterange"))
@@ -98,8 +102,8 @@ namespace WebScraper.WebScraper
 				{
 					dateRange = searchParams["daterange"];
 				}
-				
-				SeekUrl += $"daterange={dateRange}";
+
+				url += $"daterange={dateRange}";
 			}
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
@@ -115,17 +119,17 @@ namespace WebScraper.WebScraper
 					start = searchParams["startingPayRange"];
 					end = searchParams["endingPayRange"];
 				}
-				SeekUrl += $"&salaryrange={start}-{end}";
+				url += $"&salaryrange={start}-{end}";
 			}
 
-			return SeekUrl;
+			return url;
 		}
 
-		public SeekWebScraperModel()
+		public SeekWebScraperModel(string url, Dictionary<string, string> searchparams)
 		{
 			_entries = new List<JobEntryModel>();
-			SeekUrl = "https://seek.com.au/";
+			Url = "https://seek.com.au/" + url;
+			_searchparams = searchparams;
 		}
-
 	}
 }
