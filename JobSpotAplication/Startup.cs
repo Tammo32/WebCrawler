@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using JobSpotAplication.Services;
+using Hangfire;
+using Hangfire.SqlServer;
+using System;
 
 namespace JobSpotAplication
 {
@@ -29,32 +32,51 @@ namespace JobSpotAplication
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-           
-            
-             services.AddAuthentication()
+
+
+            services.AddAuthentication()
                 .AddFacebook(facebookOptions => {
-                    facebookOptions.AppId = "771874213445629";
-                    facebookOptions.AppSecret = "4e3372a45848581f4ec5347ff126cd3c";
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                     facebookOptions.AccessDeniedPath = "/AccessDeniedPathInfo";
                 })
                 .AddGoogle(googleOptions => {
-                    googleOptions.ClientId = "867196046966-08qftlfoqjt7e8katudbrfurhj58aifn.apps.googleusercontent.com";
-                    googleOptions.ClientSecret = "MxHE8oBHg1k15Fxnxh2Ithfl";
+                    IConfigurationSection googleAuthNSection =
+                    Configuration.GetSection("Authentication:Google");
+                    googleOptions.ClientId = googleAuthNSection["ClientId"];
+                    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
                 })
                 .AddTwitter(twitterOptions => {
-                    twitterOptions.ConsumerKey = "JOxmWjKXK5SkbWDTSxRdH50Ga";
-                    twitterOptions.ConsumerSecret = "bBDfRy8itq3hsm33hhHxDdIFpOYF4TgtiryLQ91QrstODvfDSa";
+                    twitterOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerAPIKey"];
+                    twitterOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
                     twitterOptions.RetrieveUserDetails = true;
                 });
 
-                services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender, EmailSender>();
                 services.Configure<AuthMessageSenderOptions>(Configuration);
                 services.AddRazorPages();
+
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -75,12 +97,18 @@ namespace JobSpotAplication
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+            RecurringJob.AddOrUpdate("email", () => Console.WriteLine(), Cron.Daily);
+            RecurringJob.AddOrUpdate("scraper", () => Console.WriteLine(), Cron.Daily);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHangfireDashboard();
             });
         }
     }
