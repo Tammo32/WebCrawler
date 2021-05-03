@@ -99,8 +99,8 @@ namespace JobSpotAplication
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate("email", () => Console.WriteLine(), Cron.Daily);
-            RecurringJob.AddOrUpdate("scraper", () => Console.WriteLine(), Cron.Daily);
+            RecurringJob.AddOrUpdate("email", () => new EmailSchedule(), Cron.Daily);
+            RecurringJob.AddOrUpdate("scraper", () => new WebScrapeSchedule(), Cron.Daily);
 
             app.UseEndpoints(endpoints =>
             {
