@@ -2,12 +2,13 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'Jobs'
 begin
     create table Jobs
     (
-        JobID int not null,
+        JobID nvarchar(20) not null,
         Title nvarchar(255) not null,
+        Company nvarchar(255) null,
         BriefDescription nvarchar(255) not null,
-        FullDescription nvarchar(40) null,
-        Type nvarchar(10) null,
-        Url nvarchar(450) not null,
+        FullDescription text null,
+        [Availability] nvarchar(10) null,
+        [Url] nvarchar(450) not null,
         StartingSalary nvarchar(7) null,
         EndingSalary nvarchar(7) null,
         constraint PK_Job primary key (JobID)
@@ -30,7 +31,7 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'Jobs_
 begin
     create table Jobs_JobSearchResults_Bridge
     (
-        JobID int not null,
+        JobID nvarchar(20) not null,
         UserID nvarchar(450) not null,
         constraint PK_Jobs_JobSearchResults_Bridge primary key (JobID, UserID),
         constraint FK_Jobs_JobSearchResults_Jobs foreign key (JobID) references Jobs (JobID),
