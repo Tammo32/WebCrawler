@@ -19,6 +19,8 @@ namespace JobSpotAplication.Services
         public void ScheduleEmail()
         {
             
+            string sqlCommand = "SELECT UserID, EmailFrequency " +
+                "FROM UserPreferences";
         }
 
 

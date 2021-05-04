@@ -28,11 +28,7 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                // Enable lazy loading- load all relivent data at once.
-                options.UseLazyLoadingProxies();
-            });
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
