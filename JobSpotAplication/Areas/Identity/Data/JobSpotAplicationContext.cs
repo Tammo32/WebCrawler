@@ -13,7 +13,10 @@ namespace JobSpotAplication.Data
         public JobSpotAplicationContext(DbContextOptions<JobSpotAplicationContext> options)
             : base(options)
         {
+
         }
+
+        public JobSpotAplicationContext context { get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

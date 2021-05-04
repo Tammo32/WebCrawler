@@ -15,7 +15,8 @@ using System;
 namespace JobSpotAplication
 {
     public class Startup
-    {
+    { 
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,7 +28,12 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                // Enable lazy loading- load all relivent data at once.
+                options.UseLazyLoadingProxies();
+            });
+
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -77,7 +83,7 @@ namespace JobSpotAplication
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
-        {
+        {  
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -99,9 +105,14 @@ namespace JobSpotAplication
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            RecurringJob.AddOrUpdate("email", () => new EmailSchedule(), Cron.Daily);
-            RecurringJob.AddOrUpdate("scraper", () => new WebScrapeSchedule(), Cron.Daily);
-
+            var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                .Options;
+            using (var context = new ApplicationDbContext(contextOptions))
+            {
+                RecurringJob.AddOrUpdate("email", () => new EmailSchedule(context), Cron.Daily);
+                RecurringJob.AddOrUpdate("scraper", () => new WebScrapeSchedule(), Cron.Daily);
+            }
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
