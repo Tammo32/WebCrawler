@@ -4,45 +4,54 @@
 <!-- Start of "jumbotron" container. Contains brief description of Jobspot/goals/mission statement, a image, and a sign up/in button-->
 <div class="jumbotron">
     <div class="container padding">
-        <h1 class="display-3">Simplify the busy-work. </h1>
-        <p>
-            JobSpot lets you simplify one of the most tedious aspects of job hunting - searching and filtering through listings. Based in Australia, JobSpot
-            is the only platform that will allow you to pull listings from online job listing services into one place - making organising simpler. 
-        </p>
-        <p>
-            <a class="btn btn-primary btn-lg" role="button" asp-area="Identity" asp-page="/Account/Register">Sign Up for JobSpot</a>
-        </p>
-    </div>
-</div>
-<!-- Start of description container. Contains a brief description saying what JobSpot functionally does-->
-<div class="container-fluid padding bg-light">
-    <div class="row introduction text-center">
-        <div class="col-12">
-            <h1 class="display-4">What it does</h1>
-        </div>
-        <hr />
-        <div class="col-12">
-            <p class="lead">Jobspot can pull listings based on whatever inputs you require - location, field and commitment. </p>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-3">Simplify the busy-work. </h1>
+                <p>
+                    JobSpot lets you simplify one of the most tedious aspects of job hunting - searching and filtering through listings. Based in Australia, JobSpot
+                    is the only platform that will allow you to pull listings from online job listing services into one place - making organising simpler.
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" asp-area="Identity" asp-page="/Account/Register">Sign Up for JobSpot</a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <img class="img-fluid jumbotron-image" src="~/images/placeholder.png"/>
+            </div>
         </div>
     </div>
 </div>
-<!-- Start of three column Feature container. Details the features of Jobspot briefly-->
-<div class="container-fluid padding">
-    <div class="row text-center">
-        <div class="col-xs-12 col-sm-6 col-md-4 bg-light">
-            <i class="fas fa-search"></i>
-            <h3>Search through multiple websites</h3>
-            <p>Pull job listings from multiple services such as Seek, Career One, GumTree Jobs and more! </p>
+<div class="container">
+    <!-- Start of description container. Contains a brief description saying what JobSpot functionally does-->
+    <div class="description container-fluid padding">
+        <div class="row introduction text-center">
+            <div class="col-12">
+                <h1 class="display-4">What is JobSpot?</h1>
+            </div>
+            <hr class="dark" />
+            <div class="col-12">
+                <p class="lead">Jobspot can retrieve job listings based on a wide variety of criteria such as location, field and commitment. </p>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 bg-light">
-            <i class="fas fa-pen-alt"></i>
-            <h3>Scheduled Updates</h3>
-            <p>Customise your own scheduled e-mail updates on job listings fitting your criteria.</p>
-        </div>
-        <div class="col-sm-12 col-md-4 bg-light">
-            <i class="fas fa-star"></i>
-            <h3>Save your Favourites</h3>
-            <p>Want to save a listing? Pin results and keep them for later user. </p>
+    </div>
+    <!-- Start of three column Feature container. Details the features of Jobspot briefly-->
+    <div class="features container-fluid padding bg-white">
+        <div class="row text-center">
+            <div class="col-xs-12 col-sm-6 col-md-4 padding">
+                <i class="fas fa-search icon-format"></i>
+                <h3>Search mutliple websites at once</h3>
+                <p>Pull job listings from a variety of services such as Seek, Career One, GumTree Jobs and more! </p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 padding">
+                <i class="fas fa-pen-alt icon-format"></i>
+                <h3>Schedule E-mail Updates</h3>
+                <p>Customise your own scheduled e-mail updates on job listings fitting your criteria.</p>
+            </div>
+            <div class="col-sm-12 col-md-4 padding">
+                <i class="fas fa-star icon-format"></i>
+                <h3>Save your Favourites</h3>
+                <p>Want to save a listing for later? You can save them to your account for later viewing. </p>
+            </div>
         </div>
     </div>
 </div>

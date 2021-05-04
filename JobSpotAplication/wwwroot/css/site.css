@@ -38,17 +38,25 @@ for details on configuring this project to bundle and minify static web assets. 
     --twitter-blue: #1da1f2;
 }
 
-/* Imports Fonts*/
+/* Imports Google Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
 
+/* Styling for Homepage (_Layout and Index)
+ -------------------------------------------------- */
+
+/* Main */
+
 body {
-  font-family: 'Rubik', 'Roboto', sans-serif;
+  font-family: 'Rubik', sans-serif;
   background: var(--blue-extra-light);
   font-size: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-footer {
-    padding-top: 2rem;
+.content {
+    flex: 1 0 auto;
 }
 
 .container {
@@ -56,21 +64,55 @@ footer {
     padding-left: 0px;
 }
 
-hr.dark {
-    width: 80%;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+h1 {
+    font-family: proxima-nova, sans-serif;
 }
+
+h1.display-3 {
+    font-weight: 500;
+}
+
+h1.display-4 {
+    font-weight: 500;
+}
+
+/* Top Nav Formatting */
 
 .header {
     margin-bottom: 5.8rem;
 }
 
+
+.navbar-toggler {
+    font-size: 2rem;
+    background-color: var(--purple-regular);
+}
+
+a.nav-link {
+    font-family: proxima-nova, 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+a.nav-link:hover {
+    color: var(--purple-light) !important;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
 a.navbar-brand {
-  font-family: 'Rubik', sans-serif;
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    font-family: 'Rubik', sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    margin-right: 40px;
+}
+
+.navbar-brand img {
+    height: 40px;
+    margin-right: 10px;
 }
 
 .nav-item {
@@ -79,40 +121,100 @@ a.navbar-brand {
     text-decoration: none;
 }
 
+/* Banner/Jumbotron */
+
 .jumbotron {
-    background-color: var(--purple-dark);
+    background-image: linear-gradient(to right, var(--purple-light), var(--purple-dark));
     color: var(--grey-light);
-    border-radius: 0px;
-    
+    border-radius: 24px;
+    margin-bottom: 1rem;
 }
+
 .jumbotron .btn-primary {
     background-color: var(--pink-regular);
     border-color: var(--pink-dark);
+    transition: transform 0.1s ease 0s;
 }
 
-.navbar-toggler {
-    font-size: 2rem;
-    background-color: var(--purple-regular);
+.jumbotron .btn-primary:hover {
+    transform: scale(1.1);
 }
 
-.nav-item:hover {
-  background-color: var(--purple-light);
-  border:none;
-  border-radius: 3px;
+/* Description/Features */
+
+hr .dark {
+    width: 80%;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-.bg-light {
-    background-color: var(--grey-extra-light) !important;
+.description{
+    background-color: #FFF;
+    border-radius: 24px 24px 0px 0px;
 }
 
-.nav-link {
-    color: white;
+.features {
+    border-radius: 0px 0px 24px 24px;
 }
+
+.icon-format {
+    padding-bottom: 15px;
+}
+
+.fa-star {
+    color: #f7ca4f;
+}
+
+.fa-pen-alt {
+    color: var(--black-extra-light);
+}
+
+.fa-search {
+    color: var(--blue-dark);
+}
+
+/* Footer */
+
+footer {
+    padding-top: 2rem;
+    flex-shrink: 0;
+}
+
+footer i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+footer a {
+    color: var(--black-light);
+    transition: 0.2s;
+}
+
+footer a:hover {
+    color: var(--purple-light);
+}
+
+@media screen and (max-width: 600px) {
+    
+    .jumbotron {
+        border-radius: 0;
+    }
+
+    .description {
+        border-radius: 0;
+    }
+
+    .features {
+        border-radius: 0;
+    }
+    
+    .jumbotron-image {
+        display: none;
+    }
+}
+
 
 /* Provide sufficient contrast against white background */
-a:hover {
-    color: var(--grey-light);
-}
 
 .introduction {
     width: 75%;
@@ -137,9 +239,6 @@ a:hover {
 }
 
 /* Provide sufficient contrast against white background */
-a:hover {
-    color: var(--grey-light);
-}
 
 .btn-primary {
   color: #fff;
@@ -187,10 +286,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 .footer {
   position: absolute;
   bottom: 0;
@@ -214,10 +309,9 @@ h1 {
     margin: 8% auto;
     max-width: 740px;
     min-height: 250px;
-    border-radius: 5px;
-    background: #f2f2f2;
-    box-shadow: 7px 7px 22px #cecece;
-    background-image: url(/images/jobSpot_logo.png);
+    border-radius: 24px;
+    background-image: url(/images/jobspot_logo.svg);
+    background-size: 100px 100px;
     background-repeat: no-repeat;
     background-position: top right;
 }
@@ -313,24 +407,27 @@ input[type=email], input[type=password] {
     margin-bottom: 16px;
     border: none;
     font-size: 16px;
-    border-bottom: 1px solid var(--purple-regular);
+    border-bottom: 2px solid var(--purple-regular);
     box-sizing: border-box;
     transition: 0.2s ease;
+    background: var(--grey-light);
 }
 
     input[type=email] {
         background-image: url(/images/account.svg);
+        opacity: 0.5;
         background-repeat: no-repeat;
-        background-position: 10px 10px;
+        background-position: 10px;
         padding-left: 40px;
     }
 
-    input[type=password] {
-        background-image: url(/images/lock.svg);
-        background-repeat: no-repeat;
-        background-position: 10px 10px;
-        padding-left: 40px;
-    }
+input[type=password] {
+    background-image: url(/images/lock.svg);
+    opacity: 0.5;
+    background-repeat: no-repeat;
+    background-position: 10px;
+    padding-left: 40px;
+}
 
 
         input[type=email]:focus,
@@ -338,6 +435,7 @@ input[type=email], input[type=password] {
             border: 1px solid var(--purple-regular);
             color: var(--purple);
             transition: 0.2s ease;
+            opacity: 1;
         }
 
     input[type=submit] {
@@ -372,8 +470,8 @@ button.btn-primary {
     height: 36px;
     font-family: 'Roboto', sans-serif;
     margin-bottom: 12px;
-    background: var(--purple);
-    color: rgb(255, 255, 255);
+    background: var(--pink-regular);
+    color: var(--grey-extra-light);
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -384,6 +482,7 @@ button.btn-primary {
         opacity: 0.8;
         box-shadow: 2px 2px 5px #cecece;
         transition: 0.1s ease;
+        background: var(--pink-regular);
     }
 
     button.btn-primary:active {
@@ -398,15 +497,15 @@ button.btn-primary {
     }
 
     button.btn-primary[value=Facebook] {
-        background-color: #3b5998;
+        background-color: var(--facebook-blue);
     }
 
     button.btn-primary[value=Google] {
-        background-color: #1da1f2;
+        background-color: var(--google-red);
     }
 
     button.btn-primary[value=Twitter] {
-        background-color: #DB4437;
+        background-color: var(--twitter-blue);
     }
 
 
