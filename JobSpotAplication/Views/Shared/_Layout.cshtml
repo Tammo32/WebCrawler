@@ -4,61 +4,70 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - JobSpotAplication</title>
+    <!-- Adds ProximNova Adobe Font-->
+    <link rel="stylesheet" href="https://use.typekit.net/png3jwr.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <!-- Adds icon set kit for use across website-->
     <script src="https://kit.fontawesome.com/11aafdac8b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-camera"></i>JobSpotApplication</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="content">
+        <header class="header">
+            <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/jobspot_logo.svg" />JobSpot</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
 
-                    <partial name="_LoginPartial" />
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
-
-    <footer class="bg-white">
+    <footer class="page-footer bg-white">
         <div class="container padding">
             <div class="row text-center">
                 <div class="col-md-6">
                     <hr class="dark" />
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-camera"></i>JobSpotApplication</a>
-                    <p>address@email.com</p>
-                    <p><a href="#"><i class="fab fa-twitter"></i>Twitter</a></p>
-                    <p><a href="#"><i class="fab fa-facebook"></i>Facebook</a></p>
+                    <a class="navbar-brand padding" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/jobspot_logo.svg" />JobSpot</a>
+                    <p><a href="mailto:contactus@jobspot.com.au">contactus@jobspot.com.au</a></p>
+                    <a href="https://github.com/Tammo32/WebCrawler"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
                 <div class="col-md-6">
                     <hr class="light" />
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    <p><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></p>
+                    <p><a asp-area="" asp-controller="" asp-action="">About</a></p>
+                    <p><a asp-area="Identity" asp-page="/Account/Register">Register</a></p>
+                    <p><a asp-area="Identity" asp-page="/Account/Login">Login</a></p>
                 </div>
                 <div class="col-md-12">
                     <hr class="dark" />
-                    &copy; 2021 - JobSpotApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2021 - JobSpot - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>
         </div>
@@ -67,5 +76,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>
