@@ -49,3 +49,15 @@ begin
         constraint FK_UserPreferences_AspNetUser foreign key (UserID) references AspNetUsers (id)
     );
 end
+
+if not exists (select * from Information_Schema.Tables where Table_Name = 'UserJobSearchQueries')
+begin
+    create table UserJobSearchQueries
+    (
+        ID int not null,
+        UserID nvarchar(450) not null,
+        Query nvarchar(255) not null,
+        constraint PK_UserJobSearchQueries primary key (ID),
+        constraint FK_UserJobSearchQueries_AspNetUser foreign key (UserID) references AspNetUsers (id)
+    );
+end
