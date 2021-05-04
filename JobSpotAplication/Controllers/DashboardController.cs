@@ -1,10 +1,12 @@
 ﻿using JobSpotAplication.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace JobSpotAplication.Controllers
 {
+	[Authorize]
 	public class DashboardController : Controller
 	{
 		private readonly ILogger<DashboardController> _logger;
