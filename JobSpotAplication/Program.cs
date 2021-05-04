@@ -1,4 +1,5 @@
 using System;
+using JobSpotAplication.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,8 @@ namespace JobSpotAplication
     {
         public static void Main(string[] args)
         {
+            DatabaseManager.CreateTables();
+
             CreateHostBuilder(args).Build().Run();
         }
 
