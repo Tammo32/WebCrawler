@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -28,8 +29,9 @@ namespace JobSpotAplication.Controllers
 		[HttpGet]
 		public async Task<IActionResult> JobSearch(string title, string location, string availability, string daterange, string startingPayRange, string endingPayRange, string salaryType = "annual")
 		{
-			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, daterange, startingPayRange, endingPayRange, salaryType);
+			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, endingPayRange, daterange, salaryType);
 			string url = SeekWebScraperModel.BuildUrl(searchParams);
+			Console.WriteLine($"Url {url}\n");
 			ISeekWebScraper seekWebScraper = new SeekWebScraperModel(url, searchParams);
 			List<JobEntryModel> seekJobs = await Task.Run(() => GetJobsBySearch(url, searchParams, seekWebScraper));
 			ViewData["seekJobs"] = seekJobs;

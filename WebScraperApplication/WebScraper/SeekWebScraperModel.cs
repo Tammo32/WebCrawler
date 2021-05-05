@@ -153,18 +153,18 @@ namespace WebScraper.WebScraper
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
 			{
-				//string start, end;
-				//if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
-				//{
-				//	start = "0";
-				//	end = "999999";
-				//}
-				//else
-				//{
-				//	start = searchParams["startingPayRange"];
-				//	end = searchParams["endingPayRange"];
-				//}
-				//if(!start.Equals("0")) url += $"&salaryrange={start}-{end}";
+				string start, end;
+				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("startingPayRange", "")))
+				{
+					start = "0";
+					end = "999999";
+				}
+				else
+				{
+					start = searchParams["startingPayRange"];
+					end = searchParams["endingPayRange"];
+				}
+				if (!start.Equals("0")) url += $"&salaryrange={start}-{end}&salarytype=annual";
 			}
 
 			return url;
