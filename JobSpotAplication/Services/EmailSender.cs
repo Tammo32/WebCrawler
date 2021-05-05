@@ -8,9 +8,15 @@ namespace JobSpotAplication.Services
 {
     public class EmailSender : IEmailSender
     {
+
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
             Options = optionsAccessor.Value;
+        }
+
+        public EmailSender(AuthMessageSenderOptions auth)
+        {
+            this.Options = auth;
         }
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager

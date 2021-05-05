@@ -1,9 +1,11 @@
 ﻿using JobSpotAplication.Data;
+using JobSpotAplication.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static JobSpotAplication.Models.UserPreferences;
 
 namespace JobSpotAplication.Services
 {
@@ -23,9 +25,24 @@ namespace JobSpotAplication.Services
 
         public void ScheduleEmail()
         {
-            
+            foreach (UserPreferences user in _context.UserPreferences)
+            {
+                if (user.EmailFrequency == Frequency.Everyday)
+                {
+                    foreach (JobSearchResults results in _context.jobSearchResults)
+                    {
+                        if (results.ResultsDate != null)
+                        {
+                            var auth = new AuthMessageSenderOptions();
+                            var email = new EmailSender(auth);
+                            var ID = user.UserID;
+                            var emailUser = _context.Users.FindAsync(ID);
+                            var address = emailUser.Result.Email;
+                            email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
+                        }
+                    }
+                }
+            }
         }
-
-
     }
 }

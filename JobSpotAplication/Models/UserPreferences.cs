@@ -9,10 +9,17 @@ namespace JobSpotAplication.Models
 {
     public class UserPreferences
     {
+        public enum Frequency
+        {
+            Everyday = 1,
+            Weekly = 2,
+            Monthly = 3
+        }
+
         [Key]
-        public string ID { get; set; }
+        public int ID { get; set; }
         [ForeignKey("AspNetUsers")]
         public string UserID { get; set; }
-        public string EmailFrequency { get; set; }
+        public Frequency EmailFrequency { get; set; }
     }
 }

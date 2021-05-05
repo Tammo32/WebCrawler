@@ -59,8 +59,8 @@ namespace JobSpotAplication
                 });
 
             services.AddTransient<IEmailSender, EmailSender>();
-                services.Configure<AuthMessageSenderOptions>(Configuration);
-                services.AddRazorPages();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddRazorPages();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
