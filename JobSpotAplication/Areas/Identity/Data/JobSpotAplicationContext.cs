@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using JobSpotAplication.Models;
 
 namespace JobSpotAplication.Data
 {
@@ -15,6 +16,12 @@ namespace JobSpotAplication.Data
         {
 
         }
+
+        public DbSet<Jobs> Jobs { get; set; }
+        public DbSet<JobSearchResults> jobSearchResults { get; set; }
+        public DbSet<Jobs_JobSearchResults_Bridge> Jobs_JobSearchResults_Bridges { get; set; }
+        public DbSet<UserPreferences> UserPreferences { get; set; }
+        public DbSet<UserJobSearchQueries> UserJobSearchQueries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -28,8 +28,12 @@ namespace JobSpotAplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
+                // Enable lazy loading- load all relivent data at once.
+                options.UseLazyLoadingProxies();
+            });
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -101,7 +105,13 @@ namespace JobSpotAplication
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-       
+
+            
+            EmailSchedule emailSchedule = new EmailSchedule();
+
+            backgroundJobs.Enqueue( () => emailSchedule.ScheduleEmail());
+            //RecurringJob.AddOrUpdate("webscrape", () => Console.WriteLine(), Cron.Hourly);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
