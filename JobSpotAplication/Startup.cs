@@ -101,14 +101,7 @@ namespace JobSpotAplication
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .Options;
-            using (var context = new ApplicationDbContext(contextOptions))
-            {
-                RecurringJob.AddOrUpdate("email", () => new EmailSchedule(context), Cron.Daily);
-                RecurringJob.AddOrUpdate("scraper", () => new WebScrapeSchedule(), Cron.Daily);
-            }
+       
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

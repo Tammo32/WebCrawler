@@ -16,8 +16,6 @@ namespace JobSpotAplication.Data
 
         }
 
-        public JobSpotAplicationContext context { get; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
