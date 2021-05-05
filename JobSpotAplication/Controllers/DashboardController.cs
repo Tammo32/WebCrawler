@@ -33,6 +33,7 @@ namespace JobSpotAplication.Controllers
 			ISeekWebScraper seekWebScraper = new SeekWebScraperModel(url, searchParams);
 			List<JobEntryModel> seekJobs = await Task.Run(() => GetJobsBySearch(url, searchParams, seekWebScraper));
 			ViewData["seekJobs"] = seekJobs;
+			ViewData["searchParams"] = searchParams;
 			return View("Index", seekJobs);
 		}
 

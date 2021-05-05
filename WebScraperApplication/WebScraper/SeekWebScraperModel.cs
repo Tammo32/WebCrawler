@@ -60,26 +60,29 @@ namespace WebScraper.WebScraper
 			string endingSalary = _searchParams["endingPayRange"];
 			HtmlNodeCollection jobs = doc.DocumentNode.SelectNodes(".//article");
 
-			foreach (HtmlNode job in jobs)
+			if (jobs != null)
 			{
-				foreach (HtmlNode node in job.SelectNodes(".//*[@data-automation]"))
+				foreach (HtmlNode job in jobs)
 				{
-					if (node.GetAttributeValue("data-automation", "") == "jobTitle")
+					foreach (HtmlNode node in job.SelectNodes(".//*[@data-automation]"))
 					{
-						title = node.InnerText;
-						url = node.GetAttributeValue("href", "");
-						id = url.Split('/', '?')[2];
+						if (node.GetAttributeValue("data-automation", "") == "jobTitle")
+						{
+							title = node.InnerText;
+							url = node.GetAttributeValue("href", "");
+							id = url.Split('/', '?')[2];
+						}
+						if (node.GetAttributeValue("data-automation", "") == "jobCompany")
+						{
+							company = node.InnerText;
+						}
 					}
-					if (node.GetAttributeValue("data-automation", "") == "jobCompany")
-					{
-						company = node.InnerText;
-					}
+					var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
+					//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
+
+					_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
+						availability, startingSalary, endingSalary));
 				}
-				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
-				//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
-				
-				_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
-					availability, startingSalary, endingSalary));
 			}
 		}
 
@@ -150,18 +153,18 @@ namespace WebScraper.WebScraper
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
 			{
-				string start, end;
-				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
-				{
-					start = "0";
-					end = "999999";
-				}
-				else
-				{
-					start = searchParams["startingPayRange"];
-					end = searchParams["endingPayRange"];
-				}
-				url += $"&salaryrange={start}-{end}";
+				//string start, end;
+				//if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
+				//{
+				//	start = "0";
+				//	end = "999999";
+				//}
+				//else
+				//{
+				//	start = searchParams["startingPayRange"];
+				//	end = searchParams["endingPayRange"];
+				//}
+				//if(!start.Equals("0")) url += $"&salaryrange={start}-{end}";
 			}
 
 			return url;
