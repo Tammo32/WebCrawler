@@ -1,0 +1,40 @@
+﻿<div class="row">
+	<div class="col-md-4">
+		<form asp-action="JobSearch" method="get">
+			<div class="text-danger"></div>
+			<div class="form-group">
+				<label class="control-label">Title</label>
+				<input name="title" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Location</label>
+				<input name="location" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Availability</label>
+				<input name="availability" placeholder="full-time" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Listed</label>
+				<input name="daterange" placeholder="3" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Paying</label>
+				<input name="startingPayRange" placeholder="40000" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label">To:</label>
+				<input name="endingPayRange" placeholder="60000" class="form-control" />
+				<span class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Search" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>

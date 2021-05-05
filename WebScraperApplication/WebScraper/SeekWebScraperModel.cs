@@ -138,7 +138,7 @@ namespace WebScraper.WebScraper
 				string dateRange;
 				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
 				{
-					dateRange = "full-time";
+					dateRange = "3";
 				}
 				else
 				{
