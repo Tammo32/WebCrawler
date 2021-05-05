@@ -13,6 +13,7 @@ namespace WebScraper.WebScraper
 		public string Url { get; set; }
 
 		private readonly string _baseUrl;
+		private readonly Dictionary<string, string> _searchParams;
 		private List<JobEntryModel> _entries;
 
 		// TODO - Finish implementing this feature
@@ -20,7 +21,7 @@ namespace WebScraper.WebScraper
 		{
 			var web = new HtmlWeb();
 			var doc = web.Load(searchurl).DocumentNode.SelectSingleNode("//*[@id=\"app\"]/div/div[4]/div/div/div/div[1]/div/div");
-
+			var id = "0123456789"; 
 			var title = HttpUtility.HtmlDecode
 				(doc.SelectSingleNode("//*[@id=\"app\"]/div/div[4]/div/div/div/div[1]/div/div/div[1]/div/div[1]/div/div/div[1]/div/div/div/div[1]/div/div[1]/h1").InnerText);
 			var company = HttpUtility.HtmlDecode
@@ -28,7 +29,7 @@ namespace WebScraper.WebScraper
 			var type = HttpUtility.HtmlDecode
 				(doc.SelectSingleNode("//*[@id=\"app\"]/div/div[4]/div/div/div/div[1]/div/div/div[1]/div/div[1]/div/div/div[1]/div/div/div/div[1]/div/div[3]/div/span[3]/div/div").InnerText);
 			// TODO - grab and store description of job
-			return new SeekJobEntryModel(title, company, type, "To be implemented");
+			return new SeekJobEntryModel(id, title, company, type, "To be implemented");
 		}
 
 		public async Task<List<JobEntryModel>> ScrapeMultipleJobs()
@@ -53,7 +54,10 @@ namespace WebScraper.WebScraper
 
 		private void ScrapeJobs(HtmlDocument doc)
 		{
-			string title = "", company = "", url = "";
+			string id = "", title = "", company = "", url = "";
+			string availability = _searchParams["availability"];
+			string startingSalary = _searchParams["startingPayRange"];
+			string endingSalary = _searchParams["endingPayRange"];
 			HtmlNodeCollection jobs = doc.DocumentNode.SelectNodes(".//article");
 
 			foreach (HtmlNode job in jobs)
@@ -64,6 +68,7 @@ namespace WebScraper.WebScraper
 					{
 						title = node.InnerText;
 						url = node.GetAttributeValue("href", "");
+						id = url.Split('/', '?')[2];
 					}
 					if (node.GetAttributeValue("data-automation", "") == "jobCompany")
 					{
@@ -71,7 +76,10 @@ namespace WebScraper.WebScraper
 					}
 				}
 				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
-				_entries.Add(new SeekJobEntryModel(title, company, description, $"https://seek.com.au/{url}"));
+				//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
+				
+				_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
+					availability, startingSalary, endingSalary));
 			}
 		}
 
@@ -164,6 +172,14 @@ namespace WebScraper.WebScraper
 			_baseUrl = "https://seek.com.au/";
 			_entries = new List<JobEntryModel>();
 			Url = _baseUrl + url;
+		}
+
+		public SeekWebScraperModel(string url, Dictionary<string, string> searchParams)
+		{
+			_baseUrl = "https://seek.com.au/";
+			_entries = new List<JobEntryModel>();
+			Url = _baseUrl + url;
+			_searchParams = searchParams;
 		}
 	}
 }
