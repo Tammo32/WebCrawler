@@ -44,11 +44,6 @@ namespace WebScraperDebugger
 				Debug.Print($"{job.Title}\n{job.Company}\n{job.Description}\n{job.Url}\n\n");
 			}
 			Debug.Print($"\n\nNext-Page: { (seekScraper.NextPage != null ? seekScraper.NextPage : "No more Jobs") }\n");
-
-			//IDataConnection conn = GlobalConfig.Connections[0];
-			//JobEntryModel job = conn.CreateJobEntry(new SeekJobEntryModel("s3305113", "Web Developer", 
-			//	"Just A Hack", "Full Stack Web Developer", "blahblah", "Full-Time", "50000", "72000"
-			//	));
 		}
 	}
 }

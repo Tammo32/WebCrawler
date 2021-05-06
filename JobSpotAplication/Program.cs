@@ -11,6 +11,7 @@ namespace JobSpotAplication
         public static void Main(string[] args)
         {
             DatabaseManager.CreateTables();
+            //DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
 
             CreateHostBuilder(args).Build().Run();
         }
