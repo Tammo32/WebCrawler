@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 using WebScraper.Models;
@@ -32,15 +31,14 @@ namespace WebScraper.WebScraper
 			return new SeekJobEntryModel(id, title, company, type, "To be implemented");
 		}
 
-		public async Task<List<JobEntryModel>> ScrapeMultipleJobs()
+		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
 				Url = GetNextPage(doc);
 				NextPage = Url;
-				Console.WriteLine(NextPage);
-				await Task.Run(() => ScrapeJobs(doc));
+				ScrapeJobs(doc);
 			}
 			return _entries;
 		}
