@@ -151,6 +151,12 @@ nav {
     padding-left: 0px;
 }
 
+.card-header {
+    background-color: var(--purple-light);
+    border-bottom: var(--purple-dark);
+    color: white;
+}
+
 
 .sidebar {
   height: 100vh;
@@ -223,10 +229,6 @@ a.navbar-brand {
   text-decoration: none;
   background-color: var(--purple-regular);
   color: var(--grey-extra-light);
-}
-
-.bg-light {
-    background-color: var(--grey-extra-light) !important;
 }
 
 .nav-link {
