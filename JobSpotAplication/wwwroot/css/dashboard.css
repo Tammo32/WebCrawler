@@ -144,21 +144,13 @@ nav {
   margin-top: 20px;
 }
 
-.result {
-  margin-top: 30px;
-  background-color: white;
-  border-radius: 16px;
-  min-height: 400px;
-  padding-left: 3em;
-  padding-top: 1.5em;
+.card {
+    margin-top: 30px;
+    min-height: 300px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
-.result .btn {
-  margin: 5px;
-  background-color: var(--pink-regular);
-  border-color: var(--pink-dark);
-
-}
 
 .sidebar {
   height: 100vh;
