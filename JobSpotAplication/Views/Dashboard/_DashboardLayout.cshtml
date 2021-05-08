@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <script src="https://kit.fontawesome.com/11aafdac8b.js" crossorigin="anonymous"></script>
     <title>Dashboard</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/site.css">
+    <!-- Adds ProximNova Adobe Font-->
+    <link rel="stylesheet" href="https://use.typekit.net/png3jwr.css">
+    <!-- Bootstrap and custom CSS-->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <!-- Adds icon set kit for use across website-->
+    <script src="https://kit.fontawesome.com/11aafdac8b.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar top-nav sticky-top flex-md-nowrap p-0">
@@ -26,40 +28,45 @@
                     <ul class="nav flex-column">
                         <li class="nav-divider"></li>
                         <li>
-                            <a class="nav-item" href="#"><i class="fab fa-searchengin fa-lg"></i>Search</a>
+                            <a class="btn btn-block" href="#"><i class="fab fa-searchengin fa-lg"></i>Search</a>
                         </li>
                         <li>
-                            <a class="nav-item" href="#"><i class="far fa-clock fa-lg"></i>Scheduling</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-clock fa-lg"></i>Scheduling</a>
                         </li>
                         <li>
-                            <a class="nav-item" href="#"><i class="fas fa-bookmark fa-lg"></i>Favourites</a>
+                            <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i>Favourites</a>
                         </li>
                         <li>
-                            <a class="nav-item" href="#"><i class="far fa-user-circle fa-lg"></i>Manage Account</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i>Manage Account</a>
                         </li>
                     </ul>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-divider"></li>
                         <li>
-                            <a class="nav-item" href="#"><i class="far fa-question-circle fa-lg"></i>Help</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i>Help</a>
                         </li>
                         <li>
-                            <a class="nav-item" href="#"><i class="fas fa-sign-out-alt fa-lg"></i>Sign Out</a>
+                            <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i>Sign Out</a>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <div class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
                     <h1 class="h1">Search</h1>
-                    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-                    <input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location">
-                    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+                    <form>
+                        <label>Keywords</label>
+                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+                        <label>Location</label>
+                        <input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location">
+                        <input class="form-control form-control-dark w-100" type="text" placeholder="Salary" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
                     <p class="search-results padding">[##] results for "query".</p>
                     <div class="container-fluid result">
                         <div class="row">
                             <h2 class="h2 col-8">Job Result</h2>
-                            <button type="button" class="btn col-4 btn-primary">+</button>
+                            <button type="button" class="btn col-4 btn-primary"><i class="fas fa-bookmark fa-lg"></i></button>
                         </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in suscipit purus. Vestibulum erat leo, gravida blandit tortor eu, luctus consectetur eros. Cras at ipsum quis libero sodales volutpat eu a diam. Praesent quam orci, luctus vitae arcu a, lobortis mollis nisl. Integer libero est, tristique id blandit et, tristique at ex. Donec et risus at arcu posuere consectetur vitae facilisis quam. Aenean elit purus, porta sit amet mauris quis, ultrices lobortis elit. Suspendisse lorem felis, convallis et eleifend vel, rhoncus ut orci. Phasellus eget mollis felis. Cras pretium mi a est eleifend, vitae imperdiet magna porttitor. Nunc eu pharetra purus. Ut sed arcu gravida, porta erat ut, efficitur erat. Nam et dignissim tortor. Integer tortor velit, mollis at molestie vitae, dapibus id erat. Vivamus et lectus euismod, euismod diam et, lacinia odio. </p>
                         <div class="row">
@@ -86,6 +93,8 @@
                             <button type="button" class="btn btn-primary">Go To Listing</button>
                         </div>
                     </div>
+                    <!-- Loading Spinner -->
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                 </div>
             </main>
         </div>
