@@ -10,6 +10,7 @@ namespace WebScraper.WebScraper
 	{
 		public string NextPage { get; set; }
 		public string Url { get; set; }
+		public string JobCount { get; set; }
 
 		private readonly string _baseUrl;
 		private readonly Dictionary<string, string> _searchParams;
@@ -33,6 +34,10 @@ namespace WebScraper.WebScraper
 
 		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
+			//HtmlDocument doc = LoadHtmlDocument();
+			//Url = GetNextPage(doc);
+			//NextPage = Url;
+			//ScrapeJobs(doc);
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
@@ -76,7 +81,6 @@ namespace WebScraper.WebScraper
 						}
 					}
 					var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
-					//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
 
 					_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
 						availability, startingSalary, endingSalary));

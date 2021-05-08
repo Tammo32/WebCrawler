@@ -23,15 +23,14 @@ namespace WebScraper.DataAccess
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
 			{
 				var p = new DynamicParameters();
-				p.Add("@id", job.ID);
+				p.Add("@JobID", job.ID);
 				p.Add("@Title", job.Title);
-				p.Add("@BriefDescription", job.BriefDescription);
+				p.Add("@Company", job.Company);
+				p.Add("@Description", job.Description);
 				p.Add("@Availability", job.Availability);
 				p.Add("@Url", job.Url);
-				p.Add("@Company", job.Company);
-				p.Add("@StartingSalary", job.StartingSalary);
-				p.Add("@EndingSalary", job.EndingSalary);
-				var result = connection.ExecuteAsync("dbo.spJobs_BriefInsert", p, commandType: CommandType.StoredProcedure).Result;
+				p.Add("@Salary", job.Salary);
+				var result = connection.Execute("dbo.spJobs_Insert", p, commandType: CommandType.StoredProcedure);
 				return result;
 			}
 		}
