@@ -35,7 +35,7 @@
     --twitter-blue: #1da1f2;
 }
 
-/* Imports Fonts*/
+/* Imports Google Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Rubik');
 
 body {
@@ -48,6 +48,50 @@ footer {
     padding-top: 2rem;
 }
 
+.search-form {
+    max-width: 1060px;
+}
+
+.form-control {
+    border: none;
+    font-size: 16px;
+    border-bottom: 2px solid var(--purple-regular);
+    transition: 0.2s ease;
+}
+
+    .form-control:focus {
+        box-shadow: 0 0 0 .2rem var(--purple-extra-light);
+        border-bottom: 2px solid transparent;
+    }
+
+button[type="submit"] {
+    width: 120px;
+    background: var(--purple-regular);
+    border: none;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.btn-primary:hover {
+        opacity: 0.8;
+        box-shadow: 2px 2px 5px #CECECE;
+        transition: 0.1s ease;
+        background-color: var(--purple-regular);
+    }
+
+.custom-select {
+    border: none;
+    font-size: 16px;
+    border-bottom: 2px solid var(--purple-regular);
+    transition: 0.2s ease;
+}
+
+.custom-select:focus {
+    box-shadow: 0 0 0 .2rem var(--purple-extra-light);
+    border-bottom: 2px solid transparent;
+}
+
 .h1 h1 {
     font-family: proxima-nova, 'Rubik', sans-serif;
     font-weight: 900;
@@ -55,6 +99,10 @@ footer {
 
 .h2 h2 {
     font-family: proxima-nova, 'Rubik', sans-serif;
+}
+
+li span {
+    position: relative;
 }
 
 nav {
@@ -97,7 +145,7 @@ nav {
 }
 
 .result {
-  margin-top: 20px;
+  margin-top: 30px;
   background-color: white;
   border-radius: 16px;
   min-height: 400px;
@@ -123,7 +171,7 @@ a > i {
 .logo {
   height: 50px;
   width: 50px;
-  margin: 5px;
+  margin: 5px 10px 5px 10px;
 }
 
 hr.dark {
@@ -149,10 +197,18 @@ a.navbar-brand {
     margin-top: 10px;
 }
 
+.search-form .row {
+    margin-bottom: 20px;
+}
+
+.search-form h1 {
+    margin-bottom: 15px;
+}
+
 .btn {
     text-align: left;
     margin-bottom: 2px;
-    transition: color .1s ease-in-out,background-color .1s ease-in-out,border-color .1s ease-in-out,box-shadow .1s ease-in-out;
+    transition: color .07s ease-in-out,background-color .07s ease-in-out,border-color .07s ease-in-out,box-shadow .07s ease-in-out;
 }
 
 .jumbotron {
@@ -250,6 +306,7 @@ a.navbar-brand {
 @keyframes lds-ellipsis1 {
     0% {
         transform: scale(0);
+        
     }
 
     100% {

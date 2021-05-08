@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="navbar top-nav sticky-top flex-md-nowrap p-0">
-        <a class="navbr-brandmr-0" href="#"><img class="logo" src="images/logo.svg" alt="jobSpot logo">JobSpot - Dashboard</a>
+        <a class="navbr-brandmr-0" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="images/logo.svg" alt="jobSpot logo">JobSpot - Dashboard</a>
     </nav>
 
     @RenderBody()
@@ -28,41 +28,109 @@
                     <ul class="nav flex-column">
                         <li class="nav-divider"></li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="fab fa-searchengin fa-lg"></i>Search</a>
+                            <a class="btn btn-block" href="#"><i class="fab fa-searchengin fa-lg"></i><span>Search</span></a>
                         </li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="far fa-clock fa-lg"></i>Scheduling</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
                         </li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i>Favourites</a>
+                            <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
                         </li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i>Manage Account</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
                         </li>
                     </ul>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-divider"></li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i>Help</a>
+                            <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
                         </li>
                         <li>
-                            <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i>Sign Out</a>
+                            <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></a>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
                 <div class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
-                    <h1 class="h1">Search</h1>
-                    <form>
-                        <label>Keywords</label>
-                        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-                        <label>Location</label>
-                        <input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location">
-                        <input class="form-control form-control-dark w-100" type="text" placeholder="Salary" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                    <!-- Search Form-->
+                    <form class="search-form" action="">
+                        <h1 class="h1">Search</h1>
+                        <div class="row">
+                            <div class="col">
+                                <label for="keywords">Keywords</label>
+                                <input class="form-control form-control-dark w-100" type="text" placeholder="Keywords" aria-label="Keywords" id="keywords">
+                            </div>
+                            <div class="col">
+                                <label for="classification">Classification</label>
+                                <select class="custom-select" id="classification">
+                                    <option selected value="any">Any Classification</option>
+                                    <option value="accounting">Accounting</option>
+                                    <option value="administration-office">Administration & Office Support</option>
+                                    <option value="advertising-arts-media">Advertising, Arts &Aacute; Media</option>
+                                    <option value="banking-finance">Banking &Aacute; Financial Services</option>
+                                    <option value="callcentre-customerservice">Call Centre &Aacute; Customer Service</option>
+                                    <option value="ceo-management">CEO &Aacute; General Management</option>
+                                    <option value="community-services">Community Services &Aacute; Development</option>
+                                    <option value="construction">Construction</option>
+                                    <option value="consulting-strategy">Consulting &Aacute; Strategy</option>
+                                    <option value="design-architecture">Design &Aacute; Architecture</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="location">Location</label>
+                                <input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location" id="location">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="commitment">Commitment</label>
+                                <select class="custom-select" id="commitment">
+                                    <option selected value="any">Any</option>
+                                    <option value="fulltime">Full time</option>
+                                    <option value="parttime">Part time</option>
+                                    <option value="contract">Contract/Temp</option>
+                                    <option value="casual">Casual/Vacation</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="wage-start">Wage Start</label>
+                                <select class="custom-select" id="wage-start">
+                                    <option selected value="0">$0</option>
+                                    <option value="30k">$30,000</option>
+                                    <option value="40k">$40,000</option>
+                                    <option value="50k">$50,000</option>
+                                    <option value="60k">$60,000</option>
+                                    <option value="70k">$70,000</option>
+                                    <option value="80k">$80,000</option>
+                                    <option value="100k">$100,000</option>
+                                    <option value="120k">$120,000</option>
+                                    <option value="150k">$150,000</option>
+                                    <option value="200k">$200,000</option>
+                                    <option value="200kplus">$200,000+</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="wage-end">Wage End</label>
+                                <select class="custom-select" id="wage-end">
+                                    <option selected value="30k">$30,000</option>
+                                    <option value="40k">$40,000</option>
+                                    <option value="50k">$50,000</option>
+                                    <option value="60k">$60,000</option>
+                                    <option value="70k">$70,000</option>
+                                    <option value="80k">$80,000</option>
+                                    <option value="100k">$100,000</option>
+                                    <option value="120k">$120,000</option>
+                                    <option value="150k">$150,000</option>
+                                    <option value="200k">$200,000</option>
+                                    <option value="200kplus">$200,000+</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Search</button>
                     </form>
-                    <p class="search-results padding">[##] results for "query".</p>
+
+                    <!-- Search Result Demo-->
                     <div class="container-fluid result">
                         <div class="row">
                             <h2 class="h2 col-8">Job Result</h2>
@@ -73,28 +141,14 @@
                             <button type="button" class="btn btn-primary">Go To Listing</button>
                         </div>
                     </div>
-                    <div class="container-fluid result">
-                        <div class="row">
-                            <h2 class="h2 col-8">Job Result</h2>
-                            <button type="button" class="btn col-4 btn-primary">+</button>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in suscipit purus. Vestibulum erat leo, gravida blandit tortor eu, luctus consectetur eros. Cras at ipsum quis libero sodales volutpat eu a diam. Praesent quam orci, luctus vitae arcu a, lobortis mollis nisl. Integer libero est, tristique id blandit et, tristique at ex. Donec et risus at arcu posuere consectetur vitae facilisis quam. Aenean elit purus, porta sit amet mauris quis, ultrices lobortis elit. Suspendisse lorem felis, convallis et eleifend vel, rhoncus ut orci. Phasellus eget mollis felis. Cras pretium mi a est eleifend, vitae imperdiet magna porttitor. Nunc eu pharetra purus. Ut sed arcu gravida, porta erat ut, efficitur erat. Nam et dignissim tortor. Integer tortor velit, mollis at molestie vitae, dapibus id erat. Vivamus et lectus euismod, euismod diam et, lacinia odio. </p>
-                        <div class="row">
-                            <button type="button" class="btn btn-primary">Go To Listing</button>
-                        </div>
+                    
+                    <!-- Loading Spinner Demo -->
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
-                    <div class="container-fluid result">
-                        <div class="row">
-                            <h2 class="h2 col-8">Job Result</h2>
-                            <button type="button" class="btn col-4 btn-primary">+</button>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in suscipit purus. Vestibulum erat leo, gravida blandit tortor eu, luctus consectetur eros. Cras at ipsum quis libero sodales volutpat eu a diam. Praesent quam orci, luctus vitae arcu a, lobortis mollis nisl. Integer libero est, tristique id blandit et, tristique at ex. Donec et risus at arcu posuere consectetur vitae facilisis quam. Aenean elit purus, porta sit amet mauris quis, ultrices lobortis elit. Suspendisse lorem felis, convallis et eleifend vel, rhoncus ut orci. Phasellus eget mollis felis. Cras pretium mi a est eleifend, vitae imperdiet magna porttitor. Nunc eu pharetra purus. Ut sed arcu gravida, porta erat ut, efficitur erat. Nam et dignissim tortor. Integer tortor velit, mollis at molestie vitae, dapibus id erat. Vivamus et lectus euismod, euismod diam et, lacinia odio. </p>
-                        <div class="row">
-                            <button type="button" class="btn btn-primary">Go To Listing</button>
-                        </div>
-                    </div>
-                    <!-- Loading Spinner -->
-                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                 </div>
             </main>
         </div>
