@@ -25,24 +25,59 @@ namespace JobSpotAplication.Services
 
         public void ScheduleEmail()
         {
-            foreach (UserPreferences user in _context.UserPreferences)
+            var emailFrequencys = Enum.GetValues(typeof(Frequency));
+
+            //Loop throught the user defined email preference list 
+            foreach (Frequency frequency in emailFrequencys)
             {
-                if (user.EmailFrequency == Frequency.Everyday)
+                //For any preferences that match the current position in the emun
+                foreach (UserPreferences user in _context.UserPreferences)
                 {
-                    foreach (JobSearchResults results in _context.jobSearchResults)
+                    var userCount = UserCount(user);
+                    if (user.EmailFrequency == frequency && userCount)
                     {
-                        if (results.ResultsDate != null)
+                        foreach (JobSearchResults results in _context.jobSearchResults)
                         {
-                            var auth = new AuthMessageSenderOptions();
-                            var email = new EmailSender(auth);
-                            var ID = user.UserID;
-                            var emailUser = _context.Users.FindAsync(ID);
-                            var address = emailUser.Result.Email;
-                            email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
+                            if (user.UserID == results.UserID && results.ResultsDate != null)
+                            {
+                                var auth = new AuthMessageSenderOptions();
+                                var email = new EmailSender(auth);
+                                var ID = user.UserID;
+                                var emailUser = _context.Users.FindAsync(ID);
+                                var address = emailUser.Result.Email;
+                                email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
+                                return;
+                            } 
                         }
                     }
                 }
             }
+        }
+
+        private bool UserCount(UserPreferences user)
+        {
+            if (user.EmailFrequency == Frequency.Everyday)
+            {
+                return true;
+            }
+            else
+            {
+                user.EmailFrequency++;
+                if (user.EmailFrequency == Frequency.Weekly && user.Count == 7)
+                {
+                    user.Count = 1;
+                    _context.SaveChangesAsync();
+                    return true;
+                }
+
+                if (user.EmailFrequency == Frequency.Monthly && user.Count == 30)
+                {
+                    user.Count = 1;
+                    _context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
