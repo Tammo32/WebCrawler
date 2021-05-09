@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebScraper.Models;
 
 namespace WebScraper.WebScraper
@@ -13,7 +12,7 @@ namespace WebScraper.WebScraper
 		/// </summary>
 		/// <param name="searchParams">Search parameters provided by end user</param>
 		/// <returns>A list containing Job Entry Models</returns>
-		Task<List<JobEntryModel>> ScrapeMultipleJobs();
+		List<JobEntryModel> ScrapeMultipleJobs();
 
 		/// <summary>
 		/// Scrapes data for a single job from provided url

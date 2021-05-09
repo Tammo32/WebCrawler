@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 using WebScraper.Models;
@@ -32,15 +31,14 @@ namespace WebScraper.WebScraper
 			return new SeekJobEntryModel(id, title, company, type, "To be implemented");
 		}
 
-		public async Task<List<JobEntryModel>> ScrapeMultipleJobs()
+		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
 				Url = GetNextPage(doc);
 				NextPage = Url;
-				Console.WriteLine(NextPage);
-				await Task.Run(() => ScrapeJobs(doc));
+				ScrapeJobs(doc);
 			}
 			return _entries;
 		}
@@ -60,26 +58,29 @@ namespace WebScraper.WebScraper
 			string endingSalary = _searchParams["endingPayRange"];
 			HtmlNodeCollection jobs = doc.DocumentNode.SelectNodes(".//article");
 
-			foreach (HtmlNode job in jobs)
+			if (jobs != null)
 			{
-				foreach (HtmlNode node in job.SelectNodes(".//*[@data-automation]"))
+				foreach (HtmlNode job in jobs)
 				{
-					if (node.GetAttributeValue("data-automation", "") == "jobTitle")
+					foreach (HtmlNode node in job.SelectNodes(".//*[@data-automation]"))
 					{
-						title = node.InnerText;
-						url = node.GetAttributeValue("href", "");
-						id = url.Split('/', '?')[2];
+						if (node.GetAttributeValue("data-automation", "") == "jobTitle")
+						{
+							title = node.InnerText;
+							url = node.GetAttributeValue("href", "");
+							id = url.Split('/', '?')[2];
+						}
+						if (node.GetAttributeValue("data-automation", "") == "jobCompany")
+						{
+							company = node.InnerText;
+						}
 					}
-					if (node.GetAttributeValue("data-automation", "") == "jobCompany")
-					{
-						company = node.InnerText;
-					}
+					var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
+					//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
+
+					_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
+						availability, startingSalary, endingSalary));
 				}
-				var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
-				//_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}"));
-				
-				_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
-					availability, startingSalary, endingSalary));
 			}
 		}
 
@@ -138,7 +139,7 @@ namespace WebScraper.WebScraper
 				string dateRange;
 				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
 				{
-					dateRange = "full-time";
+					dateRange = "3";
 				}
 				else
 				{
@@ -151,7 +152,7 @@ namespace WebScraper.WebScraper
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))
 			{
 				string start, end;
-				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("daterange", "")))
+				if (String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("startingPayRange", "")))
 				{
 					start = "0";
 					end = "999999";
@@ -161,7 +162,7 @@ namespace WebScraper.WebScraper
 					start = searchParams["startingPayRange"];
 					end = searchParams["endingPayRange"];
 				}
-				url += $"&salaryrange={start}-{end}";
+				if (!start.Equals("0")) url += $"&salaryrange={start}-{end}&salarytype=annual";
 			}
 
 			return url;

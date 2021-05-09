@@ -15,7 +15,7 @@ namespace WebScraper.WebScraper
 		private readonly Dictionary<string, string> _searchParams;
 		private List<JobEntryModel> _entries;
 
-		public Task<List<JobEntryModel>> ScrapeMultipleJobs()
+		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
 			throw new NotImplementedException();
 		}

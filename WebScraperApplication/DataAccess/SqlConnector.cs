@@ -1,4 +1,6 @@
 ﻿using Dapper;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using WebScraper.Models;
 
@@ -14,24 +16,39 @@ namespace WebScraper.DataAccess
 		/// <summary>
 		/// Saves a Job Entry to the database
 		/// </summary>
-		/// <param name="model">Job information</param>
+		/// <param name="job">Job information</param>
 		/// <returns>The Job Entry information, including a unique identifier</returns>
-		public JobEntryModel CreateJobEntry(JobEntryModel model)
+		public int SaveJobEntry(JobEntryModel job)
 		{
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
 			{
 				var p = new DynamicParameters();
-				p.Add("@id", model.ID);
-				p.Add("@Title", model.Title);
-				p.Add("@BriefDescription", model.BriefDescription);
-				p.Add("@Availability", model.Availability);
-				p.Add("@Url", model.Url);
-				p.Add("@Company", model.Company);
-				p.Add("@StartingSalary", model.StartingSalary);
-				p.Add("@EndingSalary", model.EndingSalary);
-				connection.Execute("dbo.spJobs_BriefInsert", p, commandType: CommandType.StoredProcedure);
-				return model;
+				p.Add("@id", job.ID);
+				p.Add("@Title", job.Title);
+				p.Add("@BriefDescription", job.BriefDescription);
+				p.Add("@Availability", job.Availability);
+				p.Add("@Url", job.Url);
+				p.Add("@Company", job.Company);
+				p.Add("@StartingSalary", job.StartingSalary);
+				p.Add("@EndingSalary", job.EndingSalary);
+				var result = connection.ExecuteAsync("dbo.spJobs_BriefInsert", p, commandType: CommandType.StoredProcedure).Result;
+				return result;
 			}
+		}
+
+		/// <summary>
+		/// Saves multiple job entries to the database
+		/// </summary>
+		/// <param name="jobs">A list of Job Entry Model that includes job entry information including a unique identifier</param>
+		public void SaveMultipleJobEntries(List<JobEntryModel> jobs)
+		{
+			foreach (JobEntryModel job in jobs)
+			{
+				foreach (IDataConnection db in GlobalConfig.Connections)
+				{
+					var result = db.SaveJobEntry(job);
+				}
+			 }
 		}
 	}
 }

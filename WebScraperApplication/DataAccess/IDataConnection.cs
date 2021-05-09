@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebScraper.Models;
 
 namespace WebScraper.DataAccess
@@ -12,6 +11,7 @@ namespace WebScraper.DataAccess
 	 */
 	public interface IDataConnection
 	{
-		public JobEntryModel CreateJobEntry(JobEntryModel model);
+		public int SaveJobEntry(JobEntryModel model);
+		public void SaveMultipleJobEntries(List<JobEntryModel> models);
 	}
 }
