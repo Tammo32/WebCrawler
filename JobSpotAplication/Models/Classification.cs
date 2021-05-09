@@ -4,6 +4,7 @@ namespace JobSpotAplication.Models
 {
 	public class Classification : IClassification
 	{
+		// TODO - Create property for List<SelectListItem> that does something similar to the list below.
 		public static Dictionary<string, string> Classifcations { get; set; } = new Dictionary<string, string>()
 		{
 			{ "Accounting", "accounting" },
