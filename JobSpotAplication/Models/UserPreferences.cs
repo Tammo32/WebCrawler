@@ -21,6 +21,6 @@ namespace JobSpotAplication.Models
         [ForeignKey("AspNetUsers")]
         public string UserID { get; set; }
         public Frequency EmailFrequency { get; set; }
-        public int Count { get; set; }
+        public int EmailDay { get; set; }
     }
 }

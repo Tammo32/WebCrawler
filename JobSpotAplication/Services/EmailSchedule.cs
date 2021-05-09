@@ -63,16 +63,16 @@ namespace JobSpotAplication.Services
             else
             {
                 user.EmailFrequency++;
-                if (user.EmailFrequency == Frequency.Weekly && user.Count == 7)
+                if (user.EmailFrequency == Frequency.Weekly && user.EmailDay == 7)
                 {
-                    user.Count = 1;
+                    user.EmailDay = 1;
                     _context.SaveChangesAsync();
                     return true;
                 }
 
-                if (user.EmailFrequency == Frequency.Monthly && user.Count == 30)
+                if (user.EmailFrequency == Frequency.Monthly && user.EmailDay == 30)
                 {
-                    user.Count = 1;
+                    user.EmailDay = 1;
                     _context.SaveChangesAsync();
                     return true;
                 }
