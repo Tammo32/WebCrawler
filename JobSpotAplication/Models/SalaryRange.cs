@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace JobSpotAplication.Models
 {
@@ -58,6 +56,24 @@ namespace JobSpotAplication.Models
 			NoPay, ThirtyThousand, FortyThousand, FiftyThousand, SixtyThousand, SeventyThousand, EightyThousand, 
 			NinetyThousand, OneHundredThousand, OneHundredTenThousand, OneHundredTwentyThousand, 
 			OneHundredFiftyThousand, TwoHundredThousand, MaxPay
+		};
+
+		public static List<SelectListItem> SalaryRangeSelectList { get; private set; } = new List<SelectListItem>()
+		{
+			new SelectListItem("No Pay", NoPay, true),
+			new SelectListItem("$30,000", ThirtyThousand, false),
+			new SelectListItem("$40,000", FortyThousand, false),
+			new SelectListItem("$50,000", FiftyThousand, false),
+			new SelectListItem("$60,000", SixtyThousand, false),
+			new SelectListItem("$70,000", SeventyThousand, false),
+			new SelectListItem("$80,000", EightyThousand, false),
+			new SelectListItem("$90,000", NinetyThousand, false),
+			new SelectListItem("$100,000", OneHundredThousand, false),
+			new SelectListItem("$110,000", OneHundredThousand, false),
+			new SelectListItem("$120,000", OneHundredTwentyThousand, false),
+			new SelectListItem("$150,000", OneHundredFiftyThousand, false),
+			new SelectListItem("$200,000", TwoHundredThousand, false),
+			new SelectListItem("$200,000+", MaxPay, false),
 		};
 
 		/// <summary>
