@@ -4,7 +4,7 @@ BEGIN
 	([ID]
 	,[UserID]
 	,[EmailFrequency]
-	, [Count])
+	, [EmailDay])
 	VALUES
 	(1,'0a437e84-a886-4678-af63-c563a62772c0', 1, 2)
 END

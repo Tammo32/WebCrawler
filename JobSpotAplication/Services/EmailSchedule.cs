@@ -25,10 +25,10 @@ namespace JobSpotAplication.Services
 
         public void ScheduleEmail()
         {
-            var emailFrequencys = Enum.GetValues(typeof(Frequency));
+            var emailFrequencies = Enum.GetValues(typeof(Frequency));
 
             //Loop throught the user defined email preference list 
-            foreach (Frequency frequency in emailFrequencys)
+            foreach (Frequency frequency in emailFrequencies)
             {
                 //For any preferences that match the current position in the emun
                 foreach (UserPreferences user in _context.UserPreferences)
@@ -62,7 +62,7 @@ namespace JobSpotAplication.Services
             }
             else
             {
-                user.EmailFrequency++;
+                user.EmailDay++;
                 if (user.EmailFrequency == Frequency.Weekly && user.EmailDay == 7)
                 {
                     user.EmailDay = 1;
