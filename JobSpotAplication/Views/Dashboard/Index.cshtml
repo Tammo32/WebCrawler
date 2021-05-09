@@ -1,57 +1,5 @@
 ﻿@model IEnumerable<WebScraper.Models.JobEntryModel>
 @{
-	ViewData["title"] = "Dashboard";
-}
-
-<div>
-	@{
-		<partial name="_DisplayJobSearchPartial" model="Model" />
-	}
-</div>
-
-@if (ViewData["seekJobs"] != null)
-{
-	<table class="table">
-		<thead>
-			<tr>
-				<th>
-					@Html.DisplayNameFor(model => model.Title)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Company)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Description)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Availability)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Url)
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.Title)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Company)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Description)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Availability)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Url)
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+	Layout = "_DashboardLayout.cshtml";
+	ViewBag.Title = "Dashboard";
 }
