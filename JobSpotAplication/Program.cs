@@ -3,6 +3,7 @@ using JobSpotAplication.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using WebScraper;
 
 namespace JobSpotAplication
 {
@@ -12,6 +13,9 @@ namespace JobSpotAplication
         {
             DatabaseManager.CreateTables();
             DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
+
+            // Initialize data connections and set connection to sql db
+            GlobalConfig.InitializeConnections(true);
 
             CreateHostBuilder(args).Build().Run();
         }

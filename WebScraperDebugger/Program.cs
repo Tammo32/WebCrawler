@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using WebScraper;
 using WebScraper.DataAccess;
@@ -22,13 +23,19 @@ namespace WebScraperDebugger
 			searchParams.Add("location", "melbourne");
 			searchParams.Add("availability", "full-time");
 			searchParams.Add("daterange", "7");
-			searchParams.Add("startingPayRange", "50000");
-			searchParams.Add("endingPayRange", "80000");
+			searchParams.Add("startingPayRange", "30000");
+			searchParams.Add("endingPayRange", "60000");
 
+			ScrapeIndeed(searchParams);
+			ScrapeSeek(searchParams);
+		}
+
+		private static void ScrapeSeek(Dictionary<string, string> searchParams)
+		{
 			var url = SeekWebScraperModel.BuildUrl(searchParams);
 			IWebScraper seekScraper = new SeekWebScraperModel(url, searchParams);
 			var watch = System.Diagnostics.Stopwatch.StartNew();
-			List<JobEntryModel> seekJobs = seekScraper.ScrapeMultipleJobs().Result;
+			List<JobEntryModel> seekJobs = seekScraper.ScrapeMultipleJobs();
 			watch.Stop();
 			var elapsedMs = watch.ElapsedMilliseconds;
 			System.Console.WriteLine($"Elapsed ms: { elapsedMs }");
@@ -37,13 +44,33 @@ namespace WebScraperDebugger
 
 			foreach (var job in seekJobs)
 			{
-				foreach (IDataConnection db in GlobalConfig.Connections)
-				{
-					db.CreateJobEntry(job);
-				}
-				Debug.Print($"{job.Title}\n{job.Company}\n{job.Description}\n{job.Url}\n\n");
+				Console.WriteLine($"{ job.JobDetails() }");
 			}
+
+			// Save jobs to database
+			new SqlConnector().SaveMultipleJobEntries(seekJobs);
+
 			Debug.Print($"\n\nNext-Page: { (seekScraper.NextPage != null ? seekScraper.NextPage : "No more Jobs") }\n");
+		}
+
+		private static void ScrapeIndeed(Dictionary<string, string> searchParams)
+		{
+			var url = IndeedWebScraperModel.BuildUrl(searchParams);
+			IWebScraper indeedScraper = new IndeedWebScraperModel(url, searchParams);
+			List<JobEntryModel> indeedJobs = indeedScraper.ScrapeMultipleJobs();
+			var counter = 1;
+			
+
+			foreach (var job in indeedJobs)
+			{
+				Console.WriteLine($"{ counter++ } - { job.BriefJobDetails() }");
+			}
+			Debug.Print($"Url: {url}\n\n");
+			Debug.Print(indeedJobs.Count.ToString());
+			Debug.Print($"{ indeedScraper.JobCount }");
+
+			// Save jobs to database
+			new SqlConnector().SaveMultipleJobEntries(indeedJobs);
 		}
 	}
 }

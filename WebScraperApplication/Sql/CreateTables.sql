@@ -2,16 +2,15 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'Jobs'
 begin
     create table Jobs
     (
-        JobID nvarchar(20) not null,
+        JobID varchar(36) not null,
         Title nvarchar(255) not null,
         Company nvarchar(255) null,
-        BriefDescription nvarchar(255) not null,
-        FullDescription text null,
+        [Description] text null,
         [Availability] nvarchar(10) null,
         [Url] nvarchar(450) not null,
-        StartingSalary nvarchar(7) null,
-        EndingSalary nvarchar(7) null,
-        constraint PK_Job primary key (JobID)
+        Salary nvarchar(7) null,
+        constraint PK_Job primary key (JobID),
+        constraint AK_Url unique([Url])
     );
 end
 
@@ -19,9 +18,9 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'JobSe
 begin
     create table JobSearchResults
     (
-        ID int not null,
+        ID varchar(36) not null,
         UserID nvarchar(450) not null,
-        ResultsDate nvarchar(255) not null,
+        ResultsDate varchar(255) not null,
         constraint PK_JobSearchResults primary key (ID),
         constraint FK_JobsSearchResults_User foreign key (UserID) references AspNetUsers (id)
     );
@@ -31,9 +30,10 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'Jobs_
 begin
     create table Jobs_JobSearchResults_Bridge
     (
-        JobID nvarchar(20) not null,
+        ID varchar(36) not null,
+        JobID varchar(36) not null,
         UserID nvarchar(450) not null,
-        constraint PK_Jobs_JobSearchResults_Bridge primary key (JobID, UserID),
+        constraint PK_Jobs_JobSearchResults_Bridge primary key (ID),
         constraint FK_Jobs_JobSearchResults_Jobs foreign key (JobID) references Jobs (JobID),
         constraint FK_Jobs_JobSearchResults_AspNetUser foreign key (UserID) references AspNetUsers (id)
     );
@@ -43,7 +43,7 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'UserP
 begin
     create table UserPreferences
     (
-        ID int not null,
+        ID varchar(36) not null,
         UserID nvarchar(450) not null,
         EmailFrequency int not null,
         EmailDay int not null,
@@ -56,7 +56,7 @@ if not exists (select * from Information_Schema.Tables where Table_Name = 'UserJ
 begin
     create table UserJobSearchQueries
     (
-        ID int not null,
+        ID varchar(36) not null,
         UserID nvarchar(450) not null,
         Query nvarchar(255) not null,
         constraint PK_UserJobSearchQueries primary key (ID),

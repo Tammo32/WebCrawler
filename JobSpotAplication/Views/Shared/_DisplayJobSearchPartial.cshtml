@@ -1,0 +1,104 @@
+﻿@{
+	Dictionary<string, string> data = null;
+	string title = String.Empty;
+	string location = String.Empty;
+	string availability = AvailabilityModel.FullTime;
+	string daterange = Daterange.PastDay;
+	string startingPayRange = SalaryRange.NoPay;
+	string endingPayRange = SalaryRange.MaxPay;
+}
+
+@if (ViewData["searchParams"] != null)
+{
+	data = (Dictionary<string, string>)ViewData["searchParams"];
+	title = data.GetValueOrDefault("title");
+	location = data.GetValueOrDefault("location");
+	availability = data.GetValueOrDefault("availability");
+	daterange = data.GetValueOrDefault("daterange");
+	startingPayRange = data.GetValueOrDefault("startingPayRange");
+	endingPayRange = data.GetValueOrDefault("endingPayRange");
+}
+
+<form class="" asp-action="JobSearch" method="get">
+	<div class="form-row">
+		<div class="form-group col-md-4">
+			<label class="control-label">Title</label>
+			<input name="title" class="form-control" value="@title" />
+			<span class="text-danger"></span>
+		</div>
+		<div class="form-group col-md-4">
+			<label for="location" class="control-label">Location</label>
+			<input name="location" class="form-control" value="@location" />
+			<span class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-2">
+			<label for="availability" class="control-label">Availability</label>
+			<select name="availability" class="form-control">
+				@foreach (string item in AvailabilityModel.AvailabilityList)
+				{
+					@if (availability.Equals(item))
+					{
+						<option selected value="@item">@item</option>
+					}
+					else
+					{
+						<option value="@item">@item</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group col-md-2">
+			<label for="daterange" class="control-label">Listed</label>
+			<select name="daterange" class="form-control">
+				@foreach (string item in Daterange.DaterangeList)
+				{
+					@if (daterange.Equals(item))
+					{
+						<option selected value="@item">@item</option>
+					}
+					else
+					{
+						<option value="@item">@item</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label for="startingPayRange">Paying</label>
+			<select name="startingPayRange" class="form-control">
+				@foreach (string item in SalaryRange.SalaryRangeList)
+				{
+					@if (startingPayRange.Equals(item))
+					{
+						<option selected value="@item">@item</option>
+					}
+					else
+					{
+						<option value="@item">@item</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label for="endingPayRange">To</label>
+			<select name="endingPayRange" class="form-control">
+				@foreach (string item in SalaryRange.SalaryRangeList)
+				{
+					@if (endingPayRange.Equals(item) && !endingPayRange.Equals(SalaryRange.NoPay))
+					{
+						<option selected value="@item">@item</option>
+					}
+					else
+					{
+						<option value="@item">@item</option>
+					}
+				}
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Search" class="btn btn-primary" />
+	</div>
+</form>
