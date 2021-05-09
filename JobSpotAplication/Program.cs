@@ -12,7 +12,7 @@ namespace JobSpotAplication
         public static void Main(string[] args)
         {
             DatabaseManager.CreateTables();
-            DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
+            //DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
 
             // Initialize data connections and set connection to sql db
             GlobalConfig.InitializeConnections(true);

@@ -33,7 +33,7 @@ namespace JobSpotAplication.Services
                 //For any preferences that match the current position in the emun
                 foreach (UserPreferences user in _context.UserPreferences)
                 {
-                    var userCount = UserCount(user);
+                    var userCount = UserCount(user, frequency);
                     if (user.EmailFrequency == frequency && userCount)
                     {
                         foreach (JobSearchResults results in _context.jobSearchResults)
@@ -42,8 +42,8 @@ namespace JobSpotAplication.Services
                             {
                                 var auth = new AuthMessageSenderOptions();
                                 var email = new EmailSender(auth);
-                                var ID = user.UserID;
-                                var emailUser = _context.Users.FindAsync(ID);
+                                var userID = user.UserID;
+                                var emailUser = _context.Users.FindAsync(userID);
                                 var address = emailUser.Result.Email;
                                 email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
                                 return;
@@ -54,9 +54,9 @@ namespace JobSpotAplication.Services
             }
         }
 
-        private bool UserCount(UserPreferences user)
+        private bool UserCount(UserPreferences user, Frequency frequency)
         {
-            if (user.EmailFrequency == Frequency.Everyday)
+            if (user.EmailFrequency == frequency)
             {
                 return true;
             }

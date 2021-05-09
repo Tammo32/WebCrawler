@@ -17,7 +17,7 @@ namespace JobSpotAplication.Models
         }
 
         [Key]
-        public int ID { get; set; }
+        public string ID { get; set; }
         [ForeignKey("AspNetUsers")]
         public string UserID { get; set; }
         public Frequency EmailFrequency { get; set; }

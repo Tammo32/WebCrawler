@@ -10,7 +10,7 @@ namespace JobSpotAplication.Models
     public class JobSearchResults
     {
         [Key]
-        public int ID { get; set; }
+        public string ID { get; set; }
         [ForeignKey("AspNetUser")]
         public string UserID { get; set; }
         public string ResultsDate { get; set; }
