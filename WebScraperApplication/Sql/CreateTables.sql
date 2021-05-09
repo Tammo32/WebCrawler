@@ -46,6 +46,7 @@ begin
         ID varchar(36) not null,
         UserID nvarchar(450) not null,
         EmailFrequency int not null,
+        EmailDay int not null,
         constraint PK_UserPreferences primary key (ID),
         constraint FK_UserPreferences_AspNetUser foreign key (UserID) references AspNetUsers (id)
     );

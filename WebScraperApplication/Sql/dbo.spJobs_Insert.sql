@@ -10,7 +10,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	IF NOT EXISTS (SELECT JobID, [Url] FROM dbo.Jobs WHERE JobID = @JobID OR [Url] = @Url)
+	IF NOT EXISTS (SELECT JobID, [Url] FROM dbo.Jobs WHERE JobID = @JobID AND [Url] = @Url)
 		BEGIN
 			INSERT INTO [dbo].[Jobs] (JobID, Title, Company, [Description], [Availability], [Url], Salary) 
 			VALUES (@JobID, @Title, @Company, @Description, @Availability, @Url, @Salary);
