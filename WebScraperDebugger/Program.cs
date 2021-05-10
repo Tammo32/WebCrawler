@@ -33,7 +33,7 @@ namespace WebScraperDebugger
 		private static void ScrapeSeek(Dictionary<string, string> searchParams)
 		{
 			var url = SeekWebScraperModel.BuildUrl(searchParams);
-			IWebScraper seekScraper = new SeekWebScraperModel(url, searchParams);
+			IWebScraper seekScraper = new SeekWebScraperModel(url);
 			var watch = System.Diagnostics.Stopwatch.StartNew();
 			List<JobEntryModel> seekJobs = seekScraper.ScrapeMultipleJobs();
 			watch.Stop();
@@ -57,7 +57,7 @@ namespace WebScraperDebugger
 		private static void ScrapeIndeed(Dictionary<string, string> searchParams)
 		{
 			var url = IndeedWebScraperModel.BuildUrl(searchParams);
-			IWebScraper indeedScraper = new IndeedWebScraperModel(url, searchParams);
+			IWebScraper indeedScraper = new IndeedWebScraperModel(url);
 			List<JobEntryModel> indeedJobs = indeedScraper.ScrapeMultipleJobs();
 			var counter = 1;
 			

@@ -87,11 +87,11 @@ namespace JobSpotAplication.Controllers
 			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
 
 			// Create our seek web scraper and scrape a list of jobs relevant to the passed in parameters
-			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl, searchParams);
-			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl, searchParams);
+			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl);
+			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl);
 			List<JobEntryModel> jobs = new List<JobEntryModel>();
-			jobs.AddRange(GetJobsBySearch(seekUrl, searchParams, seekWebScraper));
-			jobs.AddRange(GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper));
+			jobs.AddRange(GetJobsBySearch(seekUrl, seekWebScraper));
+			jobs.AddRange(GetJobsBySearch(indeedUrl, indeedWebScraper));
 
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -112,7 +112,7 @@ namespace JobSpotAplication.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-		private List<JobEntryModel> GetJobsBySearch(string url, Dictionary<string, string> searchParams, IWebScraper scraper)
+		private List<JobEntryModel> GetJobsBySearch(string url, IWebScraper scraper)
 		{
 			List<JobEntryModel> seekJobs = scraper.ScrapeMultipleJobs();
 			return seekJobs;

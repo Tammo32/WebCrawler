@@ -97,7 +97,6 @@ namespace WebScraper.WebScraper
 			return next;
 		}
 
-
 		public static string BuildUrl(Dictionary<string, string> searchParams)
 		{
 			string url = "";
@@ -165,13 +164,6 @@ namespace WebScraper.WebScraper
 		}
 
 		public SeekWebScraperModel(string url)
-		{
-			_baseUrl = "https://seek.com.au/";
-			_entries = new List<JobEntryModel>();
-			Url = _baseUrl + url;
-		}
-
-		public SeekWebScraperModel(string url, Dictionary<string, string> searchParams)
 		{
 			_baseUrl = "https://seek.com.au/";
 			_entries = new List<JobEntryModel>();

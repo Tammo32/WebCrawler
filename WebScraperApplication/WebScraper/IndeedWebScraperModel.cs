@@ -191,12 +191,5 @@ namespace WebScraper.WebScraper
 			_entries = new List<JobEntryModel>();
 			Url = _baseUrl + url;
 		}
-
-		public IndeedWebScraperModel(string url, Dictionary<string, string> searchParams)
-		{
-			_baseUrl = "https://au.indeed.com/";
-			_entries = new List<JobEntryModel>();
-			Url = _baseUrl + url;
-		}
 	}
 }
