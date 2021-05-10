@@ -20,7 +20,7 @@ begin
     (
         ID varchar(36) not null,
         UserID nvarchar(450) not null,
-        ResultsDate varchar(255) not null,
+        ResultsDate datetime not null,
         constraint PK_JobSearchResults primary key (ID),
         constraint FK_JobsSearchResults_User foreign key (UserID) references AspNetUsers (id)
     );
