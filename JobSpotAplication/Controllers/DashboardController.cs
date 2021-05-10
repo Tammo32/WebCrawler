@@ -1,9 +1,12 @@
 ﻿using JobSpotAplication.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebScraper.DataAccess;
 using WebScraper.Models;
@@ -15,10 +18,12 @@ namespace JobSpotAplication.Controllers
 	public class DashboardController : Controller
 	{
 		private readonly ILogger<DashboardController> _logger;
+		private readonly UserManager<IdentityUser> _userManager;
 
-		public DashboardController(ILogger<DashboardController> logger)
+		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
 			_logger = logger;
+			_userManager = userManager;
 		}
 
 		public IActionResult Index()
@@ -56,17 +61,19 @@ namespace JobSpotAplication.Controllers
 			List<JobEntryModel> seekJobs = GetJobsBySearch(seekUrl, searchParams, seekWebScraper);
 			List<JobEntryModel> indeedJobs = GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper);
 
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			// Save jobs to database if results returned
 			if (seekJobs.Count > 0)
 			{
-				db.SaveMultipleJobEntries(seekJobs);
+				//db.SaveMultipleJobEntries(seekJobs);
+				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
 			// Save jobs to database if results returned
 			if (indeedJobs.Count > 0)
 			{
-				db.SaveMultipleJobEntries(indeedJobs);
+				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
 
@@ -77,28 +84,42 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> JobSearch(string title, string location, string availability, string daterange, string startingPayRange, string endingPayRange, string salaryType = "annual")
+		public IActionResult JobSearch(string title, string location, string availability, string daterange, string startingPayRange, string salaryType = "annual")
 		{
 			// Setup our data dictionary and database
-			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, endingPayRange, daterange, salaryType);
+			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, daterange, salaryType);
 			SqlConnector db = new SqlConnector();
 
-			// Build the url for Seek
-			string url = SeekWebScraperModel.BuildUrl(searchParams);
+			// Build the url
+			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
+			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
 
 			// Create our seek web scraper and scrape a list of jobs relevant to the passed in parameters
-			ISeekWebScraper seekWebScraper = new SeekWebScraperModel(url, searchParams);
-			List<JobEntryModel> seekJobs = await Task.Run(() => GetJobsBySearch(url, searchParams, seekWebScraper));
+			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl, searchParams);
+			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl, searchParams);
+			List<JobEntryModel> seekJobs = GetJobsBySearch(seekUrl, searchParams, seekWebScraper);
+			List<JobEntryModel> indeedJobs = GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper);
+
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			// Save jobs to database if results returned
 			if (seekJobs.Count > 0)
 			{
-				db.SaveMultipleJobEntries(seekJobs);
+				//db.SaveMultipleJobEntries(seekJobs);
+				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
+			// Save jobs to database if results returned
+			if (indeedJobs.Count > 0)
+			{
+				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
+			}
+
+
 			ViewData["seekJobs"] = seekJobs;
+			ViewData["indeedJobs"] = indeedJobs;
 			ViewData["searchParams"] = searchParams;
-			return View("Index", seekJobs);
+			return View("Index", new JobSearch());
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
