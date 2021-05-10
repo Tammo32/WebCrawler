@@ -1,5 +1,4 @@
 ﻿using JobSpotAplication.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,23 +9,17 @@ using System.Threading.Tasks;
 
 namespace JobSpotAplication.Controllers
 {
-    public class HomeController : Microsoft.AspNetCore.Mvc.Controller
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SignInManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> userManager)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            if (_userManager.Context.User.Identity.Name == "admin")
-            {
-                return RedirectToAction("Index", "Admin");
-            }
             return View();
         }
 
