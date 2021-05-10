@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using WebScraper.DataAccess;
 using WebScraper.Models;
 using WebScraper.WebScraper;
@@ -61,9 +60,13 @@ namespace JobSpotAplication.Controllers
 			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
 			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
 
-			
+			// Grab UserID
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			return View(new JobSearch());
+			db.SaveJobSearchQuery(userId, seekUrl);
+			db.SaveJobSearchQuery(userId, indeedUrl);
+
+			return View("Index", new JobSearch());
 		}
 
 		[HttpPost]
