@@ -25,7 +25,6 @@ namespace JobSpotAplication.Models
 		public List<SelectListItem> Commitments { get; set; }
 
 		[Display(Name = "Salary")]
-		[Range((double)SalaryEnum.NoPay, (double)SalaryEnum.MaxPay)]
 		public string Salary { get; set; }
 
 		public List<SelectListItem> Salaries { get; set; }
