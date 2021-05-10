@@ -100,18 +100,18 @@ namespace WebScraper.WebScraper
 		public static string BuildUrl(Dictionary<string, string> searchParams)
 		{
 			string url = "";
-			if (searchParams.ContainsKey("title"))
+			if (searchParams.ContainsKey("title") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("title", "")))
 			{
 				var titleArray = searchParams["title"].Split(" ");
 				var title = string.Join("-", titleArray);
 				url += $"{title}-jobs/";
 			}
 
-			if (searchParams.ContainsKey("location"))
+			if (searchParams.ContainsKey("location") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("location", "")))
 			{
 				var locationArray = searchParams["location"].Split(" ");
 				var location = string.Join("-", locationArray);
-				url += $"in-{location}/";
+				url += $"in-{location}?";
 			}
 
 			if (searchParams.ContainsKey("availability"))
@@ -126,7 +126,7 @@ namespace WebScraper.WebScraper
 					availability = searchParams["availability"];
 				}
 
-				url += $"{availability}?";
+				url += $"{availability}&";
 			}
 
 			if (searchParams.ContainsKey("daterange"))
@@ -141,7 +141,7 @@ namespace WebScraper.WebScraper
 					dateRange = searchParams["daterange"];
 				}
 
-				url += $"daterange={dateRange}";
+				url += $"daterange={dateRange}&";
 			}
 
 			if (searchParams.ContainsKey("startingPayRange") && searchParams.ContainsKey("endingPayRange"))

@@ -52,7 +52,12 @@ namespace WebScraper.WebScraper
 		{
 			string id = "", title = "", company = "", url = "", location = "", description = "", datePosted = "", availability = "";
 			string salary = "";
-			JobCount = doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']").InnerText;
+			
+			if ((doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']")) != null)
+			{
+				JobCount = doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']").InnerText;
+			}
+			
 			IEnumerable<HtmlNode> jobs = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("jobsearch-SerpJobCard"));
 
 			foreach (HtmlNode node in jobs)
@@ -131,7 +136,7 @@ namespace WebScraper.WebScraper
 		{
 			string url = "jobs?q=";
 			string title = "", location = "", dateRange = "";
-			if (searchParams.ContainsKey("title"))
+			if (searchParams.ContainsKey("title") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("title", "")))
 			{
 				var titleArray = searchParams["title"].Split(" ");
 				title = string.Join("+", titleArray);
@@ -146,7 +151,7 @@ namespace WebScraper.WebScraper
 				}
 			}
 
-			if (searchParams.ContainsKey("location"))
+			if (searchParams.ContainsKey("location") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("location", "")))
 			{
 				var locationArray = searchParams["location"].Split(" ");
 				location = string.Join("+", locationArray);

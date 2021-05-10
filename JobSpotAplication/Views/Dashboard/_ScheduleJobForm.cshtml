@@ -1,13 +1,14 @@
 ﻿@model JobSearch
 <!-- Search Form-->
 <form asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="search-form" method="post">
-	<h1 class="h1">Search</h1>
-	<p>Enter your keywords and job specifications to begin searching. </p>
+	<h1 class="h1">Schedule a job search</h1>
+	<p>Enter your keywords and job specifications to begin scheduling. </p>
 	<hr />
 	<div class="row">
 		<div class="col">
-			<label asp-for="Keywords">Keywords</label>
-			<input asp-for="Keywords" class="form-control form-control-dark w-100" placeholder="Keywords" aria-label="Keywords">
+			<label asp-for="Keywords">@Html.DisplayNameFor(m => Model.Keywords)</label>
+			<input asp-for="Keywords" autofocus class="form-control form-control-dark w-100" placeholder="Keywords" aria-label="Keywords">
+			<span asp-validation-for="Keywords" class="text-danger"></span>
 		</div>
 		<div class="col">
 			<label asp-for="Classification">@Html.DisplayNameFor(m => Model.Classification)</label>
@@ -20,8 +21,9 @@
 			</select>
 		</div>
 		<div class="col">
-			<label asp-for="Location">Location</label>
+			<label asp-for="Location">@Html.DisplayNameFor(m => Model.Location)</label>
 			<input asp-for="Location" class="form-control form-control-dark" placeholder="Location" aria-label="Location" />
+			<span asp-validation-for="Location" class="text-danger"></span>
 		</div>
 	</div>
 	<div class="row">
