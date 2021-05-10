@@ -45,51 +45,40 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ScheduleJobSearch(string title, string location, string availability, string daterange, string startingPayRange, string endingPayRange, string salaryType = "annual")
+		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary)
 		{
-			// Setup our data dictionary and database
-			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, endingPayRange, daterange, salaryType);
 			SqlConnector db = new SqlConnector();
-
+			Dictionary<string, string> searchParams = new Dictionary<string, string>()
+			{
+				{ "title", Keywords },
+				{ "location", Location },
+				{ "availability", Commitment },
+				{ "daterange", "3" },
+				{ "startingPayRange", Salary },
+				{ "endingPayRange", "999999" },
+			};
 			// Build the url
 			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
 			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
 
-			// Create our seek web scraper and scrape a list of jobs relevant to the passed in parameters
-			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl, searchParams);
-			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl, searchParams);
-			List<JobEntryModel> seekJobs = GetJobsBySearch(seekUrl, searchParams, seekWebScraper);
-			List<JobEntryModel> indeedJobs = GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper);
+			
 
-			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-			// Save jobs to database if results returned
-			if (seekJobs.Count > 0)
-			{
-				//db.SaveMultipleJobEntries(seekJobs);
-				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
-			}
-
-			// Save jobs to database if results returned
-			if (indeedJobs.Count > 0)
-			{
-				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
-			}
-
-
-			ViewData["seekJobs"] = seekJobs;
-			ViewData["indeedJobs"] = indeedJobs;
-			ViewData["searchParams"] = searchParams;
 			return View(new JobSearch());
 		}
 
 		[HttpPost]
-		public IActionResult JobSearch(string title, string location, string availability, string daterange, string startingPayRange, string salaryType = "annual")
+		public IActionResult JobSearch(string Keywords, string Location, string Commitment, string Salary)
 		{
-			// Setup our data dictionary and database
-			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, daterange, salaryType);
 			SqlConnector db = new SqlConnector();
-
+			Dictionary<string, string> searchParams = new Dictionary<string, string>()
+			{
+				{ "title", Keywords },
+				{ "location", Location },
+				{ "availability", Commitment },
+				{ "daterange", "3" },
+				{ "startingPayRange", Salary },
+				{ "endingPayRange", "999999" },
+			};
 			// Build the url
 			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
 			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
@@ -97,28 +86,20 @@ namespace JobSpotAplication.Controllers
 			// Create our seek web scraper and scrape a list of jobs relevant to the passed in parameters
 			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl, searchParams);
 			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl, searchParams);
-			List<JobEntryModel> seekJobs = GetJobsBySearch(seekUrl, searchParams, seekWebScraper);
-			List<JobEntryModel> indeedJobs = GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper);
+			List<JobEntryModel> jobs = new List<JobEntryModel>();
+			jobs.AddRange(GetJobsBySearch(seekUrl, searchParams, seekWebScraper));
+			jobs.AddRange(GetJobsBySearch(indeedUrl, searchParams, indeedWebScraper));
 
+			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			// Save jobs to database if results returned
-			if (seekJobs.Count > 0)
+			if (jobs.Count > 0)
 			{
-				//db.SaveMultipleJobEntries(seekJobs);
-				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
+				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
-			// Save jobs to database if results returned
-			if (indeedJobs.Count > 0)
-			{
-				db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
-			}
-
-
-			ViewData["seekJobs"] = seekJobs;
-			ViewData["indeedJobs"] = indeedJobs;
-			ViewData["searchParams"] = searchParams;
+			ViewData["jobs"] = jobs;
 			return View("Index", new JobSearch());
 		}
 

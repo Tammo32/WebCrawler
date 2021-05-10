@@ -77,6 +77,18 @@ namespace WebScraper.DataAccess
 			}
 		}
 
+		public void SaveJobSearchQuery(string userId, string queryUrl)
+		{
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			{
+				var p = new DynamicParameters();
+				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@UserID", userId);
+				p.Add("@QueryUrl", queryUrl);
+				var result = connection.Execute("dbo.spUserJobSearchQueries_Insert", p, commandType: CommandType.StoredProcedure);
+			}
+		}
+
 		private static List<DynamicParameters> SetDynamicParametersForSaveJobsTransaction(List<JobEntryModel> jobs)
 		{
 			List<DynamicParameters> parameters = new List<DynamicParameters>();
