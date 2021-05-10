@@ -60,9 +60,11 @@ namespace JobSpotAplication.Controllers
 			// Build the url
 			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
 			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+			db.SaveJobSearchQuery(userId, seekUrl);
+			db.SaveJobSearchQuery(userId, indeedUrl);
 			
-
 			return View(new JobSearch());
 		}
 
