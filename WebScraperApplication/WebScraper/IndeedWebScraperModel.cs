@@ -14,14 +14,10 @@ namespace WebScraper.WebScraper
 		public string JobCount { get; set; }
 
 		private readonly string _baseUrl;
-		private readonly Dictionary<string, string> _searchParams;
 		private List<JobEntryModel> _entries;
 
-		// TODO - Complete method
 		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
-			//HtmlDocument doc = LoadHtmlDocument();
-			//ScrapeJobs(doc);
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
@@ -54,8 +50,7 @@ namespace WebScraper.WebScraper
 
 		private void ScrapeJobs(HtmlDocument doc)
 		{
-			string id = "", title = "", company = "", url = "", location = "", description = "", datePosted = "";
-			string availability = _searchParams["availability"];
+			string id = "", title = "", company = "", url = "", location = "", description = "", datePosted = "", availability = "";
 			string salary = "";
 			JobCount = doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']").InnerText;
 			IEnumerable<HtmlNode> jobs = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("jobsearch-SerpJobCard"));
@@ -202,7 +197,6 @@ namespace WebScraper.WebScraper
 			_baseUrl = "https://au.indeed.com/";
 			_entries = new List<JobEntryModel>();
 			Url = _baseUrl + url;
-			_searchParams = searchParams;
 		}
 	}
 }

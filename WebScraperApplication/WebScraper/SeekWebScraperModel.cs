@@ -13,7 +13,6 @@ namespace WebScraper.WebScraper
 		public string JobCount { get; set; }
 
 		private readonly string _baseUrl;
-		private readonly Dictionary<string, string> _searchParams;
 		private List<JobEntryModel> _entries;
 
 		// TODO - Finish implementing this feature
@@ -34,10 +33,6 @@ namespace WebScraper.WebScraper
 
 		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
-			//HtmlDocument doc = LoadHtmlDocument();
-			//Url = GetNextPage(doc);
-			//NextPage = Url;
-			//ScrapeJobs(doc);
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
@@ -57,10 +52,7 @@ namespace WebScraper.WebScraper
 
 		private void ScrapeJobs(HtmlDocument doc)
 		{
-			string id = "", title = "", company = "", url = "";
-			string availability = _searchParams["availability"];
-			string startingSalary = _searchParams["startingPayRange"];
-			string endingSalary = _searchParams["endingPayRange"];
+			string id = "", title = "", company = "", url = "", availability = "", startingSalary = "", endingSalary = "";
 			HtmlNodeCollection jobs = doc.DocumentNode.SelectNodes(".//article");
 
 			if (jobs != null)
@@ -184,7 +176,6 @@ namespace WebScraper.WebScraper
 			_baseUrl = "https://seek.com.au/";
 			_entries = new List<JobEntryModel>();
 			Url = _baseUrl + url;
-			_searchParams = searchParams;
 		}
 	}
 }
