@@ -20,7 +20,7 @@ begin
     (
         ID varchar(36) not null,
         UserID nvarchar(450) not null,
-        ResultsDate varchar(255) not null,
+        ResultsDate datetime not null,
         constraint PK_JobSearchResults primary key (ID),
         constraint FK_JobsSearchResults_User foreign key (UserID) references AspNetUsers (id)
     );
@@ -58,7 +58,7 @@ begin
     (
         ID varchar(36) not null,
         UserID nvarchar(450) not null,
-        Query nvarchar(255) not null,
+        QueryUrl nvarchar(255) not null,
         constraint PK_UserJobSearchQueries primary key (ID),
         constraint FK_UserJobSearchQueries_AspNetUser foreign key (UserID) references AspNetUsers (id)
     );

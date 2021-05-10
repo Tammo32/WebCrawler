@@ -48,7 +48,8 @@ namespace WebScraperDebugger
 			}
 
 			// Save jobs to database
-			new SqlConnector().SaveMultipleJobEntries(seekJobs);
+			var db = new SqlConnector();
+			db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), "2ca67394-19dd-4cd6-9056-ad957d93346f", DateTime.UtcNow);
 
 			Debug.Print($"\n\nNext-Page: { (seekScraper.NextPage != null ? seekScraper.NextPage : "No more Jobs") }\n");
 		}
@@ -70,7 +71,8 @@ namespace WebScraperDebugger
 			Debug.Print($"{ indeedScraper.JobCount }");
 
 			// Save jobs to database
-			new SqlConnector().SaveMultipleJobEntries(indeedJobs);
+			var db = new SqlConnector();
+			db.SaveJobsTransaction(indeedJobs, Guid.NewGuid().ToString(), "2ca67394-19dd-4cd6-9056-ad957d93346f", DateTime.UtcNow);
 		}
 	}
 }

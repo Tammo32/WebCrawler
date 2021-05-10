@@ -1,6 +1,6 @@
 ﻿@model JobSearch
 <!-- Search Form-->
-<form asp-controller="Dashboard" asp-action="JobSearch" class="search-form" method="post">
+<form asp-controller="Dashboard" asp-action="JobSearch" class="search-form">
 	<h1 class="h1">Search</h1>
 	<p>Enter your keywords and job specifications to begin searching. </p>
 	<hr />
@@ -20,8 +20,8 @@
 			</select>
 		</div>
 		<div class="col">
-			<label asp-for="Location">Location</label>
-			<input asp-for="Location" class="form-control form-control-dark" placeholder="Location" aria-label="Location">
+			<label for="location">Location</label>
+			<input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location" id="location">
 		</div>
 	</div>
 	<div class="row">

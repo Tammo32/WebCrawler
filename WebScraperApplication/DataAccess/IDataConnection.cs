@@ -13,5 +13,6 @@ namespace WebScraper.DataAccess
 	{
 		public int SaveJobEntry(JobEntryModel model);
 		public void SaveMultipleJobEntries(List<JobEntryModel> models);
+		public void SaveMultipleJobEntriesTransaction(List<JobEntryModel> models);
 	}
 }
