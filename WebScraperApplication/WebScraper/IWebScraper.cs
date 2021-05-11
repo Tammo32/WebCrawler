@@ -6,20 +6,21 @@ namespace WebScraper.WebScraper
 	public interface IWebScraper
 	{
 		public string NextPage { get; set; }
+		public string JobCount { get; set; }
 
 		/// <summary>
 		/// Scrapes job websites for jobs based on search parameters provided
 		/// </summary>
 		/// <param name="searchParams">Search parameters provided by end user</param>
 		/// <returns>A list containing Job Entry Models</returns>
-		List<JobEntryModel> ScrapeMultipleJobs();
+		public List<JobEntryModel> ScrapeMultipleJobs();
 
 		/// <summary>
 		/// Scrapes data for a single job from provided url
 		/// </summary>
 		/// <param name="url">The url to scrape job data from</param>
 		/// <returns>A single Job Entry Model</returns>
-		JobEntryModel ScrapeSingleJob(string url);
+		public JobEntryModel ScrapeSingleJob(string url);
 
 		/// <summary>
 		/// Checks to see if the job search returned multiple pages of job listings

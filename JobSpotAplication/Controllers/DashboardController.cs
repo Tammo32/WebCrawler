@@ -1,11 +1,12 @@
 ﻿using JobSpotAplication.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using WebScraper.DataAccess;
 using WebScraper.Models;
 using WebScraper.WebScraper;
@@ -16,40 +17,93 @@ namespace JobSpotAplication.Controllers
 	public class DashboardController : Controller
 	{
 		private readonly ILogger<DashboardController> _logger;
+		private readonly UserManager<IdentityUser> _userManager;
 
-		public DashboardController(ILogger<DashboardController> logger)
+		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
 			_logger = logger;
+			_userManager = userManager;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			return View(new JobSearch());
+		}
+
+
+		public IActionResult JobSearch()
+		{
+			return View(new JobSearch());
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> JobSearch(string title, string location, string availability, string daterange, string startingPayRange, string endingPayRange, string salaryType = "annual")
+		public IActionResult ScheduleJobSearch()
 		{
-			// Setup our data dictionary and database
-			Dictionary<string, string> searchParams = GetSeekUrl(title, location, availability, startingPayRange, endingPayRange, daterange, salaryType);
-			SqlConnector db = new SqlConnector();
+			ViewData["DisplayScheduleForm"] = true;
+			return View("Index", new JobSearch());
+		}
 
-			// Build the url for Seek
-			string url = SeekWebScraperModel.BuildUrl(searchParams);
+		[HttpPost]
+		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary)
+		{
+			SqlConnector db = new SqlConnector();
+			Dictionary<string, string> searchParams = new Dictionary<string, string>()
+			{
+				{ "title", Keywords },
+				{ "location", Location },
+				{ "availability", Commitment },
+				{ "daterange", "3" },
+				{ "startingPayRange", Salary },
+				{ "endingPayRange", "999999" },
+			};
+			// Build the url
+			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
+			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
+
+			// Grab UserID
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			db.SaveJobSearchQuery(userId, seekUrl);
+			db.SaveJobSearchQuery(userId, indeedUrl);
+
+			return View("Index", new JobSearch());
+		}
+
+		[HttpPost]
+		public IActionResult JobSearch(string Keywords, string Location, string Commitment, string Salary)
+		{
+			SqlConnector db = new SqlConnector();
+			Dictionary<string, string> searchParams = new Dictionary<string, string>()
+			{
+				{ "title", Keywords },
+				{ "location", Location },
+				{ "availability", Commitment },
+				{ "daterange", "3" },
+				{ "startingPayRange", Salary },
+				{ "endingPayRange", "999999" },
+			};
+			// Build the url
+			string seekUrl = SeekWebScraperModel.BuildUrl(searchParams);
+			string indeedUrl = IndeedWebScraperModel.BuildUrl(searchParams);
 
 			// Create our seek web scraper and scrape a list of jobs relevant to the passed in parameters
-			ISeekWebScraper seekWebScraper = new SeekWebScraperModel(url, searchParams);
-			List<JobEntryModel> seekJobs = await Task.Run(() => GetJobsBySearch(url, searchParams, seekWebScraper));
+			IWebScraper seekWebScraper = new SeekWebScraperModel(seekUrl);
+			IWebScraper indeedWebScraper = new IndeedWebScraperModel(indeedUrl);
+			List<JobEntryModel> jobs = new List<JobEntryModel>();
+			jobs.AddRange(GetJobsBySearch(seekUrl, seekWebScraper));
+			jobs.AddRange(GetJobsBySearch(indeedUrl, indeedWebScraper));
+
+			// Grab UserID
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			// Save jobs to database if results returned
-			if (seekJobs.Count > 0)
+			if (jobs.Count > 0)
 			{
-				db.SaveMultipleJobEntries(seekJobs);
+				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
-			ViewData["seekJobs"] = seekJobs;
-			ViewData["searchParams"] = searchParams;
-			return View("Index", seekJobs);
+			ViewData["jobs"] = jobs;
+			return View("Index", new JobSearch());
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -58,7 +112,7 @@ namespace JobSpotAplication.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-		private List<JobEntryModel> GetJobsBySearch(string url, Dictionary<string, string> searchParams, ISeekWebScraper scraper)
+		private List<JobEntryModel> GetJobsBySearch(string url, IWebScraper scraper)
 		{
 			List<JobEntryModel> seekJobs = scraper.ScrapeMultipleJobs();
 			return seekJobs;

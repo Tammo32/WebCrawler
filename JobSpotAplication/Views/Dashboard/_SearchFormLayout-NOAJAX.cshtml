@@ -1,0 +1,120 @@
+﻿@model JobSearch
+<!-- Search Form-->
+<form asp-controller="Dashboard" asp-action="JobSearch" class="search-form">
+	<h1 class="h1">Search</h1>
+	<p>Enter your keywords and job specifications to begin searching. </p>
+	<hr />
+	<div class="row">
+		<div class="col">
+			<label for="Keywords">Keywords</label>
+			<input asp-for="Keywords" class="form-control form-control-dark w-100" placeholder="Keywords" aria-label="Keywords">
+		</div>
+		<div class="col">
+			<label asp-for="Classification">@Html.DisplayNameFor(m => Model.Classification)</label>
+			<select asp-for="Classification" class="custom-select">
+				<option selected value="any">Any Classification</option>
+				@foreach (var item in Model.Classifications)
+				{
+					<option value="@item.Key">@item.Value</option>
+				}
+			</select>
+		</div>
+		<div class="col">
+			<label for="location">Location</label>
+			<input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location" id="location">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label asp-for="Commitment">@Html.DisplayNameFor(m => Model.Commitment)</label>
+			<select asp-for="Commitment" asp-items="Model.Commitments" class="custom-select">
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label asp-for="Salary">@Html.DisplayNameFor(m => Model.Salary)</label>
+			<select asp-for="Salary" asp-items="Model.Salaries" class="custom-select">
+			</select>
+		</div>
+	</div>
+	<button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+
+<!-- Search Form-->
+<!--<form class="search-form" action="">
+	<h1 class="h1">Search</h1>
+	<p>Enter your keywords and job specifications to begin searching. </p>
+	<hr />
+	<div class="row">
+		<div class="col">
+			<label for="keywords">Keywords</label>
+			<input class="form-control form-control-dark w-100" type="text" placeholder="Keywords" aria-label="Keywords" id="keywords">
+		</div>
+		<div class="col">
+			<label for="classification">Classification</label>
+			<select class="custom-select" id="classification">
+				<option selected value="any">Any Classification</option>
+				<option value="accounting">Accounting</option>
+				<option value="administration-office">Administration & Office Support</option>
+				<option value="advertising-arts-media">Advertising, Arts &Aacute; Media</option>
+				<option value="banking-finance">Banking &Aacute; Financial Services</option>
+				<option value="callcentre-customerservice">Call Centre &Aacute; Customer Service</option>
+				<option value="ceo-management">CEO &Aacute; General Management</option>
+				<option value="community-services">Community Services &Aacute; Development</option>
+				<option value="construction">Construction</option>
+				<option value="consulting-strategy">Consulting &Aacute; Strategy</option>
+				<option value="design-architecture">Design &Aacute; Architecture</option>
+			</select>
+		</div>
+		<div class="col">
+			<label for="location">Location</label>
+			<input class="form-control form-control-dark" type="text" placeholder="Location" aria-label="Location" id="location">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label for="commitment">Commitment</label>
+			<select class="custom-select" id="commitment">
+				<option selected value="any">Any</option>
+				<option value="fulltime">Full time</option>
+				<option value="parttime">Part time</option>
+				<option value="contract">Contract/Temp</option>
+				<option value="casual">Casual/Vacation</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label for="wage-start">Wage Start</label>
+			<select class="custom-select" id="wage-start">
+				<option selected value="0">$0</option>
+				<option value="30k">$30,000</option>
+				<option value="40k">$40,000</option>
+				<option value="50k">$50,000</option>
+				<option value="60k">$60,000</option>
+				<option value="70k">$70,000</option>
+				<option value="80k">$80,000</option>
+				<option value="100k">$100,000</option>
+				<option value="120k">$120,000</option>
+				<option value="150k">$150,000</option>
+				<option value="200k">$200,000</option>
+				<option value="200kplus">$200,000+</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label for="wage-end">Wage End</label>
+			<select class="custom-select" id="wage-end">
+				<option selected value="30k">$30,000</option>
+				<option value="40k">$40,000</option>
+				<option value="50k">$50,000</option>
+				<option value="60k">$60,000</option>
+				<option value="70k">$70,000</option>
+				<option value="80k">$80,000</option>
+				<option value="100k">$100,000</option>
+				<option value="120k">$120,000</option>
+				<option value="150k">$150,000</option>
+				<option value="200k">$200,000</option>
+				<option value="200kplus">$200,000+</option>
+			</select>
+		</div>
+	</div>
+	<button class="btn btn-primary" type="submit">Search</button>
+</form>-->

@@ -1,0 +1,42 @@
+﻿@model JobSearch
+<!-- Search Form-->
+<form asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="search-form" method="post">
+	<h1 class="h1">Schedule a job search</h1>
+	<p>Enter your keywords and job specifications to begin scheduling. </p>
+	<hr />
+	<div class="row">
+		<div class="col">
+			<label asp-for="Keywords">@Html.DisplayNameFor(m => Model.Keywords)</label>
+			<input asp-for="Keywords" autofocus class="form-control form-control-dark w-100" placeholder="Keywords" aria-label="Keywords">
+			<span asp-validation-for="Keywords" class="text-danger"></span>
+		</div>
+		<div class="col">
+			<label asp-for="Classification">@Html.DisplayNameFor(m => Model.Classification)</label>
+			<select asp-for="Classification" class="custom-select">
+				<option selected value="any">Any Classification</option>
+				@foreach (var item in Model.Classifications)
+				{
+					<option value="@item.Key">@item.Value</option>
+				}
+			</select>
+		</div>
+		<div class="col">
+			<label asp-for="Location">@Html.DisplayNameFor(m => Model.Location)</label>
+			<input asp-for="Location" class="form-control form-control-dark" placeholder="Location" aria-label="Location" />
+			<span asp-validation-for="Location" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<label asp-for="Commitment">@Html.DisplayNameFor(m => Model.Commitment)</label>
+			<select asp-for="Commitment" asp-items="Model.Commitments" class="custom-select">
+			</select>
+		</div>
+		<div class="col-md-2">
+			<label asp-for="Salary">@Html.DisplayNameFor(m => Model.Salary)</label>
+			<select asp-for="Salary" asp-items="Model.Salaries" class="custom-select">
+			</select>
+		</div>
+	</div>
+	<button class="btn btn-primary" type="submit">Save</button>
+</form>

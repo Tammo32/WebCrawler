@@ -1,4 +1,4 @@
-IF NOT EXISTS (SELECT * FROM [dbo].[UserPreferences] WHERE ID = 1)
+﻿IF NOT EXISTS (SELECT * FROM [dbo].[UserPreferences] WHERE ID = 1)
 BEGIN
 	INSERT INTO [dbo].[UserPreferences]
 	([ID]

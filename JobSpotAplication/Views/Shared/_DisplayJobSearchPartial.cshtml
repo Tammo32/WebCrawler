@@ -2,7 +2,7 @@
 	Dictionary<string, string> data = null;
 	string title = String.Empty;
 	string location = String.Empty;
-	string availability = AvailabilityModel.FullTime;
+	string availability = SeekAvailability.FullTime;
 	string daterange = Daterange.PastDay;
 	string startingPayRange = SalaryRange.NoPay;
 	string endingPayRange = SalaryRange.MaxPay;
@@ -36,7 +36,7 @@
 		<div class="form-group col-md-2">
 			<label for="availability" class="control-label">Availability</label>
 			<select name="availability" class="form-control">
-				@foreach (string item in AvailabilityModel.AvailabilityList)
+				@foreach (string item in SeekAvailability.AvailabilityList)
 				{
 					@if (availability.Equals(item))
 					{
