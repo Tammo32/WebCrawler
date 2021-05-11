@@ -91,10 +91,46 @@
         </div>
     </li>
     <li>
-        Check to make sure the following packages are installed
+        Check to make sure the following NuGet packages are installed
+        <h4>Packages for JobSpotApplication</h4>
         <ul>
-            <li><pre>Dapper</pre></li>
-            <li><pre>Some other packages etc.</pre></li>
+            <li><pre>Azure.Extensions.AspNetCore.Configuration.Secrets v1.0.2</pre></li>
+            <li><pre>Azure.Identity v1.3.0</pre></li>
+            <li><pre>Azure.Security.KeyVault.Secrets v4.1.0</pre></li>
+            <li><pre>Hangfire.AspNetCore v1.7.22</pre></li>
+            <li><pre>Hangfire.SqlServer v1.7.22</pre></li>
+            <li><pre>Hangfire.Core v1.7.22</pre></li>
+            <li><pre>Microsoft.AspNet.Mvc v5.2.7</pre></li>
+            <li><pre>Microsoft.AspNetCore.Authentication.Facebook v3.1.0</pre></li>
+            <li><pre>Microsoft.AspNetCore.Authentication.Google v3.1.0</pre></li>
+            <li><pre>Microsoft.AspNetCore.Authentication.Twitter v3.1.0</pre></li>
+            <li><pre>Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore v3.1.12</pre></li>
+            <li><pre>Microsoft.AspNetCore.Identity.EntityFrameworkCore v3.1.13</pre></li>
+            <li><pre>Microsoft.AspNetCore.Identity.UI v3.1.13</pre></li>
+            <li><pre>Microsoft.EntityFrameworkCore.Proxies v3.1.14</pre></li>
+            <li><pre>Microsoft.EntityFrameworkCore.SqlServer v3.1.13</pre></li>
+            <li><pre>Microsoft.EntityFrameworkCore.Tools v3.1.13</pre></li>
+            <li><pre>Microsoft.jQuery.Unobtrusive.Ajax v3.2.6</pre></li>
+            <li><pre>Microsoft.VisualStudio.Web.CodeGeneration.Design v3.1.5</pre></li>
+            <li><pre>SendGrid v9.22.0</pre></li>
+        </ul>
+        <h4>Packages for JobSpotApplication.Tests</h4>
+        <ul>
+            <li><pre>coverlet.collector v1.3.0</pre></li>
+            <li><pre>Microsoft.NET.Test.Sdk v16.7.1</pre></li>
+            <li><pre>xunit v2.4.1</pre></li>
+            <li><pre>xunit.runner.visualstudio v2.4.3</pre></li>
+        </ul>
+        <h4>Packages for WebScraper</h4>
+        <ul>
+            <li><pre>Dapper v2.0.90</pre></li>
+            <li><pre>HtmlAgilityPack v1.11.33</pre></li>
+            <li><pre>System.Configuration.ConfigurationManager v5.0.0</pre></li>
+            <li><pre>System.Data.SqlClient v4.8.2</pre></li>
+        </ul>
+        <h4>Packages for WebScraperDebugger</h4>
+        <ul>
+            <li><pre>Debugger currently has no installed packages</pre></li>
         </ul>
     </li>
 </ol>
