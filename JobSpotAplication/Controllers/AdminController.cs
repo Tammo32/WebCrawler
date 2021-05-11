@@ -10,7 +10,8 @@ namespace JobSpotAplication.Controllers
     
     public class AdminController : Controller
     {
-        private ApplicationDbContext DbConext = new ApplicationDbContext();
+        private ApplicationDbContext DbConext = new ApplicationDbContext(GlobalConfig.ConnectionString("Local"));
+
         public IActionResult Index()
         {
             return View();
