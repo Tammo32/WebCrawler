@@ -18,7 +18,7 @@ namespace JobSpotAplication.Controllers
         
         public IActionResult Index()
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.FindFirstValue(ClaimTypes.Name);
 
             if ( userId == "admin@admin")
             {
