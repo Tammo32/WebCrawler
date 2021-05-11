@@ -107,7 +107,7 @@
 
 <h2 id="contact">Contact</h2>
 <ul>
-    <li>Michael Tamasaukas - email</li>
+    <li>Michael Tamasaukas - s3562292@student.rmit.edu.au</li>
     <li>Wade Stephenson - email</li>
     <li>Craig Ryan - email</li>
     <li>John Jairo Caicedo Gomez - email</li>
