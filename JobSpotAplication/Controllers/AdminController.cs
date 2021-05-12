@@ -25,7 +25,7 @@ namespace JobSpotAplication.Controllers
         public ActionResult Index()
         {
             string userId = User.FindFirstValue(ClaimTypes.Name);
-
+       
             if (userId != "admin@admin")
             {
                 return Redirect("/Home/Privacy");
@@ -100,12 +100,6 @@ namespace JobSpotAplication.Controllers
         public ActionResult Background()
         {
             return Redirect("/hangfire");
-        }
-
-
-            private ActionResult HttpNotFound()
-        {
-            throw new NotImplementedException();
         }
     }
 }
