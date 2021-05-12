@@ -18,8 +18,9 @@ namespace JobSpotAplication.Controllers
     
     public class AdminController : Controller
     {
+        
         ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JobSpotAplication-910F077B-3B60-4872-A2EF-3946254C9CEF;Trusted_Connection=True;MultipleActiveResultSets=true")
+            .UseSqlServer(GlobalConfig.ConnectionString("Default"))
             .Options);
 
         public ActionResult Index()
@@ -83,7 +84,7 @@ namespace JobSpotAplication.Controllers
                 changedUser.SecurityStamp = user.SecurityStamp;
                 changedUser.ConcurrencyStamp = user.ConcurrencyStamp;
                 ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JobSpotAplication-910F077B-3B60-4872-A2EF-3946254C9CEF;Trusted_Connection=True;MultipleActiveResultSets=true")
+                .UseSqlServer(GlobalConfig.ConnectionString("Default"))
                 .Options);
                 DbConext.Entry(changedUser).State = EntityState.Modified;
                 await DbConext.SaveChangesAsync();
