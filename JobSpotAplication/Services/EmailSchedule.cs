@@ -16,7 +16,7 @@ namespace JobSpotAplication.Services
         public EmailSchedule()
         {
             var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
-            .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JobSpotAplication-910F077B-3B60-4872-A2EF-3946254C9CEF;Trusted_Connection=True;MultipleActiveResultSets=true")
+            .UseSqlServer("Server=tcp:jobspot1.database.windows.net,1433;Database=coreDB;User ID=user1;Password=Password123;Encrypt=true;Connection Timeout=30;")
             .Options;
 
             var context = new JobSpotAplicationContext(contextOptions);
