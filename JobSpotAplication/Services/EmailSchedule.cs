@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebScraper;
 using static JobSpotAplication.Models.UserPreferences;
 
 namespace JobSpotAplication.Services
@@ -16,7 +17,7 @@ namespace JobSpotAplication.Services
         public EmailSchedule()
         {
             var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
-            .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JobSpotAplication-910F077B-3B60-4872-A2EF-3946254C9CEF;Trusted_Connection=True;MultipleActiveResultSets=true")
+            .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
             .Options;
 
             var context = new JobSpotAplicationContext(contextOptions);
