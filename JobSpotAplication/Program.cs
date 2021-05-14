@@ -11,7 +11,7 @@ namespace JobSpotAplication
     {
         public static void Main(string[] args)
         {
-            DatabaseManager.CreateTables();
+            //DatabaseManager.CreateTables();
             //DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
 
             // Initialize data connections and set connection to sql db
