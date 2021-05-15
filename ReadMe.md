@@ -160,6 +160,7 @@
        This command with generate the actual database. <b>Remember to change the placeholder variables with your chosen names.</b>
        <pre>az sql db show-connection-string --client ado.net --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt</pre>
        This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
+       <p>Open git bash to the folder where your clone is stored and add it as a git repository</p>
        </div>
     </li>
     <li>
@@ -167,8 +168,12 @@
        <h4>Deploy your cloned repo to Azure</h4>
         Use the following command to allow git deplyment from your local repository.
         <pre>az webapp deployment user set --user-name &ltusername&gt --password &ltpassword&gt</pre>
-        Change the placholder <b>username</b> and <b>password</d> with the ones created in the previous steps.
-        <p>Next, open git bash to the folder where your local repository is stored and run the folling commands to push the app to Azure.</p>
+        Change the placholder <b>username</b> and <b>password</b> with the ones created in the previous steps.
+        <pre>az appservice plan create --name &ltYour App Services Plan&gt --resource-group &ltYour Resource Name&gt --sku FREE</pre>
+        This command creates a plan to serve the app from your resouce. In this case the hosting plan is free for 12 months.
+        <pre>az webapp create --resource-group &ltYour Resource Name&gt --plan &ltYour App Services Plan&gt --name &ltYour Unique App Name&gt --runtime "DOTNETCORE|3.1" --deployment-local-git</pre>
+        <p>This command creates and empty application within your resource and associtates it with your plac / payment structure, in this case its free.</p>
+        Next, open git bash to the folder where your local repository is stored and run the folling commands to push the app to Azure.
         <pre></pre>
       </div>
     </li>
