@@ -75,9 +75,14 @@
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
     <li>
+         <div>
+            A Microsoft account OR a phone number, credit card and GitHub account
+         </div>
+    </li>
+    <li>
         <div>
             Create an azure web server
-            <pre>Link here</pre>
+            <pre>https://azure.microsoft.com/en-au/free/dotnet/</pre>
         </div>
     </li>
 </ul>
