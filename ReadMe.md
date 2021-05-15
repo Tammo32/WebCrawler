@@ -91,7 +91,7 @@
 <ol>
     <li>
         <div>
-            Clone the repo
+          <h4>Clone the repo</h4>
             <pre>git clone https://github.com/Tammo32/WebCrawler.git</pre>
         </div>
     </li>
