@@ -151,7 +151,7 @@
         <pre>az appservices list-locations --sku FREE</pre>
         This command will show a list of service locations, take a note of one that is in your region
         <pre>az group create --name <Your Resource Name> --location "<Your Location>"</pre>
-        This command will create an app service plan to host the project. Replace &ltYour Resouce Name&gt and &ltYour Location&gt with a researce name and loaction of your choice.
+        This command will create an app service plan to host the project. Replace &nbspYour Resouce Name&nbsp and &nbspYour Location&nbsp with a researce name and loaction of your choice.
       </div>
     </li>
 </ol>
