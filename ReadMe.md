@@ -96,8 +96,8 @@
         </div>
     </li>
     <li>
-        Check to make sure the following NuGet packages are installed
-        <h4>Packages for JobSpotApplication</h4>
+        <h4>Check to make sure the following NuGet packages are installed</h4>
+        Packages for JobSpotApplication
         <ul>
             <li><pre>Azure.Extensions.AspNetCore.Configuration.Secrets v1.0.2</pre></li>
             <li><pre>Azure.Identity v1.3.0</pre></li>
@@ -119,28 +119,28 @@
             <li><pre>Microsoft.VisualStudio.Web.CodeGeneration.Design v3.1.5</pre></li>
             <li><pre>SendGrid v9.22.0</pre></li>
         </ul>
-        <h4>Packages for JobSpotApplication.Tests</h4>
+        Packages for JobSpotApplication.Tests
         <ul>
             <li><pre>coverlet.collector v1.3.0</pre></li>
             <li><pre>Microsoft.NET.Test.Sdk v16.7.1</pre></li>
             <li><pre>xunit v2.4.1</pre></li>
             <li><pre>xunit.runner.visualstudio v2.4.3</pre></li>
         </ul>
-        <h4>Packages for WebScraper</h4>
+        Packages for WebScraper
         <ul>
             <li><pre>Dapper v2.0.90</pre></li>
             <li><pre>HtmlAgilityPack v1.11.33</pre></li>
             <li><pre>System.Configuration.ConfigurationManager v5.0.0</pre></li>
             <li><pre>System.Data.SqlClient v4.8.2</pre></li>
         </ul>
-        <h4>Packages for WebScraperDebugger</h4>
+        Packages for WebScraperDebugger
         <ul>
             <li><pre>Debugger currently has no installed packages</pre></li>
         </ul>
     </li>
     <li>
       <div>
-        Open your azure portal to create an app resouce plan
+        <h4>Open your azure portal to create an app resouce plan</h4>
         <pre>https://portal.azure.com/</pre>
       </div>
     </li>
