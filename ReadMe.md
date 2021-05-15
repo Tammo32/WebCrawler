@@ -160,7 +160,9 @@
        This command with generate the actual database. <b>Remember to change the placeholder variables with your chosen names.</b>
        <pre>az sql db show-connection-string --client ado.net --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt</pre>
        This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
-       <p>Open git bash to the folder where your clone is stored and add it as a git repository</p>
+       <p>Open git bash to the folder where your clone is stored and add it as a git repository and make a commit.</p>
+       <pre>git add .</pre><br>
+       <pre>git commit -m "Deplying to Azure"</pre>
        </div>
     </li>
     <li>
