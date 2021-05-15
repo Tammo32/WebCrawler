@@ -169,17 +169,17 @@
       <div>
        <h4>Deploy your cloned repo to Azure</h4>
         Back in Azure - cloud shell, use the following command to allow git deplyment from your local repository. Set the placholder <b>username</b> and <b>password</b> with a unique user name and password of your choice. <b>Take note and keep them safe.</b>
-        <pre>az webapp deployment user set --user-name &ltusername&gt --password &ltpassword&gt</pre>
+        <pre>az webapp deployment user set --user-name &ltYour Unique Username&gt --password &ltpassword&gt</pre>
         This command creates a plan to serve the app from your resouce. In this case the hosting plan is free for 12 months.
         <pre>az appservice plan create --name &ltYour App Services Plan&gt --resource-group &ltYour Resource Name&gt --sku FREE</pre>
         This command creates and empty application within your resource and associtates it with your plan / payment structure, in this case its free. The app name must also be unique within Azure. 
         <pre>az webapp create --resource-group &ltYour Resource Name&gt --plan &ltYour App Services Plan&gt --name &ltYour Unique App Name&gt --runtime "DOTNETCORE|3.1" --deployment-local-git</pre>
         <p>The output will show a configeration file, take note of the line:</p>
-        <pre>"deploymentLocalGitUrl": "https://&ltusername&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git"</pre>
+        <pre>"deploymentLocalGitUrl": "https://&ltYour Unique Username&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git"</pre>
         Use the following command to connect the app to the database. Replace &ltDefault Connection String&gt with the once that was copied into the appsetting.json files earlier.
         <pre>az webapp config connection-string set --resource-group &ltYour Resource Name&gt --name &ltYour Unique App Name&gt --settings MyDbConnection="&ltDefault Connection String&gt" --connection-string-type SQLAzure</pre>
         Next, open git bash again to the folder where your local repository is stored and run the folling commands to add Azure to the local git repository.
-        <pre>git remote add azure https://&ltusername&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git</pre>
+        <pre>git remote add azure https://&ltYour Unique Username&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git</pre>
         Finally, run the following command to push the app to your live server.
         <pre>git push azure master</pre>
       </div>
