@@ -147,7 +147,7 @@
         <img width="754" alt="AzureBanner" src="https://user-images.githubusercontent.com/22534994/118344529-a6d56e00-b56d-11eb-83f4-908e82750d7c.PNG">
      </li>
      <li>
-        <h3>Once cloud shell is running, use the following commands to set up your resourses</h3>
+        <h4>Once cloud shell is running, use the following commands to set up your resourses</h4>
         <pre>az appservices list-locations --sku FREE</pre>
         This command will show a list of service locations, take a note of one that is in your region
         <pre>az group create --name <Your Resource Name> --location "<Your Location>"</pre>
