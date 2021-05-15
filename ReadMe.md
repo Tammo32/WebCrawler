@@ -168,14 +168,15 @@
     <li>
       <div>
        <h4>Deploy your cloned repo to Azure</h4>
-        Back in Azure - cloud shell, use the following command to allow git deplyment from your local repository.
+        Back in Azure - cloud shell, use the following command to allow git deplyment from your local repository. Set the placholder <b>username</b> and <b>password</b> with a unique user name and password of your choice. <b>Take note of them and keep them safe.</b>
         <pre>az webapp deployment user set --user-name &ltusername&gt --password &ltpassword&gt</pre>
-        Change the placholder <b>username</b> and <b>password</b> with the ones created in the previous steps.
-        <pre>az appservice plan create --name &ltYour App Services Plan&gt --resource-group &ltYour Resource Name&gt --sku FREE</pre>
         This command creates a plan to serve the app from your resouce. In this case the hosting plan is free for 12 months.
+        <pre>az appservice plan create --name &ltYour App Services Plan&gt --resource-group &ltYour Resource Name&gt --sku FREE</pre>
+        This command creates and empty application within your resource and associtates it with your plac / payment structure, in this case its free. The app name must also be unique within Azure. 
         <pre>az webapp create --resource-group &ltYour Resource Name&gt --plan &ltYour App Services Plan&gt --name &ltYour Unique App Name&gt --runtime "DOTNETCORE|3.1" --deployment-local-git</pre>
-        <p>This command creates and empty application within your resource and associtates it with your plac / payment structure, in this case its free.</p>
-        Next, open git bash to the folder where your local repository is stored and run the folling commands to push the app to Azure.
+        <p>The output will show a configeration file, take note of the line:</p>
+        <pre>"deploymentLocalGitUrl": "https://<username>@<app-name>.scm.azurewebsites.net/<app-name>.git",</pre>
+        Next, open git bash again to the folder where your local repository is stored and run the folling commands to push the app to Azure.
         <pre></pre>
       </div>
     </li>
