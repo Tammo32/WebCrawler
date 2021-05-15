@@ -138,6 +138,12 @@
             <li><pre>Debugger currently has no installed packages</pre></li>
         </ul>
     </li>
+    <li>
+      <div>
+        Open your azure portal to create an app resouce plan
+        <pre>https://portal.azure.com/</pre>
+      </div>
+    </li>
 </ol>
 
 <h2 id="usage">Usage</h2>
