@@ -165,7 +165,7 @@
     <li>
       <div>
        <h4>Deploy your cloned repo to Azure</h4>
-        Back in Azure - cloud shell, use the following command to allow git deplyment from your local repository. Set the placholder <b>username</b> and <b>password</b> with a unique user name and password of your choice. <b>Take note and keep them safe.</b>
+        Use the following command to allow git deplyment from your local repository. Set the placholder <b>username</b> and <b>password</b> with a unique user name and password of your choice. <b>Take note and keep them safe.</b>
         <pre>az webapp deployment user set --user-name &ltYour Unique Username&gt --password &ltpassword&gt</pre>
         This command creates a plan to serve the app from your resouce. In this case the hosting plan is free for 12 months.
         <pre>az appservice plan create --name &ltYour App Services Plan&gt --resource-group &ltYour Resource Name&gt --sku FREE</pre>
