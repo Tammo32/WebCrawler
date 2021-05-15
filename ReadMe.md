@@ -145,7 +145,7 @@
 <ul>
     <li>Michael Tamasaukas - s3562292@student.rmit.edu.au</li>
     <li>Wade Stephenson - email</li>
-    <li>Craig Ryan - email</li>
+    <li>Craig Ryan - s3555490@student.rmit.edu.au</li>
     <li>John Jairo Caicedo Gomez - email</li>
     <li>Thomas Kauran - s3305113@student.rmit.edu.au</li>
 </ul>
