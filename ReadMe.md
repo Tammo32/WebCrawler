@@ -1,3 +1,4 @@
+
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -142,6 +143,7 @@
       <div>
         <h4>Open your azure portal to create an app resouce plan</h4>
         <pre>https://portal.azure.com/</pre>
+        <img width="754" alt="AzureBanner" src="https://user-images.githubusercontent.com/22534994/118344529-a6d56e00-b56d-11eb-83f4-908e82750d7c.PNG">
       </div>
     </li>
 </ol>
