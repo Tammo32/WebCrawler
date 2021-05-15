@@ -152,8 +152,8 @@
         This command will show a list of service locations, take a note of one that is in your region
         <pre>az group create --name &ltYour Resource Name&gt --location "&ltYour Location&gt"</pre>
         This command will create an app service plan to host the project. Replace <code>&ltYour Resouce Name&gt</code> and <code>&ltYour Location&gt</code> with a researce name and loaction of your choice.
-        <pre>az sql server create --name &ltYour Unique DB Name&gt --resource-group &gtYour Resource Name&gt --location "&ltYour Location&gt" --admin-user &ltdb-username&gt --admin-password &ltdb-password&gt</pre>
-        This command will create an SQL server and link it to your resoure group. Replace <code>&ltYour Unique DB Name&gt</code> with a globaly unique name, the prompt will tell you if the name already exists. Allowable characters are <code>0</code> -&gt <code>1</code> <code>a</code> -&gt <code>z</code>.
+        <pre>az sql server create --name &ltYour Unique DB Name&gt --resource-group &ltYour Resource Name&gt --location "&ltYour Location&gt" --admin-user &ltdb-username&gt --admin-password &ltdb-password&gt</pre>
+        This command will create an SQL server and link it to your resoure group. Replace <code>&ltYour Unique DB Name&gt</code> with a globaly unique name, the prompt will tell you if the name already exists. Allowable characters are <code>0</code> -&gt <code>1</code> <code>a</code> -&gt <code>z</code>. Also, make sure to use the name of the resource group previouly created and set the DB user name and password to your choosing.
       </div>
     </li>
 </ol>
