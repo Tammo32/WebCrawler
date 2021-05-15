@@ -150,9 +150,9 @@
         <h4>Once cloud shell is running, use the following commands to set up your resourses</h4>
         <pre>az appservices list-locations --sku FREE</pre>
         This command will show a list of service locations, take a note of one that is in your region
-        <pre>az group create --name <Your Resource Name> --location "<Your Location>"</pre>
+        <pre>az group create --name &ltYour Resource Name&gt --location "&ltYour Location&gt"</pre>
         This command will create an app service plan to host the project. Replace <code>&ltYour Resouce Name&gt</code> and <code>&ltYour Location&gt</code> with a researce name and loaction of your choice.
-        <pre>az sql server create --name <Your Unique DB Name> --resource-group <Your Resource Name> --location "<Your Location>" --admin-user <db-username> --admin-password <db-password></pre>
+        <pre>az sql server create --name &ltYour Unique DB Name&gt --resource-group &gtYour Resource Name&gt --location "&ltYour Location&gt" --admin-user &ltdb-username&gt --admin-password &ltdb-password&gt</pre>
         This command will create an SQL server and link it to your resoure group. Replace <code>&ltYour Unique DB Name&gt</code> with a globaly unique name, the prompt will tell you if the name already exists. Allowable characters are <code>0</code> -&gt <code>1</code> <code>a</code> -&gt <code>z</code>.
       </div>
     </li>
