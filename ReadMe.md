@@ -70,7 +70,7 @@
 
 <h2 id="get-started">Getting started</h2>
 
-<p>To install the project, follow the simple instructions provided below</p>
+<p>To install the project, follow the recommended instalation instructions below</p>
 
 <h3 id="prerequisites">Prerequisites</h3>
 <ul>
