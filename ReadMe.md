@@ -160,9 +160,6 @@
        <pre>az sql db create --resource-group &ltYour Resource Name&gt --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt --service-objective S0</pre>
         This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
        <pre>az sql db show-connection-string --client ado.net --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt</pre>
-       Open git bash to the folder where your clone is stored and add it as a git repository and make a commit.
-       <pre>git add .</pre><br>
-       <pre>git commit -m "Deplying to Azure"</pre>
        </div>
     </li>
     <li>
