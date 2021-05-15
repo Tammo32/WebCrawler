@@ -173,7 +173,7 @@
         <pre>az webapp create --resource-group &ltYour Resource Name&gt --plan &ltYour App Services Plan&gt --name &ltYour Unique App Name&gt --runtime "DOTNETCORE|3.1" --deployment-local-git</pre>
         <p>The output will show a configeration file, take note of the line:</p>
         <pre>"deploymentLocalGitUrl": "https://&ltYour Unique Username&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git"</pre>
-        Use the following command to connect the app to the database. Replace &ltDefault Connection String&gt with the once that was copied into the appsetting.json files earlier.
+        Use the following command to connect the app to the database. Replace &ltDefault Connection String&gt with the one that was copied into the appsetting.json files earlier.
         <pre>az webapp config connection-string set --resource-group &ltYour Resource Name&gt --name &ltYour Unique App Name&gt --settings MyDbConnection="&ltDefault Connection String&gt" --connection-string-type SQLAzure</pre>
         Next, open git bash again to the folder where your local repository is stored and run the folling commands to add Azure to the local git repository.
         <pre>git remote add azure https://&ltYour Unique Username&gt@&ltYour Unique App Name&gt.scm.azurewebsites.net/&ltYour Unique App Name&gt.git</pre>
