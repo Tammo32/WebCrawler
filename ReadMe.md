@@ -82,9 +82,21 @@
     </li>
     <li>
         <div>
-            An Azure account for hosting web applications
+            An Azure account for hosting web applications.
             <pre>https://azure.microsoft.com/en-au/free/dotnet/</pre>
         </div>
+    </li>
+  <li>
+         <div>
+            A SendGrid API key - email service.
+           <pre>https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/</pre>
+         </div>
+    </li>
+  <li>
+         <div>
+            Social media login API keys
+           <pre></pre>
+         </div>
     </li>
 </ul>
 
