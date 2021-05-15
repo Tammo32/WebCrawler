@@ -181,6 +181,9 @@
         <pre>git push azure master</pre>
       </div>
     </li>
+    <li>
+  <h4>Setting Up User Secrests</h4>
+    </li>
 </ol>
 
 <h2 id="usage">Usage</h2>
