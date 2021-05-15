@@ -148,19 +148,19 @@
      </li>
      <li>
         <h4>Once cloud shell is running, use the following commands to set up your resourses</h4>
+        This command will show a list of service locations, take a note of one that is in your region.
         <pre>az appservices list-locations --sku FREE</pre>
-        This command will show a list of service locations, take a note of one that is in your region
-        <pre>az group create --name &ltYour Resource Name&gt --location "&ltYour Location&gt"</pre>
         This command will create an app service plan to host the project. Replace <code>&ltYour Resouce Name&gt</code> and <code>&ltYour Location&gt</code> with a researce name and loaction of your choice.
-        <pre>az sql server create --name &ltYour Unique DB Server Name&gt --resource-group &ltYour Resource Name&gt --location "&ltYour Location&gt" --admin-user &ltdb-username&gt --admin-password &ltdb-password&gt</pre>
+        <pre>az group create --name &ltYour Resource Name&gt --location "&ltYour Location&gt"</pre>
         This command will create an SQL server and link it to your resoure group. Replace <code>&ltYour Unique DB Server Name&gt</code> with a globaly unique name, the prompt will tell you if the name already exists. Allowable characters are <code>0</code> -&gt <code>1</code> <code>a</code> -&gt <code>z</code>. Also, make sure to use the name of the <b>resource name</b> previously created and set the DB <b>user name</b> and <b>password</b> to your choosing.
+        <pre>az sql server create --name &ltYour Unique DB Server Name&gt --resource-group &ltYour Resource Name&gt --location "&ltYour Location&gt" --admin-user &ltdb-username&gt --admin-password &ltdb-password&gt</pre>
+        This command set's a fire wall rule so that only this app can access your database. Only replace <code>&ltYour Resource Name&gt</code> and <code>&ltYour Unique DB Server Name&gt</code> with names chosen in the previous step.
        <pre>az sql server firewall-rule create --resource-group &ltYour Resource Name&gt --server &ltYour Unique DB Server Name&gt --name AllowAzureIps --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0</pre>
-       This command set's a fire wall rule so that only this app can access your database. Only replace <code>&ltYour Resource Name&gt</code> and <code>&ltYour Unique DB Server Name&gt</code> with names chosen in the previous step.
+        This command with generate the actual database. <b>Remember to change the placeholder variables with your chosen names.</b>
        <pre>az sql db create --resource-group &ltYour Resource Name&gt --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt --service-objective S0</pre>
-       This command with generate the actual database. <b>Remember to change the placeholder variables with your chosen names.</b>
+        This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
        <pre>az sql db show-connection-string --client ado.net --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt</pre>
-       This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
-       <p>Open git bash to the folder where your clone is stored and add it as a git repository and make a commit.</p>
+       Open git bash to the folder where your clone is stored and add it as a git repository and make a commit.
        <pre>git add .</pre><br>
        <pre>git commit -m "Deplying to Azure"</pre>
        </div>
