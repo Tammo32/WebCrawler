@@ -141,7 +141,7 @@
     </li>
     <li>
       <div>
-        <h4>Open your azure portal to create an app resouce plan</h4>
+        <h4>Open your azure portal to create the app resouces needed</h4>
         <pre>https://portal.azure.com/</pre>
         Run the cloud shell app
         <img width="754" alt="AzureBanner" src="https://user-images.githubusercontent.com/22534994/118344529-a6d56e00-b56d-11eb-83f4-908e82750d7c.PNG">
@@ -159,7 +159,8 @@
        <pre>az sql db create --resource-group &ltYour Resource Name&gt --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt --service-objective S0</pre>
        This command with generate the actual database. <b>Remember to change the placeholder variables with your chosen names.</b>
        <pre>az sql db show-connection-string --client ado.net --server &ltYour Unique DB Server Name&gt --name &ltYour DB Name&gt</pre>
-       This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be show the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
+       This command will promt you to enter the user name and password created in the previous steps. After entering your credentuals, you will be shown the DB connection string. Copy the connection string and paste it into the appsettings.json files for both the JobSpotAplication and WebScraper projects. This string is placed after the <code>"DefaultConnection" :</code> and <code>"HangfireConnection" :</code> connection string names.
+       <h4></h4>
       </div>
     </li>
 </ol>
