@@ -87,7 +87,7 @@
     </li>
 </ul>
 
-<h3 id="installation">Installation</h3>
+<h3 id="installation">Installation and Deployment</h3>
 <ol>
     <li>
         <div>
