@@ -81,7 +81,7 @@
     </li>
     <li>
         <div>
-            Create free Azure account for hosting web applications
+            An Azure account for hosting web applications
             <pre>https://azure.microsoft.com/en-au/free/dotnet/</pre>
         </div>
     </li>
