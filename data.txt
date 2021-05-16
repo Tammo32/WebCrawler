@@ -1,3 +1,9 @@
+The database is a MSSQL database stored in the cloud on Microsoft Azure.
+
+The connection string is as follows: "Server=tcp:jobspot1.database.windows.net,1433;Database=coreDB;User ID=user1;Password=Password123;Encrypt=true;Connection Timeout=30;"
+
+The hangfire connection string is as follows: "Server=tcp:jobspot1.database.windows.net,1433;Database=coreDB;User ID=user1;Password=Password123;Encrypt=true;Connection Timeout=30;"
+
 Here is a list of the following scripts required for the creation and running of this application. More may be required in the future.
 
 * CreateTables.SQL
