@@ -15,14 +15,14 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation and Deployment</a></li>
         <ul>
-          <li>Clone the repo</li>
-          <li>Check NuGet packages</li>
-          <li>Open your Azure Portal to create the app resouces</li>
-          <li>Commands to set up your resourses</li>
-          <li>Deploy your cloned repo to Azure</li>
-          <li>Setting Up User Secrests</li>
-          <li>Create app Identity and register it with Key Vault</li>
-          <li>Ready to go!</li>
+          <li><a href="#Clone">Clone the repo</a></li>
+          <li><a href="#Check">Check NuGet packages</a></li>
+          <li><a href="#Azure">Open your Azure Portal to create the app resouces</a></li>
+          <li><a href="#Commands">Commands to set up your resourses</a></li>
+          <li><a href="#Deploy">Deploy your cloned repo to Azure</a></li>
+          <li><a href="#Key">Setting up Key Vault</a></li>
+          <li><a href="#Identity">Create app Identity and register it with Key Vault</a></li>
+          <li><a href="#Go">Ready to go!</a></li>
         </ul>
       </ul>
     </li>
@@ -114,12 +114,12 @@
 <ol>
     <li>
         <div>
-          <h4>Clone the repo</h4>
+          <h4 id="Clone">Clone the repo</h4>
             <pre>git clone https://github.com/Tammo32/WebCrawler.git</pre>
         </div>
     </li>
     <li>
-        <h4>Check to make sure the following NuGet packages are installed</h4>
+        <h4 id="Check">Check to make sure the following NuGet packages are installed</h4>
         Packages for JobSpotApplication
         <ul>
             <li><pre>Azure.Extensions.AspNetCore.Configuration.Secrets v1.0.2</pre></li>
@@ -163,13 +163,13 @@
     </li>
     <li>
       <div>
-        <h4>Open your Azure Portal to create the app resouces needed</h4>
+        <h4 id="Azure">Open your Azure Portal to create the app resouces needed</h4>
         <pre>https://portal.azure.com/</pre>
         Run the cloud shell app
         <img width="754" alt="AzureBanner" src="https://user-images.githubusercontent.com/22534994/118344529-a6d56e00-b56d-11eb-83f4-908e82750d7c.PNG">
      </li>
      <li>
-        <h4>Once cloud shell is running, use the following commands to set up your resourses</h4>
+        <h4 id="Commands">Once cloud shell is running, use the following commands to set up your resourses</h4>
         This command will show a list of service locations, take a note of one that is in your region.
         <pre>az appservices list-locations --sku FREE</pre>
         This command will create a resouce in which all the services are stored to host the project. Replace <code>&ltYour Resouce Name&gt</code> and <code>&ltYour Location&gt</code> with a researce name and loaction of your choice.
@@ -186,7 +186,7 @@
     </li>
     <li>
       <div>
-       <h4>Deploy your cloned repo to Azure</h4>
+       <h4 id="Deploy">Deploy your cloned repo to Azure</h4>
         Use the following command to allow git deplyment from your local repository. Set the placholder <b>username</b> and <b>password</b> with a unique user name and password of your choice. <b>Take note and keep them safe.</b>
         <pre>az webapp deployment user set --user-name &ltYour Unique Username&gt --password &ltpassword&gt</pre>
         This command creates a plan to serve the app from your resouce. In this case the hosting plan is free for 12 months.
@@ -204,10 +204,10 @@
       </div>
     </li>
     <li>
-  <h4>Setting Up User Secrests</h4>
-    <p>Back in the Azure portal</p>
+  <h4 id="Key">Setting Up Key Vault</h4>
+    <p>Key Vault is used to store user secrets in Azure. Back in the Azure portal</p>
     <pre>https://portal.azure.com/#home</pre>
-    Click on the KeyVault icon to create a new resource.
+    Click on the Key Vault icon to create a new resource.
     <img width="533" alt="AzureKeyVault" src="https://user-images.githubusercontent.com/22534994/118383497-69401600-b63d-11eb-9cbd-b8dc60aad7b4.PNG">
     <p>Click new and follow the prompts to setup the resource. <b>Note that the keys cannot be added until after the "create and review step.</b></p>
     <img width="769" alt="NewKeyVault" src="https://user-images.githubusercontent.com/22534994/118383577-50843000-b63e-11eb-9157-b7e8651b6927.PNG">
@@ -218,7 +218,7 @@
      <p>Click "Generate/Import, add the key name ie "Authentication--Facebook--AppId" and the key value, then click save. Continue for each key / value pair. You should end up with a list of 8 key / value pairs for this app, two for each third party authentication and two for the email sender service.</p>
      </li>
      <li>
-      <h4>Create app Identity and register it with Key Vault</h4>
+      <h4 id="Identity">Create app Identity and register it with Key Vault</h4>
       <p>Back on the Azure portal home page, click the App Service line from the Recent resources table.</p>
       <p>From the App Services hamburger menu, select Itendity.</p>
   <img width="225" alt="AppID" src="https://user-images.githubusercontent.com/22534994/118384355-9f34c880-b644-11eb-8fc9-3b3aaf783bc4.PNG">
@@ -229,7 +229,7 @@
       <p>Click add, select "App Service" from the drop down menu, and type the application name into the search box. Select the application from the search reults and save. The app should now have access to Key Vault.</p>
   <img width="791" alt="AddRoleAssignment" src="https://user-images.githubusercontent.com/22534994/118384656-fcca1480-b646-11eb-9d27-9ce2df67138d.PNG">
   </li>
-  <li><p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p>
+  <li><h4 id="Go"><p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p></h4>
      </li>
 </ol>
 
