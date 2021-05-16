@@ -14,6 +14,16 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation and Deployment</a></li>
+        <ul>
+          <li>Clone the repo</li>
+          <li>Check NuGet packages</li>
+          <li>Open your Azure Portal to create the app resouces</li>
+          <li>Commands to set up your resourses</li>
+          <li>Deploy your cloned repo to Azure</li>
+          <li>Setting Up User Secrests</li>
+          <li>Create app Identity and register it with Key Vault</li>
+          <li>Ready to go!</li>
+        </ul>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -153,7 +163,7 @@
     </li>
     <li>
       <div>
-        <h4>Open your azure portal to create the app resouces needed</h4>
+        <h4>Open your Azure Portal to create the app resouces needed</h4>
         <pre>https://portal.azure.com/</pre>
         Run the cloud shell app
         <img width="754" alt="AzureBanner" src="https://user-images.githubusercontent.com/22534994/118344529-a6d56e00-b56d-11eb-83f4-908e82750d7c.PNG">
@@ -218,7 +228,8 @@
   <img width="291" alt="AccessControll" src="https://user-images.githubusercontent.com/22534994/118384585-4f570100-b646-11eb-99bc-9ef7fd9ee159.PNG">
       <p>Click add, select "App Service" from the drop down menu, and type the application name into the search box. Select the application from the search reults and save. The app should now have access to Key Vault.</p>
   <img width="791" alt="AddRoleAssignment" src="https://user-images.githubusercontent.com/22534994/118384656-fcca1480-b646-11eb-9d27-9ce2df67138d.PNG">
-  <p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p>
+  </li>
+  <li><p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p>
      </li>
 </ol>
 
