@@ -17,7 +17,7 @@ namespace JobSpotAplication.Services
         public EmailSchedule()
         {
             var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
-            .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnetion"))
+            .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
             .Options;
 
             var context = new JobSpotAplicationContext(contextOptions);
