@@ -3,6 +3,7 @@
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
+    <li>
     <a href="#about">About The Project</a>
       <ul>
       <li><a href="#features">Features</a></li>
