@@ -195,7 +195,6 @@
     </li>
     <li>
   <h4>Setting Up User Secrests</h4>
-    </li>
     <p>Back in the Azure portal</p>
     <pre>https://portal.azure.com/#home</pre>
     Click on the KeyVault icon to create a new resource.
@@ -207,6 +206,14 @@
     <p>Then, click the Key vault hamburger menu and move down and click the "Secrets" item.</p>
     <img width="281" alt="AddSecrets" src="https://user-images.githubusercontent.com/22534994/118383710-968dc380-b63f-11eb-9a5c-1aefb77e5ced.PNG">
      <p>Click "Generate/Import, add the key name ie "Authentication--Facebook--AppId" and the key value, then click save. Continue for each key / value pair. You should end up with a list of 8 key / value pairs for this app, two for each third party authentication and two for the email sender service.</p>
+     </li>
+     <li>
+      <h4>Create app Identity and register it with Key Vault</h4>
+      <p>Back on the Azure portal home page, click the App Service line from the Recent resources table</p>
+      <p>From the App Services hamburger menu, select Itendity</p>
+  <img width="225" alt="AppID" src="https://user-images.githubusercontent.com/22534994/118384355-9f34c880-b644-11eb-8fc9-3b3aaf783bc4.PNG">
+
+     </li>
 </ol>
 
 <h2 id="usage">Usage</h2>
