@@ -217,6 +217,7 @@
       <p>Navigate back the Key Vault resource and from the hamburger menu, sellect "Access Control"</p>
   <img width="291" alt="AccessControll" src="https://user-images.githubusercontent.com/22534994/118384585-4f570100-b646-11eb-99bc-9ef7fd9ee159.PNG">
       <p>Click add, select "App Service" from the drop down menu, and type the application name into the search box. Select the application from the search reults and save. The app should now have access to Key Vault.</p>
+  <img width="791" alt="AddRoleAssignment" src="https://user-images.githubusercontent.com/22534994/118384656-fcca1480-b646-11eb-9d27-9ce2df67138d.PNG">
   <p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p>
      </li>
 </ol>
