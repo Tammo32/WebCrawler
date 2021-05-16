@@ -209,10 +209,15 @@
      </li>
      <li>
       <h4>Create app Identity and register it with Key Vault</h4>
-      <p>Back on the Azure portal home page, click the App Service line from the Recent resources table</p>
-      <p>From the App Services hamburger menu, select Itendity</p>
+      <p>Back on the Azure portal home page, click the App Service line from the Recent resources table.</p>
+      <p>From the App Services hamburger menu, select Itendity.</p>
   <img width="225" alt="AppID" src="https://user-images.githubusercontent.com/22534994/118384355-9f34c880-b644-11eb-8fc9-3b3aaf783bc4.PNG">
-
+      <p>Under "System Assigned" select status "on". This will register the app with Azure Active Directory and make it discoverable to the Key Vault.</p>
+  <img width="413" alt="StatusOn" src="https://user-images.githubusercontent.com/22534994/118384494-8d075a00-b645-11eb-9f0d-045686ac025a.PNG">
+      <p>Navigate back the Key Vault resource and from the hamburger menu, sellect "Access Control"</p>
+  <img width="291" alt="AccessControll" src="https://user-images.githubusercontent.com/22534994/118384585-4f570100-b646-11eb-99bc-9ef7fd9ee159.PNG">
+      <p>Click add, select "App Service" from the drop down menu, and type the application name into the search box. Select the application from the search reults and save. The app should now have access to Key Vault.</p>
+  <p><b>You should now be all set-up and ready to go! Navigate to the URL and try it out.</b></p>
      </li>
 </ol>
 
