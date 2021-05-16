@@ -51,7 +51,7 @@ namespace WebScraper.DataAccess
 		{
 			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
 
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
