@@ -88,14 +88,15 @@
     </li>
   <li>
          <div>
-            A SendGrid API key - email service.
+            A SendGrid API key - userd for email services.
+           <p>You will need a preexisting email account to set this up.</p>
            <pre>https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/</pre>
          </div>
     </li>
   <li>
          <div>
-            Social media login API keys
-           <pre></pre>
+            Social media login API keys - used for third party authentication.
+           <p>You will need active social media accounts to set these up. The app currently uses Google, FaceBook and Twitter third party authentication.</p>
          </div>
     </li>
 </ul>
