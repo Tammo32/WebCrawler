@@ -200,7 +200,13 @@
     <pre>https://portal.azure.com/#home</pre>
     Click on the KeyVault icon to create a new resource.
     <img width="533" alt="AzureKeyVault" src="https://user-images.githubusercontent.com/22534994/118383497-69401600-b63d-11eb-9cbd-b8dc60aad7b4.PNG">
-    <p>Click new and follow the prompts to setup the resource. <b>Note that the keys cannot be added until after the "create and review step</b></p>
+    <p>Click new and follow the prompts to setup the resource. <b>Note that the keys cannot be added until after the "create and review step.</b></p>
+    <img width="769" alt="NewKeyVault" src="https://user-images.githubusercontent.com/22534994/118383577-50843000-b63e-11eb-9157-b7e8651b6927.PNG">
+    <p>Once the resource has been created, click the Key Vault line of the Recent resouce table.</p>
+    <img width="681" alt="RecentResource" src="https://user-images.githubusercontent.com/22534994/118383669-3f87ee80-b63f-11eb-8dd1-1fb53a3da987.PNG">
+    <p>Then, click the Key vault hamburger menu and move down and click the "Secrets" item.</p>
+    <img width="281" alt="AddSecrets" src="https://user-images.githubusercontent.com/22534994/118383710-968dc380-b63f-11eb-9a5c-1aefb77e5ced.PNG">
+     <p>Click "Generate/Import, add the key name ie "Authentication--Facebook--AppId" and the key value, then click save. Continue for each key / value pair. You should end up with a list of 8 key / value pairs for this app, two for each third party authentication and two for the email sender service.</p>
 </ol>
 
 <h2 id="usage">Usage</h2>
