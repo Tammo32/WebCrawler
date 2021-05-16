@@ -89,7 +89,7 @@
   <li>
          <div>
             A SendGrid API key - userd for email services.
-           <p>You will need a preexisting email account to set this up.</p>
+           <p>You will need an active email account to set this up.</p>
            <pre>https://sendgrid.com/docs/for-developers/sending-email/api-getting-started/</pre>
          </div>
     </li>
