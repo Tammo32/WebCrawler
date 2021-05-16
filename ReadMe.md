@@ -3,8 +3,7 @@
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
-    <li>
-      <a href="#about">About The Project</a>
+    <a href="#about">About The Project</a>
       <ul>
       <li><a href="#features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
@@ -197,6 +196,11 @@
     <li>
   <h4>Setting Up User Secrests</h4>
     </li>
+    <p>Back in the Azure portal</p>
+    <pre>https://portal.azure.com/#home</pre>
+    Click on the KeyVault icon to create a new resource.
+    <img width="533" alt="AzureKeyVault" src="https://user-images.githubusercontent.com/22534994/118383497-69401600-b63d-11eb-9cbd-b8dc60aad7b4.PNG">
+    <p>Click new and follow the prompts to setup the resource. <b>Note that the keys cannot be added until after the "create and review step</b></p>
 </ol>
 
 <h2 id="usage">Usage</h2>
