@@ -1,12 +1,15 @@
-﻿using JobSpotAplication.Models;
+﻿using JobSpotAplication.Data;
+using JobSpotAplication.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Claims;
+using WebScraper;
 using WebScraper.DataAccess;
 using WebScraper.Models;
 using WebScraper.WebScraper;
@@ -18,11 +21,19 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
+		private readonly JobSpotAplicationContext _context;
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
 			_logger = logger;
 			_userManager = userManager;
+
+			var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
+		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
+		   .Options;
+
+			var context = new JobSpotAplicationContext(contextOptions);
+			_context = context;
 		}
 
 		public IActionResult Index()
@@ -40,7 +51,8 @@ namespace JobSpotAplication.Controllers
 		public IActionResult ScheduleJobSearch()
 		{
 			ViewData["DisplayScheduleForm"] = true;
-			return View("Index", new JobSearch());
+			
+			return View("Index", new ScheduleViewModel());
 		}
 
 		[HttpPost]
@@ -99,7 +111,21 @@ namespace JobSpotAplication.Controllers
 			// Save jobs to database if results returned
 			if (jobs.Count > 0)
 			{
-				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
+				var j = jobs.ToArray();
+				for (var x=0; x<j.Length; x++)
+				{
+					var job = j[x];
+					if (_context.Jobs.Find(job.ID) != null)
+					{
+						jobs.Remove(job);
+					}
+
+					//if job exists in database - parameters.remove(job);
+				}
+				if (jobs.Count > 0)
+				{
+					db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
+				}
 			}
 
 			ViewData["jobs"] = jobs;

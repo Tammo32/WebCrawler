@@ -10,7 +10,6 @@ begin
         [Url] nvarchar(450) not null,
         Salary nvarchar(7) null,
         constraint PK_Job primary key (JobID),
-        constraint AK_Url unique([Url])
     );
 end
 

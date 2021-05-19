@@ -18,6 +18,7 @@ namespace WebScraper.DataAccess
 		/// </summary>
 		/// <param name="job">Job information</param>
 		/// <returns>The Job Entry information, including a unique identifier</returns>
+
 		public int SaveJobEntry(JobEntryModel job)
 		{
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
@@ -53,6 +54,7 @@ namespace WebScraper.DataAccess
 
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
+				
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
 				{

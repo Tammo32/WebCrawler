@@ -12,12 +12,10 @@ namespace JobSpotAplication.Models
         public string JobID { get; set; }
         public string Title { get; set; }
         public string Company { get; set; }
-        public string BriefDescription { get; set; }
-        public string FullDescription { get; set; }
+        public string Description { get; set; }
+        //public string Description { get; set; }
         public string Availability { get; set; }
-        [Url]
         public string Url { get; set; }
-        public int StartingSalary { get; set; }
-        public int EndingSalary { get; set; }
+        public string Salary { get; set; }
     }
 }
