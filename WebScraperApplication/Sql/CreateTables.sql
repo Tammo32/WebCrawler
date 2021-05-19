@@ -10,7 +10,6 @@ begin
         [Url] text not null,
         Salary varchar(7) null,
         constraint PK_Job primary key (JobID),
-        constraint AK_Url unique([Url])
     );
 end
 
