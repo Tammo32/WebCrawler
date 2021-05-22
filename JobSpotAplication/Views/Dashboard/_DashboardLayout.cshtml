@@ -35,7 +35,6 @@
                     <a asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/logo.svg" alt="jobSpot logo">JobSpot</a>
                 </div>
                 <ul id="sidebar-nav" class="nav nav-sections flex-column">
-                    <!--Test-->
                     <li class="sidebar-option">
                         <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="sidebar-active">
                             <i class="fab fa-searchengin"></i>
@@ -74,32 +73,6 @@
                         </a>
                     </li>
                 </ul>
-                <!--EndTest-->
-                <!--
-                    <li class="nav-divider"></li>
-                    <li>
-                        <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="btn btn-block"><i class="fab fa-searchengin fa-lg"></i><span>Search</span></a>
-                    </li>
-                    <li>
-                        <a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="btn btn-block"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
-                    </li>
-                    <li>
-                        <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
-                    </li>
-                    <li>
-                        <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
-                    </li>
-                </ul>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-divider"></li>
-                    <li>
-                        <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
-                    </li>
-                    <li>
-                        <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></a>
-                    </li>
-                </ul>
-                -->
             </nav>
 
             <main class="dashboard-content" role="main">
@@ -118,18 +91,6 @@
                     {
                         <partial name="_SearchFormLayout" />
                     }
-
-                    <!--Test-->
-                    <div class="card col-12">
-                        <h5 class="card-header">Job Result Title</h5>
-
-                        <div class="card-body">
-                            <h5 class="card-title salary">$50,000 pa</h5>
-                            <p class="card-text">Web developers design and build websites. They are typically responsible for the appearance, of the site and technical aspects, such as site speed and how much traffic the site can handle. Web developers may also create site content that requires technical features.</p>
-                            <a href="#" class="btn btn-primary text-right">Go to Listing</a> <a href="#" class="btn btn-primary text-right">Add to Favourites</a> 
-                        </div>
-                    </div>
-                    <!--EndTest-->
                 </div>
             </main>
         </div>
@@ -144,7 +105,7 @@
 
 
     -->
-    <!-- Test Script to dynamically adjust sidebar based on smaller screensizes-->
+    <!--Script to adjust side nav based on initial screensize, and when resizing to smaller screens-->
     <script>
         
         function checkWidth() {
