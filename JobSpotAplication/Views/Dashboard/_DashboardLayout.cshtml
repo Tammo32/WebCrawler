@@ -65,8 +65,10 @@
 
             <main class="col-md-9 ml-sm-auto col-lg-10 pt-3" role="main">
                 <nav class="navbar top-nav position-relative flex-md-nowrap">
-                    <i class="fas fa-bars" style="font-size:28px;"></i>
-                    <span class="dashboard">Dashboard</span>
+                    <div class="sidebar-menu-icon">
+                        <i class="fas fa-bars menu-button" style="font-size:28px;"></i>
+                        <span class="dashboard">Dashboard</span>
+                    </div>
                 </nav>
                 <div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
                     @if (ViewData["DisplayScheduleForm"] != null)
@@ -87,5 +89,6 @@
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="~/js/sidebar.js"></script>
 </body>
 </html>
