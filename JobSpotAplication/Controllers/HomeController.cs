@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace JobSpotAplication.Controllers
@@ -25,6 +26,16 @@ namespace JobSpotAplication.Controllers
 
         public IActionResult Privacy()
         {
+            string userId = User.FindFirstValue(ClaimTypes.Name);
+
+            if (userId == "admin@admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            if(userId != null)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 
