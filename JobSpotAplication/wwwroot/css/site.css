@@ -121,18 +121,23 @@ a.navbar-brand {
     text-decoration: none;
 }
 
+.btn-primary {
+    font-family: proxima-nova, 'Rubik', sans-serif;
+    font-weight: 500;
+}
+
 /* Banner/Jumbotron */
 
 .jumbotron {
-    background-image: linear-gradient(to right, var(--purple-light), var(--purple-dark));
-    color: var(--grey-light);
-    border-radius: 24px;
+    background-image: linear-gradient(to right, var(--purple-regular), var(--purple-extra-light));
+    color: white;
+    border-radius: 10px;
     margin-bottom: 1rem;
 }
 
 .jumbotron .btn-primary {
-    background-color: var(--pink-regular);
-    border-color: var(--pink-dark);
+    background-color: var(--pink-dark);
+    border-color: var(--pink-regular);
     transition: transform 0.1s ease 0s;
 }
 
@@ -142,6 +147,20 @@ a.navbar-brand {
 
 /* Description/Features */
 
+.icon-bg {
+    background-color: var(--grey-extra-light);
+    height: 7rem;
+    width: 7rem;
+    border-radius: 7rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+
 hr .dark {
     width: 80%;
     margin-top: 0.5rem;
@@ -150,15 +169,11 @@ hr .dark {
 
 .description{
     background-color: #FFF;
-    border-radius: 24px 24px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .features {
-    border-radius: 0px 0px 24px 24px;
-}
-
-.icon-format {
-    padding-bottom: 15px;
+    border-radius: 0px 0px 10px 10px;
 }
 
 .fa-star {
@@ -170,7 +185,17 @@ hr .dark {
 }
 
 .fa-search {
-    color: var(--blue-dark);
+    color: var(--blue-regular);
+}
+
+/* Cards */
+
+.card-img-top {
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    overflow: hidden;
+    opacity: 0.5;
 }
 
 /* Footer */
