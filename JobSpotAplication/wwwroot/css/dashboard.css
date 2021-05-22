@@ -51,6 +51,10 @@ footer {
 .navbar {
     justify-content: normal;
     background: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
 }
 
 .search-form {
@@ -112,6 +116,21 @@ li span {
 
 nav {
   border-top: 50px;
+}
+
+.sidebar-menu-icon {
+    display: flex;
+    align-items: center;
+}
+
+.menu-label {
+    font-size: 28px;
+    padding-left: 20px;
+    font-weight: 400;
+}
+
+.menu-button {
+    cursor: pointer;
 }
 
 .nav-logo {
@@ -192,7 +211,7 @@ nav {
 }
 
 .sidebar .nav-sections {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 .sidebar .nav-sections li{
@@ -294,7 +313,7 @@ a.navbar-brand {
     background-color: var(--purple-regular);
 }
 
-.nav > li > a:focus, .nav > li > a:hover {
+.nav > li > a:focus, .nav > li > a:hover, .sidebar-active {
   text-decoration: none;
   background-color: var(--purple-regular);
   color: var(--grey-extra-light);
@@ -323,7 +342,7 @@ a.navbar-brand {
 }
 
 .padding {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 

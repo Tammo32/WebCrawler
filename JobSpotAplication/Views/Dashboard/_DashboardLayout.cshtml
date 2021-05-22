@@ -24,51 +24,50 @@
 	<script src="https://kit.fontawesome.com/11aafdac8b.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
 
-	@RenderBody()
 
-	<div class="container-fluid">
+    @RenderBody()
+
+    <div class="container-fluid">
         <div class="row">
             <nav class="d-md-block sidebar position-fixed">
                 <div class="nav-logo">
                     <a asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/logo.svg" alt="jobSpot logo">JobSpot</a>
                 </div>
-
-                <ul class="nav nav-sections flex-column">
+                <ul id="sidebar-nav" class="nav nav-sections flex-column">
                     <!--Test-->
-                    <li>
-                        <a id="JobSearch" asp-controller="Dashboard" asp-action="Index">
+                    <li class="sidebar-option">
+                        <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="sidebar-active">
                             <i class="fab fa-searchengin"></i>
                             <span class="nav-label">Search</span>
                         </a>
                     </li>
-                    <li>
-                        <a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch">
+                    <li class="sidebar-option">
+                        <a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="">
                             <i class="far fa-clock"></i>
                             <span class="nav-label">Scheduler</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li class="sidebar-option">
+                        <a href="# " class="">
                             <i class="fas fa-bookmark"></i>
                             <span class="nav-label">Favourites</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li class="sidebar-option">
+                        <a href="#" class="">
                             <i class="far fa-user-circle"></i>
                             <span class="nav-label">Manage Account</span>
                         </a>
                     </li>
                     <li class="nav-divider"></li>
-                    <li>
-                        <a href="#">
+                    <li class="sidebar-option">
+                        <a href="#" class="">
                             <i class="far fa-question-circle"></i>
                             <span class="nav-label">Help</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="sidebar-option">
                         <a href="#">
                             <i class="fas fa-sign-out-alt"></i>
                             <span class="nav-label">Sign Out</span>
@@ -77,37 +76,37 @@
                 </ul>
                 <!--EndTest-->
                 <!--
-        <li class="nav-divider"></li>
-        <li>
-            <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="btn btn-block"><i class="fab fa-searchengin fa-lg"></i><span>Search</span></a>
-        </li>
-        <li>
-            <a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="btn btn-block"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
-        </li>
-        <li>
-            <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
-        </li>
-        <li>
-            <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
-        </li>
-    </ul>
-    <ul class="nav flex-column mb-2">
-        <li class="nav-divider"></li>
-        <li>
-            <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
-        </li>
-        <li>
-            <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></a>
-        </li>
-    </ul>
-    -->
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="btn btn-block"><i class="fab fa-searchengin fa-lg"></i><span>Search</span></a>
+                    </li>
+                    <li>
+                        <a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="btn btn-block"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
+                    </li>
+                    <li>
+                        <a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
+                    </li>
+                    <li>
+                        <a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-divider"></li>
+                    <li>
+                        <a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
+                    </li>
+                    <li>
+                        <a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></a>
+                    </li>
+                </ul>
+                -->
             </nav>
-            
+
             <main class="dashboard-content" role="main">
                 <nav class="navbar top-nav position-relative sticky-top flex-md-nowrap">
                     <div class="sidebar-menu-icon">
                         <i class="fas fa-bars menu-button" style="font-size:28px;"></i>
-                        <span class="dashboard">Dashboard</span>
+                        <span class="menu-label">Dashboard</span>
                     </div>
                 </nav>
                 <div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom padding">
@@ -134,13 +133,28 @@
                 </div>
             </main>
         </div>
-	</div>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-	<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <script src="~/js/sidebar.js"></script>
+
+    <!-- Test for active menu
+    <script>
+        var sidebar = document.getElementById("sidebar-nav");
+        var options = document.getElementByClassName("sidebar-option");
+
+        for (var i = 0; i < options.length; i++) {
+            options[i].addEventListener("click", function ()) {
+                var current = document.getElementByClassName("active");
+                current[0].className = current[0].className.replace("active", "");
+                this.className += " active";
+            });
+        }
+    </script>
+    -->
 </body>
 </html>
