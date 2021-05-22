@@ -64,6 +64,11 @@ body {
     padding-left: 0px;
 }
 
+.container-fluid {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
 h1 {
     font-family: proxima-nova, sans-serif;
 }
