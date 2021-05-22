@@ -114,6 +114,29 @@ nav {
   border-top: 50px;
 }
 
+.nav-logo {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo .logo {
+    height: 28px;
+    min-width: 60px;
+    text-align: center;
+    margin-left: -9px;
+}
+
+.nav-logo a {
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
 .nav > li > p {
   position: relative;
   display: block;
@@ -121,10 +144,10 @@ nav {
 }
 
 .nav-divider {
-    height: 1px;
+    height: 1px !important;
     margin: 9px 0;
     overflow: hidden;
-    background-color: #e5e5e5
+    background-color: var(--purple-light);
 }
 
 .top-nav > a {
@@ -158,23 +181,64 @@ nav {
 
 
 .sidebar {
-  height: 100vh;
+  height: 100%;
   background-color: var(--purple-dark);
   transition: all 0.4s ease;
+  width: 240px;
 }
 
 .sidebar.active {
     width: 60px;
 }
 
-a > i {
-  padding: 8px;
+.sidebar .nav-sections {
+    margin-top: 20px;
 }
 
-.logo {
-  height: 50px;
-  width: 50px;
-  margin: 5px 10px 5px 10px;
+.sidebar .nav-sections li{
+    height: 50px;
+    width: 100%;
+    list-style: none;
+}
+
+.sidebar .nav-sections li a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sidebar .nav-sections li a i{
+    min-width: 60px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+
+.sidebar .nav-sections li a .nav-label{
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+    white-space: nowrap;
+}
+
+.dashboard-content {
+    position: relative;
+    min-height: 100vh;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.4s ease;
+    background-color: var(--blue-extra-light);
+}
+
+.sidebar.active ~ .dashboard-content {
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+a > i {
+  padding: 8px;
 }
 
 hr.dark {
@@ -259,7 +323,7 @@ a.navbar-brand {
 }
 
 .padding {
-    padding-bottom: 2rem;
+    padding: 2rem;
 }
 
 
@@ -386,9 +450,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-}
 .footer {
   position: absolute;
   bottom: 0;
