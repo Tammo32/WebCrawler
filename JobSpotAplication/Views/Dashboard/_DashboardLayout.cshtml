@@ -46,7 +46,7 @@
 							<a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
 						</li>
 						<li>
-							<a class="btn btn-block" href="https://jobspotaplication.azurewebsites.net/Identity/Account/Manage"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
+							<a class="btn btn-block" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
 						</li>
 					</ul>
 					<ul class="nav flex-column mb-2">
@@ -55,9 +55,7 @@
 							<a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
 						</li>
                         <li>
-                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                <button type="submit" class="btn btn-block">Sign Out</button>
-                            </form>
+                            <a class="btn btn-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><i class="far fa-question-circle fa-lg"></i><span>Sign Out</span></a>
                         </li>
 					</ul>
 				</div>

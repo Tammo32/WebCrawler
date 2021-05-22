@@ -21,21 +21,21 @@ namespace JobSpotAplication.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
             string userId = User.FindFirstValue(ClaimTypes.Name);
 
             if (userId == "admin@admin")
             {
                 return RedirectToAction("Index", "Admin");
             }
-            if(userId != null)
+            if (userId != null)
             {
                 return RedirectToAction("Index", "Dashboard");
             }
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
             return View();
         }
 
