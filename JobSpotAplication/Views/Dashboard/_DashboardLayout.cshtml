@@ -30,7 +30,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <nav class="d-md-block sidebar position-fixed">
+            <nav id="sidebar-nav" class="d-md-block sidebar position-fixed">
                 <div class="nav-logo">
                     <a asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/logo.svg" alt="jobSpot logo">JobSpot</a>
                 </div>
@@ -126,7 +126,7 @@
                         <div class="card-body">
                             <h5 class="card-title salary">$50,000 pa</h5>
                             <p class="card-text">Web developers design and build websites. They are typically responsible for the appearance, of the site and technical aspects, such as site speed and how much traffic the site can handle. Web developers may also create site content that requires technical features.</p>
-                            <a href="#" class="btn btn-primary text-right"><i class="fas fa-bookmark fa-lg"></i>Add to Favourites</a> <a href="#" class="btn btn-primary text-right">Go to Listing</a>
+                            <a href="#" class="btn btn-primary text-right">Go to Listing</a> <a href="#" class="btn btn-primary text-right">Add to Favourites</a> 
                         </div>
                     </div>
                     <!--EndTest-->
@@ -142,19 +142,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
     <script src="~/js/sidebar.js"></script>
 
-    <!-- Test for active menu
-    <script>
-        var sidebar = document.getElementById("sidebar-nav");
-        var options = document.getElementByClassName("sidebar-option");
 
-        for (var i = 0; i < options.length; i++) {
-            options[i].addEventListener("click", function ()) {
-                var current = document.getElementByClassName("active");
-                current[0].className = current[0].className.replace("active", "");
-                this.className += " active";
-            });
-        }
-    </script>
     -->
+    <!-- Test Script to dynamically adjust sidebar based on smaller screensizes-->
+    <script>
+        
+        function checkWidth() {
+            if ($(window).width() < 700) {
+                $('.sidebar').addClass('active');
+            } 
+        }
+
+        $(document).ready(checkWidth);
+        $(window).resize(checkWidth);
+    </script>
 </body>
 </html>
