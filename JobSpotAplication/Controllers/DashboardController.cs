@@ -21,19 +21,11 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
-		private readonly JobSpotAplicationContext _context;
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
 			_logger = logger;
 			_userManager = userManager;
-
-			var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
-		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
-		   .Options;
-
-			var context = new JobSpotAplicationContext(contextOptions);
-			_context = context;
 		}
 
 		public IActionResult Index()
