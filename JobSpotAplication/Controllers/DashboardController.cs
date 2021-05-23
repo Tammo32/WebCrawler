@@ -75,8 +75,10 @@ namespace JobSpotAplication.Controllers
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			db.SaveJobSearchQuery(userId, seekUrl);
-			db.SaveJobSearchQuery(userId, indeedUrl);
+			string jobSearchId = Guid.NewGuid().ToString();
+
+			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
+			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
 
 			return View("Index", new JobSearch());
 		}

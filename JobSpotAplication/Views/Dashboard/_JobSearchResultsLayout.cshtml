@@ -8,7 +8,15 @@
 			<h5 class="card-header">@job.Title | for @job.Company</h5>
 
 			<div class="card-body">
-				<h5 class="card-title salary">@job.Salary</h5>
+				<h5 class="card-title salary">@if (!String.IsNullOrEmpty(job.Salary))
+				{
+					job.Salary
+				}
+				else 
+				{
+					No salary details provided
+				}</h5>
+				@*<h5 class="card-title salary">@job.Salary</h5>*@
 				<p class="card-text">@job.Description</p>
 				<a href="#" class="btn btn-primary text-right"><i class="fas fa-bookmark fa-lg"></i>Add to Favourites</a> <a href="@job.Url" class="btn btn-primary text-right">Go to Listing</a>
 			</div>

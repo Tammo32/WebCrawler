@@ -108,12 +108,12 @@ namespace WebScraper.DataAccess
 			connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
 		}
 
-		public void SaveJobSearchQuery(string userId, string queryUrl)
+		public void SaveJobSearchQuery(string id, string userId, string queryUrl)
 		{
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
-				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@ID", id);
 				p.Add("@UserID", userId);
 				p.Add("@QueryUrl", queryUrl);
 				var result = connection.Execute("dbo.spUserJobSearchQueries_Insert", p, commandType: CommandType.StoredProcedure);
