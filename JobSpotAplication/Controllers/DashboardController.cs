@@ -8,7 +8,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using X.PagedList;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using WebScraper;
 using WebScraper.DataAccess;
 using WebScraper.Models;
@@ -21,6 +24,9 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
+		JobSpotAplicationContext DbConext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
+		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
+		   .Options);
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
@@ -50,11 +56,18 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult JobSearchResultsLayout()
+		public async Task<IActionResult> JobSearchResultsLayout(int? page = 1)
 		{
-			ViewData["DisplaySearchResultsLayout"] = true;
+			string userId = User.FindFirstValue(ClaimTypes.Name);
+			// Page the transactions, maximum of 4 per page.
+			const int pageSize = 4;
+			var pagedList = await DbConext.jobSearchResults.Where(x => x.UserID == userId).
+				ToPagedListAsync(page, pageSize);
+			//Make the account available to the view
+			ViewBag.JobSearchResultsLayout = await DbConext.Jobs.FindAsync(userId);
+			return View("Index", pagedList);
 
-			return View("Index", new JobSearchResults());
+			//return View("Index", new JobSearchResults());
 		}
 
 		[HttpPost]
