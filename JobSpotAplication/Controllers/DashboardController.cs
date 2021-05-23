@@ -99,6 +99,9 @@ namespace JobSpotAplication.Controllers
 			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
 			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
 
+			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
+			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
+
 			return View("Index", new JobSearch());
 		}
 
@@ -135,8 +138,8 @@ namespace JobSpotAplication.Controllers
 				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
-			ViewData["jobs"] = jobs;
-			return View("Index", new JobSearch());
+			ViewData["DisplayJobSearchResults"] = true;
+			return View("Index", jobs);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

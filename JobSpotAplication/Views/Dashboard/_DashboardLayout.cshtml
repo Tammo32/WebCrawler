@@ -64,20 +64,27 @@
 				</div>
 			</nav>
 			<main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
-                <div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
-                    @if (ViewData["DisplayScheduleForm"] != null)
-                    {
-                        <partial name="_ScheduleJobForm" />
-                    }
-                    else if (ViewData["DisplaySearchResultsLayout"] != null)
-                    {
-						<partial name="_JobSearchResults" />
-                    }
-                    else
-                    {
+				<div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
+					@if (ViewData["DisplayScheduleForm"] != null)
+					{
+						<partial name="_ScheduleJobForm" />
+					}
+					else if (ViewData["DisplayJobSearchResults"] != null)
+					{
+						<partial name="_JobSearchResultsLayout" />
+					}
+					else
+					{
 						<partial name="_SearchFormLayout" />
-                    }
-                </div>
+					}
+				</div>
+				<!-- Loading Spinner Demo -->
+				<div id="pageloader" class="lds-ellipsis">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</main>
 		</div>
 	</div>

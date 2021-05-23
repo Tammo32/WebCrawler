@@ -187,6 +187,38 @@ namespace WebScraper.DataAccess
 			return jobs;
 		}
 
+		public List<JobEntryModel> GetJobsByJobSearchResults(string jsrId, string userId)
+		{
+			List<JobEntryModel> jobs = new List<JobEntryModel>();
+			//using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			//{
+			//	var p = new DynamicParameters();
+			//	p.Add("@ID", jsrId);
+			//	p.Add("@UserID", userId);
+			//	var result = connection.Execute("dbo.spJobs_GetAllJobsByJobSearchResults", p, commandType: CommandType.StoredProcedure);
+			//}
+
+			var sql = 
+				"SELECT j.Title, j.Company, j.Availability, j.Description, j.Salary, j.Url FROM dbo.Jobs j " +
+				"INNER JOIN dbo.Jobs_JobSearchResults_Bridge jsrb ON jsrb.JobID = j.JobID " +
+				"INNER JOIN dbo.JobSearchResults jsr ON jsr.UserID = jsrb.UserID " +
+				"WHERE jsr.UserID = @userId AND jsr.ID = @jsrId";
+
+			var p = new DynamicParameters();
+			p.Add("@ID", jsrId);
+			p.Add("@UserID", userId);
+
+			using (var connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			{
+				var results = connection.Query<JobEntryModel>(sql, p);
+				foreach (var job in results)
+				{
+					jobs.Add(job);
+				}
+			}
+			return jobs;
+		}
+
 		public void SaveMultipleJobEntriesTransaction(List<JobEntryModel> jobs)
 		{
 

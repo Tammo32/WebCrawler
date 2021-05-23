@@ -3,9 +3,8 @@
 
 // Write your JavaScript code.
 
-$('#JobSearch').on('click', function (e) {
-    e.preventDefault();
-    $.get(this.href, function (html) {
-        $('#replace').html(html);
-    });
-});
+$(document).ready(function () {
+    $("#JobSearchForm").on("submit", function () {
+        $("#pageloader").addClass("display-loader");
+    }
+);
