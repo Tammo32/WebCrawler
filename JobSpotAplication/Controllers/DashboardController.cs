@@ -58,7 +58,7 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary)
+		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary, string Frequency)
 		{
 			SqlConnector db = new SqlConnector();
 			Dictionary<string, string> searchParams = new Dictionary<string, string>()
