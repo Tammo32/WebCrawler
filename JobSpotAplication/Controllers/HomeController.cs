@@ -1,11 +1,12 @@
-﻿using JobSpotAplication.Models;
+using JobSpotAplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace JobSpotAplication.Controllers
 {
@@ -17,9 +18,19 @@ namespace JobSpotAplication.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
+            string userId = User.FindFirstValue(ClaimTypes.Name);
+
+            if (userId == "admin@admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            if (userId != null)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
             return View();
         }
 

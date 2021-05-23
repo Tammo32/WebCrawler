@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Security.Claims;
+
 using System.Threading.Tasks;
 
 namespace JobSpotAplication.Services

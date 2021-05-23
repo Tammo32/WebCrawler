@@ -7,5 +7,6 @@ namespace JobSpotAplication.Services
 {
     public class WebScrapeSchedule
     {
+
     }
 }

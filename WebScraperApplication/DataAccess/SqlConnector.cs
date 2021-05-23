@@ -18,9 +18,10 @@ namespace WebScraper.DataAccess
 		/// </summary>
 		/// <param name="job">Job information</param>
 		/// <returns>The Job Entry information, including a unique identifier</returns>
+
 		public int SaveJobEntry(JobEntryModel job)
 		{
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
 				p.Add("@JobID", job.ID);
@@ -37,7 +38,7 @@ namespace WebScraper.DataAccess
 
 		public void SaveJobSearchResult(string userID, DateTime resultsDate)
 		{
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
 				p.Add("@ID", Guid.NewGuid().ToString());
@@ -49,8 +50,12 @@ namespace WebScraper.DataAccess
 
 		public void SaveJobsTransaction(List<JobEntryModel> jobs, string searchResultsId, string userID, DateTime resultsDate)
 		{
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			//using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
+
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
+				
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
 				{
@@ -105,7 +110,7 @@ namespace WebScraper.DataAccess
 
 		public void SaveJobSearchQuery(string userId, string queryUrl)
 		{
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
 				p.Add("@ID", Guid.NewGuid().ToString());

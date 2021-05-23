@@ -32,7 +32,7 @@ namespace JobSpotAplication.Data
 		public static string GetConnection()
 		{
 			var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-			var connectionString = configuration.GetConnectionString("DefaultConnection");
+			var connectionString = configuration.GetConnectionString("Local");
 			return connectionString;
 		}
 	}

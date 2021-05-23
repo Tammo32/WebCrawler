@@ -46,7 +46,7 @@
 							<a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
 						</li>
 						<li>
-							<a class="btn btn-block" href="#"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
+							<a class="btn btn-block" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
 						</li>
 					</ul>
 					<ul class="nav flex-column mb-2">
@@ -54,9 +54,11 @@
 						<li>
 							<a class="btn btn-block" href="#"><i class="far fa-question-circle fa-lg"></i><span>Help</span></a>
 						</li>
-						<li>
-							<a class="btn btn-block" href="#"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></a>
-						</li>
+                        <li>
+                            <form class="btn btn-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button type="submit"><i class="fas fa-sign-out-alt fa-lg"></i><span>Sign Out</span></button>
+                            </form>
+                        </li>
 					</ul>
 				</div>
 			</nav>
