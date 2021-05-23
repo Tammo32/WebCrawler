@@ -20,7 +20,7 @@ namespace JobSpotAplication.Controllers
     {
         
         ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer(GlobalConfig.ConnectionString("Default"))
+            .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
             .Options);
 
         public ActionResult Index()
@@ -80,7 +80,7 @@ namespace JobSpotAplication.Controllers
                 changedUser.SecurityStamp = user.SecurityStamp;
                 changedUser.ConcurrencyStamp = user.ConcurrencyStamp;
                 ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer(GlobalConfig.ConnectionString("Default"))
+                .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
                 .Options);
                 DbConext.Entry(changedUser).State = EntityState.Modified;
                 await DbConext.SaveChangesAsync();

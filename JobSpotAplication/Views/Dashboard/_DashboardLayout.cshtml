@@ -26,6 +26,7 @@
 <body>
 	<nav class="navbar top-nav sticky-top flex-md-nowrap p-0">
 		<a class="navbr-brandmr-0" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/logo.svg" alt="jobSpot logo">JobSpot - Dashboard</a>
+        <span style="color:white; margin-right:20px">Hello @User.Identity.Name!</span>
 	</nav>
 
 	@RenderBody()
@@ -43,7 +44,7 @@
 							<a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="btn btn-block"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
 						</li>
 						<li>
-							<a class="btn btn-block" href="#"><i class="fas fa-bookmark fa-lg"></i><span>Favourites</span></a>
+							<a class="btn btn-block" asp-controller="Dashboard" asp-action="JobSearchResultsLayout"><i class="fas fa-bookmark fa-lg"></i><span>My Jobs</span></a>
 						</li>
 						<li>
 							<a class="btn btn-block" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
@@ -63,16 +64,20 @@
 				</div>
 			</nav>
 			<main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
-				<div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
-					@if (ViewData["DisplayScheduleForm"] != null)
-					{
-						<partial name="_ScheduleJobForm" />
-					}
-					else
-					{
+                <div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom">
+                    @if (ViewData["DisplayScheduleForm"] != null)
+                    {
+                        <partial name="_ScheduleJobForm" />
+                    }
+                    else if (ViewData["DisplaySearchResultsLayout"] != null)
+                    {
+						<partial name="_JobSearchResultsLayout" />
+                    }
+                    else
+                    {
 						<partial name="_SearchFormLayout" />
-					}
-				</div>
+                    }
+                </div>
 			</main>
 		</div>
 	</div>

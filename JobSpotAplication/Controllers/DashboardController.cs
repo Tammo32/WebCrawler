@@ -36,6 +36,8 @@ namespace JobSpotAplication.Controllers
 
 		public IActionResult JobSearch()
 		{
+			ViewData["DisplaySearchForm"] = true;
+
 			return View(new JobSearch());
 		}
 
@@ -45,6 +47,14 @@ namespace JobSpotAplication.Controllers
 			ViewData["DisplayScheduleForm"] = true;
 			
 			return View("Index", new ScheduleViewModel());
+		}
+
+		[HttpGet]
+		public IActionResult JobSearchResultsLayout()
+		{
+			ViewData["DisplaySearchResultsLayout"] = true;
+
+			return View("Index", new JobSearchResults());
 		}
 
 		[HttpPost]
