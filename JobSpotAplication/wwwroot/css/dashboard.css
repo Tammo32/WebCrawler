@@ -260,8 +260,12 @@ a.navbar-brand {
 
 /*Loading Spinner - loading.io */
 
-.lds-ellipsis {
+.display-loader {
     display: inline-block;
+}
+
+.lds-ellipsis {
+    display: none;
     position: relative;
     width: 80px;
     height: 80px;

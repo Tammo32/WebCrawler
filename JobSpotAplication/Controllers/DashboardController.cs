@@ -102,8 +102,8 @@ namespace JobSpotAplication.Controllers
 				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
-			ViewData["jobs"] = jobs;
-			return View("Index", new JobSearch());
+			ViewData["DisplayJobSearchResults"] = true;
+			return View("Index", jobs);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

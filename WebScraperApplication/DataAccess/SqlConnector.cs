@@ -49,22 +49,17 @@ namespace WebScraper.DataAccess
 
 		public void SaveJobsTransaction(List<JobEntryModel> jobs, string searchResultsId, string userID, DateTime resultsDate)
 		{
-			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
-
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
 			{
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
 				{
-					var result = connection.Execute("dbo.spJobs_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
-
 					try
 					{
-						DynamicParameters p = new DynamicParameters();
-						p.Add("@ID", searchResultsId);
-						p.Add("@UserID", userID);
-						p.Add("@ResultsDate", resultsDate);
-						connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
+						InsertJobs(jobs, connection, trans);
+						InsertJobSearchResults(searchResultsId, userID, resultsDate, connection, trans);
+						InsertBridgeForJobSearchResultsAndJobs(jobs, userID, connection, trans);
+
 						trans.Commit();
 					}
 					catch (Exception e)
@@ -75,6 +70,37 @@ namespace WebScraper.DataAccess
 					connection.Close();
 				}
 			}
+		}
+
+		private static void InsertJobs(List<JobEntryModel> jobs, IDbConnection connection, IDbTransaction trans)
+		{
+			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
+			connection.Execute("dbo.spJobs_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
+		}
+
+		private static void InsertBridgeForJobSearchResultsAndJobs(List<JobEntryModel> jobs, string userID, IDbConnection connection, IDbTransaction trans)
+		{
+			List<DynamicParameters> parameters = new List<DynamicParameters>();
+
+			foreach (var job in jobs)
+			{
+				DynamicParameters p = new DynamicParameters();
+				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@JobID", job.ID);
+				p.Add("@UserID", userID);
+				parameters.Add(p);
+			}
+
+			connection.Execute("dbo.spJobsJobSearchResultsBridge_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
+		}
+
+		private static void InsertJobSearchResults(string searchResultsId, string userID, DateTime resultsDate, IDbConnection connection, IDbTransaction trans)
+		{
+			DynamicParameters p = new DynamicParameters();
+			p.Add("@ID", searchResultsId);
+			p.Add("@UserID", userID);
+			p.Add("@ResultsDate", resultsDate);
+			connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
 		}
 
 		public void SaveJobSearchQuery(string userId, string queryUrl)

@@ -66,10 +66,21 @@
 					{
 						<partial name="_ScheduleJobForm" />
 					}
+					else if (ViewData["DisplayJobSearchResults"] != null)
+					{
+						<partial name="_JobSearchResultsLayout" />
+					}
 					else
 					{
 						<partial name="_SearchFormLayout" />
 					}
+				</div>
+				<!-- Loading Spinner Demo -->
+				<div id="pageloader" class="lds-ellipsis">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
 			</main>
 		</div>
