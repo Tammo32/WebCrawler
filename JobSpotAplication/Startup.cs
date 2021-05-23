@@ -113,9 +113,10 @@ namespace JobSpotAplication
 
             
             EmailSchedule emailSchedule = new EmailSchedule();
+            WebScrapeSchedule scrapeSchedule = new WebScrapeSchedule();
 
             RecurringJob.AddOrUpdate("email", () => emailSchedule.ScheduleEmail(), Cron.Daily);
-            RecurringJob.AddOrUpdate("webscrape", () => Console.WriteLine(), Cron.Daily);
+            RecurringJob.AddOrUpdate("webscrape", () => scrapeSchedule.ScheduleScrape(), Cron.Daily);
 
             app.UseEndpoints(endpoints =>
             {
