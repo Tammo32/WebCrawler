@@ -70,11 +70,7 @@ namespace JobSpotAplication.Controllers
 
             if (ModelState.IsValid)
             {
-                if(changedUser.PasswordHash != user.PasswordHash)
-                {
-                    //Reset.123
-                    changedUser.PasswordHash = "AQAAAAEAACcQAAAAENtAuyIu3bGArYp4NY4QzZV3nEh3mDG8m3MwxcVHbu69BK9SxgULXkSKNQtE2c4bTg==";
-                }
+                changedUser.PasswordHash = user.PasswordHash;
                 changedUser.NormalizedEmail = user.NormalizedEmail;
                 changedUser.NormalizedUserName = user.NormalizedUserName;
                 changedUser.EmailConfirmed = user.EmailConfirmed;
