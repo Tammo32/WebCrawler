@@ -14,14 +14,10 @@ namespace WebScraper.WebScraper
 		public string JobCount { get; set; }
 
 		private readonly string _baseUrl;
-		private readonly Dictionary<string, string> _searchParams;
 		private List<JobEntryModel> _entries;
 
-		// TODO - Complete method
 		public List<JobEntryModel> ScrapeMultipleJobs()
 		{
-			//HtmlDocument doc = LoadHtmlDocument();
-			//ScrapeJobs(doc);
 			while (String.IsNullOrWhiteSpace(Url) == false)
 			{
 				HtmlDocument doc = LoadHtmlDocument();
@@ -54,10 +50,14 @@ namespace WebScraper.WebScraper
 
 		private void ScrapeJobs(HtmlDocument doc)
 		{
-			string id = "", title = "", company = "", url = "", location = "", description = "", datePosted = "";
-			string availability = _searchParams["availability"];
+			string id = "", title = "", company = "", url = "", location = "", description = "", datePosted = "", availability = "";
 			string salary = "";
-			JobCount = doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']").InnerText;
+			
+			if ((doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']")) != null)
+			{
+				JobCount = doc.DocumentNode.SelectSingleNode(".//div[@id = 'searchCountPages']").InnerText;
+			}
+			
 			IEnumerable<HtmlNode> jobs = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("jobsearch-SerpJobCard"));
 
 			foreach (HtmlNode node in jobs)
@@ -136,7 +136,7 @@ namespace WebScraper.WebScraper
 		{
 			string url = "jobs?q=";
 			string title = "", location = "", dateRange = "";
-			if (searchParams.ContainsKey("title"))
+			if (searchParams.ContainsKey("title") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("title", "")))
 			{
 				var titleArray = searchParams["title"].Split(" ");
 				title = string.Join("+", titleArray);
@@ -151,7 +151,7 @@ namespace WebScraper.WebScraper
 				}
 			}
 
-			if (searchParams.ContainsKey("location"))
+			if (searchParams.ContainsKey("location") && !String.IsNullOrWhiteSpace(searchParams.GetValueOrDefault("location", "")))
 			{
 				var locationArray = searchParams["location"].Split(" ");
 				location = string.Join("+", locationArray);
@@ -195,14 +195,6 @@ namespace WebScraper.WebScraper
 			_baseUrl = "https://au.indeed.com/";
 			_entries = new List<JobEntryModel>();
 			Url = _baseUrl + url;
-		}
-
-		public IndeedWebScraperModel(string url, Dictionary<string, string> searchParams)
-		{
-			_baseUrl = "https://au.indeed.com/";
-			_entries = new List<JobEntryModel>();
-			Url = _baseUrl + url;
-			_searchParams = searchParams;
 		}
 	}
 }

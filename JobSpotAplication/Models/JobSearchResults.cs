@@ -13,7 +13,7 @@ namespace JobSpotAplication.Models
         public string ID { get; set; }
         [ForeignKey("AspNetUser")]
         public string UserID { get; set; }
-        public string ResultsDate { get; set; }
+        public DateTime ResultsDate { get; set; }
 
     }
 }

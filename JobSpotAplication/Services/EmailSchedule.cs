@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WebScraper;
 using static JobSpotAplication.Models.UserPreferences;
 
+
 namespace JobSpotAplication.Services
 {
     public class EmailSchedule

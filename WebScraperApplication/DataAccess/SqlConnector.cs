@@ -18,9 +18,10 @@ namespace WebScraper.DataAccess
 		/// </summary>
 		/// <param name="job">Job information</param>
 		/// <returns>The Job Entry information, including a unique identifier</returns>
+
 		public int SaveJobEntry(JobEntryModel job)
 		{
-			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("Local")))
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
 				p.Add("@JobID", job.ID);
@@ -33,6 +34,81 @@ namespace WebScraper.DataAccess
 				var result = connection.Execute("dbo.spJobs_Insert", p, commandType: CommandType.StoredProcedure);
 				return result;
 			}
+		}
+
+		public void SaveJobSearchResult(string userID, DateTime resultsDate)
+		{
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			{
+				var p = new DynamicParameters();
+				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@UserID", userID);
+				p.Add("@ResultsDate", resultsDate);
+				var result = connection.Execute("dbo.spJobSearchResults_Insert", p, commandType: CommandType.StoredProcedure);
+			}
+		}
+
+		public void SaveJobsTransaction(List<JobEntryModel> jobs, string searchResultsId, string userID, DateTime resultsDate)
+		{
+			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
+
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			{
+				
+				connection.Open();
+				using (var trans = connection.BeginTransaction())
+				{
+					var result = connection.Execute("dbo.spJobs_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
+
+					try
+					{
+						DynamicParameters p = new DynamicParameters();
+						p.Add("@ID", searchResultsId);
+						p.Add("@UserID", userID);
+						p.Add("@ResultsDate", resultsDate);
+						connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
+						trans.Commit();
+					}
+					catch (Exception e)
+					{
+						Console.WriteLine($"Error: { e.Message }");
+						trans.Rollback();
+					}
+					connection.Close();
+				}
+			}
+		}
+
+		public void SaveJobSearchQuery(string userId, string queryUrl)
+		{
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			{
+				var p = new DynamicParameters();
+				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@UserID", userId);
+				p.Add("@QueryUrl", queryUrl);
+				var result = connection.Execute("dbo.spUserJobSearchQueries_Insert", p, commandType: CommandType.StoredProcedure);
+			}
+		}
+
+		private static List<DynamicParameters> SetDynamicParametersForSaveJobsTransaction(List<JobEntryModel> jobs)
+		{
+			List<DynamicParameters> parameters = new List<DynamicParameters>();
+
+			foreach (var job in jobs)
+			{
+				DynamicParameters p = new DynamicParameters();
+				p.Add("@JobID", job.ID);
+				p.Add("@Title", job.Title);
+				p.Add("@Company", job.Company);
+				p.Add("@Description", job.Description);
+				p.Add("@Availability", job.Availability);
+				p.Add("@Url", job.Url);
+				p.Add("@Salary", job.Salary);
+				parameters.Add(p);
+			}
+
+			return parameters;
 		}
 
 		/// <summary>
@@ -48,6 +124,11 @@ namespace WebScraper.DataAccess
 					var result = db.SaveJobEntry(job);
 				}
 			 }
+		}
+
+		public void SaveMultipleJobEntriesTransaction(List<JobEntryModel> jobs)
+		{
+
 		}
 	}
 }

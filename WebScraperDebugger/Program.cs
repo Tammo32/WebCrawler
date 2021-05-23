@@ -33,7 +33,7 @@ namespace WebScraperDebugger
 		private static void ScrapeSeek(Dictionary<string, string> searchParams)
 		{
 			var url = SeekWebScraperModel.BuildUrl(searchParams);
-			IWebScraper seekScraper = new SeekWebScraperModel(url, searchParams);
+			IWebScraper seekScraper = new SeekWebScraperModel(url);
 			var watch = System.Diagnostics.Stopwatch.StartNew();
 			List<JobEntryModel> seekJobs = seekScraper.ScrapeMultipleJobs();
 			watch.Stop();
@@ -48,7 +48,8 @@ namespace WebScraperDebugger
 			}
 
 			// Save jobs to database
-			new SqlConnector().SaveMultipleJobEntries(seekJobs);
+			var db = new SqlConnector();
+			db.SaveJobsTransaction(seekJobs, Guid.NewGuid().ToString(), "2ca67394-19dd-4cd6-9056-ad957d93346f", DateTime.UtcNow);
 
 			Debug.Print($"\n\nNext-Page: { (seekScraper.NextPage != null ? seekScraper.NextPage : "No more Jobs") }\n");
 		}
@@ -56,7 +57,7 @@ namespace WebScraperDebugger
 		private static void ScrapeIndeed(Dictionary<string, string> searchParams)
 		{
 			var url = IndeedWebScraperModel.BuildUrl(searchParams);
-			IWebScraper indeedScraper = new IndeedWebScraperModel(url, searchParams);
+			IWebScraper indeedScraper = new IndeedWebScraperModel(url);
 			List<JobEntryModel> indeedJobs = indeedScraper.ScrapeMultipleJobs();
 			var counter = 1;
 			
@@ -70,7 +71,8 @@ namespace WebScraperDebugger
 			Debug.Print($"{ indeedScraper.JobCount }");
 
 			// Save jobs to database
-			new SqlConnector().SaveMultipleJobEntries(indeedJobs);
+			var db = new SqlConnector();
+			db.SaveJobsTransaction(indeedJobs, Guid.NewGuid().ToString(), "2ca67394-19dd-4cd6-9056-ad957d93346f", DateTime.UtcNow);
 		}
 	}
 }
