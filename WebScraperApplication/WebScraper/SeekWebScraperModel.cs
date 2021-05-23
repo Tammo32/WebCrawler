@@ -71,11 +71,23 @@ namespace WebScraper.WebScraper
 						{
 							company = node.InnerText;
 						}
+						if (node.GetAttributeValue("data-automation", "") == "jobSalary")
+						{
+							startingSalary = node.FirstChild.InnerText;
+						}
 					}
 					var description = HttpUtility.HtmlDecode(job.SelectSingleNode(".//span[@class = '_2OKR1ql']").InnerText);
 
 					_entries.Add(new SeekJobEntryModel(id, title, company, description, $"https://seek.com.au/{url}",
 						availability, startingSalary, endingSalary));
+
+					id = "";
+					title = "";
+					url = "";
+					id = "";
+					company = "";
+					description = "";
+					startingSalary = "";
 				}
 			}
 		}

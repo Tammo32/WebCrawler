@@ -75,8 +75,10 @@ namespace JobSpotAplication.Controllers
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			db.SaveJobSearchQuery(userId, seekUrl);
-			db.SaveJobSearchQuery(userId, indeedUrl);
+			string jobSearchId = Guid.NewGuid().ToString();
+
+			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
+			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
 
 			return View("Index", new JobSearch());
 		}
@@ -111,25 +113,11 @@ namespace JobSpotAplication.Controllers
 			// Save jobs to database if results returned
 			if (jobs.Count > 0)
 			{
-				var j = jobs.ToArray();
-				for (var x=0; x<j.Length; x++)
-				{
-					var job = j[x];
-					if (_context.Jobs.Find(job.ID) != null)
-					{
-						jobs.Remove(job);
-					}
-
-					//if job exists in database - parameters.remove(job);
-				}
-				if (jobs.Count > 0)
-				{
-					db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
-				}
+				db.SaveJobsTransaction(jobs, Guid.NewGuid().ToString(), userId, DateTime.UtcNow);
 			}
 
-			ViewData["jobs"] = jobs;
-			return View("Index", new JobSearch());
+			ViewData["DisplayJobSearchResults"] = true;
+			return View("Index", jobs);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
