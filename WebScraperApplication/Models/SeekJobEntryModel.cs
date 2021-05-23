@@ -28,7 +28,7 @@ namespace WebScraper.Models
 			Availability = availability;
 			StartingSalary = startingSalary;
 			EndingSalary = endingSalary;
-			Salary = "$" + startingSalary + " - $" + endingSalary;
+			Salary = startingSalary;
 		}
 
 		public override string BriefJobDetails()
