@@ -50,23 +50,21 @@ namespace WebScraper.DataAccess
 
 		public void SaveJobsTransaction(List<JobEntryModel> jobs, string searchResultsId, string userID, DateTime resultsDate)
 		{
+			//using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
 
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
-				
+
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
 				{
-					var result = connection.Execute("dbo.spJobs_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
-
 					try
 					{
-						DynamicParameters p = new DynamicParameters();
-						p.Add("@ID", searchResultsId);
-						p.Add("@UserID", userID);
-						p.Add("@ResultsDate", resultsDate);
-						connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
+						InsertJobs(jobs, connection, trans);
+						InsertJobSearchResults(searchResultsId, userID, resultsDate, connection, trans);
+						InsertBridgeForJobSearchResultsAndJobs(jobs, userID, connection, trans);
+
 						trans.Commit();
 					}
 					catch (Exception e)
@@ -79,12 +77,43 @@ namespace WebScraper.DataAccess
 			}
 		}
 
-		public void SaveJobSearchQuery(string userId, string queryUrl)
+		private static void InsertJobs(List<JobEntryModel> jobs, IDbConnection connection, IDbTransaction trans)
+		{
+			List<DynamicParameters> parameters = SetDynamicParametersForSaveJobsTransaction(jobs);
+			connection.Execute("dbo.spJobs_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
+		}
+
+		private static void InsertBridgeForJobSearchResultsAndJobs(List<JobEntryModel> jobs, string userID, IDbConnection connection, IDbTransaction trans)
+		{
+			List<DynamicParameters> parameters = new List<DynamicParameters>();
+
+			foreach (var job in jobs)
+			{
+				DynamicParameters p = new DynamicParameters();
+				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@JobID", job.ID);
+				p.Add("@UserID", userID);
+				parameters.Add(p);
+			}
+
+			connection.Execute("dbo.spJobsJobSearchResultsBridge_Insert", parameters, transaction: trans, commandType: CommandType.StoredProcedure);
+		}
+
+		private static void InsertJobSearchResults(string searchResultsId, string userID, DateTime resultsDate, IDbConnection connection, IDbTransaction trans)
+		{
+			DynamicParameters p = new DynamicParameters();
+			p.Add("@ID", searchResultsId);
+			p.Add("@UserID", userID);
+			p.Add("@ResultsDate", resultsDate);
+			connection.Execute("dbo.spJobSearchResults_Insert", p, transaction: trans, commandType: CommandType.StoredProcedure);
+		}
+
+		public void SaveJobSearchQuery(string id, string userId, string queryUrl)
 		{
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
 				var p = new DynamicParameters();
-				p.Add("@ID", Guid.NewGuid().ToString());
+				p.Add("@ID", id);
 				p.Add("@UserID", userId);
 				p.Add("@QueryUrl", queryUrl);
 				var result = connection.Execute("dbo.spUserJobSearchQueries_Insert", p, commandType: CommandType.StoredProcedure);
@@ -123,7 +152,39 @@ namespace WebScraper.DataAccess
 				{
 					var result = db.SaveJobEntry(job);
 				}
-			 }
+			}
+		}
+
+		public List<JobEntryModel> GetJobsByJobSearchResults(string jsrId, string userId)
+		{
+			List<JobEntryModel> jobs = new List<JobEntryModel>();
+			//using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			//{
+			//	var p = new DynamicParameters();
+			//	p.Add("@ID", jsrId);
+			//	p.Add("@UserID", userId);
+			//	var result = connection.Execute("dbo.spJobs_GetAllJobsByJobSearchResults", p, commandType: CommandType.StoredProcedure);
+			//}
+
+			var sql =
+				"SELECT j.Title, j.Company, j.Availability, j.Description, j.Salary, j.Url FROM dbo.Jobs j " +
+				"INNER JOIN dbo.Jobs_JobSearchResults_Bridge jsrb ON jsrb.JobID = j.JobID " +
+				"INNER JOIN dbo.JobSearchResults jsr ON jsr.UserID = jsrb.UserID " +
+				"WHERE jsr.UserID = @userId AND jsr.ID = @jsrId";
+
+			var p = new DynamicParameters();
+			p.Add("@ID", jsrId);
+			p.Add("@UserID", userId);
+
+			using (var connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
+			{
+				var results = connection.Query<JobEntryModel>(sql, p);
+				foreach (var job in results)
+				{
+					jobs.Add(job);
+				}
+			}
+			return jobs;
 		}
 
 		public void SaveMultipleJobEntriesTransaction(List<JobEntryModel> jobs)

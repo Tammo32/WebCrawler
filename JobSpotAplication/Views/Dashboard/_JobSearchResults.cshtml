@@ -1,20 +1,4 @@
-﻿@using X.PagedList
-@using X.PagedList.Mvc.Core
-@model IPagedList<Jobs>
-<!-- Search Result Demo -->
-
-@foreach (var Job in Model)
-{
-    <div class="card col-12">
-        <h5 class="card-header">@Job.Title</h5>
-
-        <div class="card-body">
-            <h5 class="card-title salary">@Job.Salary</h5>
-            <p class="card-text">@Job.Description</p>
-            <a href="@Job.Url" class="btn btn-primary text-right"><i class="fas fa-bookmark fa-lg"></i>Add to Favourites</a> <a href="#" class="btn btn-primary text-right">Go to Listing</a>
-        </div>
-    </div>
-}
+﻿
 <div class="card col-12">
     <h5 class="card-header">Job Result Title</h5>
 

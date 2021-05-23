@@ -44,7 +44,7 @@
 							<a id="Scheduler" asp-controller="Dashboard" asp-action="ScheduleJobSearch" class="btn btn-block"><i class="far fa-clock fa-lg"></i><span>Scheduling</span></a>
 						</li>
 						<li>
-							<a class="btn btn-block" asp-controller="Dashboard" asp-action="DisplaySearchResultsLayout"><i class="fas fa-bookmark fa-lg"></i><span>My Jobs</span></a>
+							<a class="btn btn-block" asp-controller="Dashboard" asp-action="JobSearchResults"><i class="fas fa-bookmark fa-lg"></i><span>My Jobs</span></a>
 						</li>
 						<li>
 							<a class="btn btn-block" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="far fa-user-circle fa-lg"></i><span>Manage Account</span></a>
@@ -71,7 +71,7 @@
                     }
                     else if (ViewData["DisplaySearchResultsLayout"] != null)
                     {
-						<partial name="_JobSearchResultsLayout" />
+						<partial name="_JobSearchResults" />
                     }
                     else
                     {

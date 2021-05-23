@@ -24,9 +24,10 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
-		JobSpotAplicationContext DbConext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
+		JobSpotAplicationContext DbContext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
 		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
 		   .Options);
+		private string jobSearchId = "bb077f00-be48-406b-87c9-9a0d3f0a57dd";
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
@@ -56,15 +57,18 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> JobSearchResultsLayout(int? page = 1)
+		public async Task<IActionResult> JobSearchResults(int? page = 1)
 		{
-			string userId = User.FindFirstValue(ClaimTypes.Name);
+			
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			//jobSearchId = DbContext.jobSearchResults.Find().ID.Where(DbContext.jobSearchResults.Find("bb077f00-be48-406b-87c9-9a0d3f0a57dd") == userId);
 			// Page the transactions, maximum of 4 per page.
-			const int pageSize = 4;
-			var pagedList = await DbConext.jobSearchResults.Where(x => x.UserID == userId).
-				ToPagedListAsync(page, pageSize);
+			const int pageSize = 10;
+
+			var pagedList = new SqlConnector().GetJobsByJobSearchResults( "bb077f00-be48-406b-87c9-9a0d3f0a57dd" , userId).ToPagedListAsync((int)page, pageSize);
+
 			//Make the account available to the view
-			ViewBag.JobSearchResultsLayout = await DbConext.Jobs.FindAsync(userId);
+			ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
 			return View("Index", pagedList);
 
 			//return View("Index", new JobSearchResults());
@@ -90,8 +94,10 @@ namespace JobSpotAplication.Controllers
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			db.SaveJobSearchQuery(userId, seekUrl);
-			db.SaveJobSearchQuery(userId, indeedUrl);
+			jobSearchId = Guid.NewGuid().ToString();
+
+			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
+			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
 
 			return View("Index", new JobSearch());
 		}
