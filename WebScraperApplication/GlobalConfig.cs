@@ -33,7 +33,7 @@ namespace WebScraper
 					return "Server=tcp:jobspot1.database.windows.net,1433;Database=coreDB;User ID=user1;Password=Password123;Encrypt=true;Connection Timeout=30;";
 				//if (name == "JobSpotAplicationContextConnection")
 				//	return "Server=(localdb)\\mssqllocaldb;Database=JobSpotAplication;Trusted_Connection=True;MultipleActiveResultSets=true";
-			}
+			  }
 			catch (Exception e)
 			{
 				throw new ConnectionStringNotFoundException($"The connection string you requested does not exist.\n\n{e.Message}");

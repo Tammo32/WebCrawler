@@ -105,7 +105,10 @@ namespace JobSpotAplication
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { new AuthFilter() }
+            });
             app.UseHangfireServer();
 
             
