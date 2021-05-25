@@ -57,7 +57,7 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> JobSearchResults(int? page = 1)
+		public async Task<IActionResult> JobResults(int? page = 1)
 		{
 			
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -65,13 +65,13 @@ namespace JobSpotAplication.Controllers
 			// Page the transactions, maximum of 4 per page.
 			const int pageSize = 10;
 
-			//var pagedList = new SqlConnector().GetJobsByJobSearchResults( "bb077f00-be48-406b-87c9-9a0d3f0a57dd" , userId).ToPagedListAsync((int)page, pageSize);
+			var pagedList = new SqlConnector().GetJobsByJobSearchResults( "bb077f00-be48-406b-87c9-9a0d3f0a57dd" , userId).ToPagedListAsync((int)page, pageSize);
 
 			//Make the account available to the view
-			//ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
-			//return View("Index", pagedList);
+			ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
+			return View("Index", pagedList);
 
-			return View("Index", new JobSearchResults());
+			//return View("Index", new JobResults());
 		}
 
 		[HttpPost]
