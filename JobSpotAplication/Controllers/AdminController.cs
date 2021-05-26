@@ -19,7 +19,7 @@ namespace JobSpotAplication.Controllers
     public class AdminController : Controller
     {
         
-        ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
+        ApplicationDbContext DbContext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
             .Options);
 
@@ -31,7 +31,8 @@ namespace JobSpotAplication.Controllers
             {
                 return Redirect("/Home/Privacy");
             }
-            return View(DbConext.Users.ToList());
+            DbContext.Dispose();
+            return View(DbContext.Users.ToList());
         }
 
         public ActionResult Details(string id)
@@ -40,11 +41,12 @@ namespace JobSpotAplication.Controllers
             {
                 return View(new ErrorViewModel { RequestId = "The user ID is invalid" });
             }
-            var user = DbConext.Users.Find(id);
+            var user = DbContext.Users.Find(id);
             if (user == null)
             {
                 return View(new ErrorViewModel { RequestId = "The user ID is invalid" });
             }
+            DbContext.Dispose();
             return View(user);
         }
 
@@ -54,11 +56,12 @@ namespace JobSpotAplication.Controllers
             {
                 return View(new ErrorViewModel { RequestId = "The user ID is invalid" });
             }
-            var user = DbConext.Users.Find(id);
+            var user = DbContext.Users.Find(id);
             if (user == null)
             {
                 return View(new ErrorViewModel { RequestId = "The user ID is invalid" });
             }
+            DbContext.Dispose();
             return View(user);
         }
 
@@ -66,7 +69,7 @@ namespace JobSpotAplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IdentityUser changedUser)
         {
-            var user = await DbConext.Users.FindAsync(changedUser.Id);
+            var user = await DbContext.Users.FindAsync(changedUser.Id);
 
             if (ModelState.IsValid)
             {
@@ -79,11 +82,12 @@ namespace JobSpotAplication.Controllers
                 changedUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
                 changedUser.SecurityStamp = user.SecurityStamp;
                 changedUser.ConcurrencyStamp = user.ConcurrencyStamp;
-                ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
-                .Options);
-                DbConext.Entry(changedUser).State = EntityState.Modified;
-                await DbConext.SaveChangesAsync();
+                //ApplicationDbContext DbConext = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>()
+                //.UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
+                //.Options);
+                DbContext.Entry(changedUser).State = EntityState.Modified;
+                await DbContext.SaveChangesAsync();
+                DbContext.Dispose();
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

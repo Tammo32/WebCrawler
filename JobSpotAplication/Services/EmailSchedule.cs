@@ -3,6 +3,7 @@ using JobSpotAplication.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebScraper;
@@ -13,50 +14,61 @@ namespace JobSpotAplication.Services
 {
     public class EmailSchedule
     {
-        private readonly JobSpotAplicationContext _context;
-
         public EmailSchedule()
         {
+
+        }
+
+        public void ScheduleEmail()
+        {
+            
             var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
             .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
             .Options;
 
             var context = new JobSpotAplicationContext(contextOptions);
-            _context = context;
-        }
-
-        public void ScheduleEmail()
-        {
+           
             var emailFrequencies = Enum.GetValues(typeof(Frequency));
 
-            //Loop throught the user defined email preference list 
-            foreach (Frequency frequency in emailFrequencies)
+
+            try
             {
-                //For any preferences that match the current position in the emun
-                foreach (UserPreferences user in _context.UserPreferences)
+                //Loop throught the user defined email preference list 
+                foreach (Frequency frequency in emailFrequencies)
                 {
-                    var userCount = UserCount(user, frequency);
-                    if (user.EmailFrequency == frequency && userCount)
+
+                    //For any preferences that match the current position in the emun
+                    foreach (UserPreferences user in context.UserPreferences)
                     {
-                        foreach (JobSearchResults results in _context.jobSearchResults)
+                        var userCount = UserCount(context, user, frequency);
+                        if (user.EmailFrequency == frequency && userCount)
                         {
-                            if (user.UserID == results.UserID && results.ResultsDate != null)
+                            foreach (JobSearchResults results in context.jobSearchResults)
                             {
-                                var auth = new AuthMessageSenderOptions();
-                                var email = new EmailSender(auth);
-                                var userID = user.UserID;
-                                var emailUser = _context.Users.FindAsync(userID);
-                                var address = emailUser.Result.Email;
-                                email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
-                                return;
-                            } 
+                                if (user.UserID == results.UserID && results.ResultsDate != null)
+                                {
+                                    var auth = new AuthMessageSenderOptions();
+                                    var email = new EmailSender(auth);
+                                    var userID = user.UserID;
+                                    var emailUser = context.Users.FindAsync(userID);
+                                    var address = emailUser.Result.Email;
+                                    email.SendEmailAsync(address, "You have jobs to views", "Time to start applying!");
+                                    context.Dispose();
+                                    return;
+                                }
+                            }
                         }
                     }
                 }
             }
+            catch
+            {
+                context.Dispose();
+                return;
+            }    
         }
 
-        private bool UserCount(UserPreferences user, Frequency frequency)
+        private bool UserCount(JobSpotAplicationContext context, UserPreferences user, Frequency frequency)
         {
             if (user.EmailFrequency == frequency)
             {
@@ -68,14 +80,14 @@ namespace JobSpotAplication.Services
                 if (user.EmailFrequency == Frequency.Weekly && user.EmailDay == 7)
                 {
                     user.EmailDay = 1;
-                    _context.SaveChangesAsync();
+                    context.SaveChangesAsync();
                     return true;
                 }
 
                 if (user.EmailFrequency == Frequency.Monthly && user.EmailDay == 30)
                 {
                     user.EmailDay = 1;
-                    _context.SaveChangesAsync();
+                    context.SaveChangesAsync();
                     return true;
                 }
             }

@@ -57,7 +57,7 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> JobResults(int? page = 1)
+		public IActionResult MyJobs(int? page = 1)
 		{
 			
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -68,7 +68,8 @@ namespace JobSpotAplication.Controllers
 			var pagedList = new SqlConnector().GetJobsByJobSearchResults( jobSearchId , userId).ToPagedListAsync((int)page, pageSize);
 
 			//Make the account available to the view
-			ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
+			//ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
+			ViewData["MyJobs"] = true;
 			DbContext.Dispose();
 			return View("Index", pagedList);
 
