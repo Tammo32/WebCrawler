@@ -165,7 +165,6 @@ a.navbar-brand {
     margin-bottom: 15px;
 }
 
-
 hr .dark {
     width: 80%;
     margin-top: 0.5rem;
@@ -193,7 +192,19 @@ hr .dark {
     color: var(--blue-regular);
 }
 
-/* Cards */
+/* Privacy Page */
+
+.privacy-body {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+.privacy-body h4 {
+    margin-top: 28px;
+}
+
+/* About Cards */
 
 .card-img-top {
     width: 150px;
@@ -537,7 +548,3 @@ button.btn-primary {
     button.btn-primary[value=Twitter] {
         background-color: var(--twitter-blue);
     }
-
-
-/* Styling for Dashboard"
- -------------------------------------------------- */
