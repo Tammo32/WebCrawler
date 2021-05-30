@@ -96,7 +96,13 @@ namespace WebScraper.WebScraper
 
 				_entries.Add(new IndeedJobEntryModel(id, title, company, description, $"https://au.indeed.com{url}",
 					availability, datePosted, salary));
+				id = "";
+				title = "";
+				url = "";
+				id = "";
+				company = "";
 				description = "";
+				salary = "";
 			}
 		}
 

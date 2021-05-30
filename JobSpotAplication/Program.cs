@@ -14,7 +14,7 @@ namespace JobSpotAplication
             //DatabaseManager.CreateTables();
             //DatabaseManager.InsertDummyData("DummyInserts_Craig.sql");
 
-            // Initialize data connections and set connection to sql db
+            //Initialize data connections and set connection to sql db
             GlobalConfig.InitializeConnections(true);
 
             CreateHostBuilder(args).Build().Run();
