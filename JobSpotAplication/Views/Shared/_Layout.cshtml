@@ -14,7 +14,7 @@
 <body>
     <div class="content">
         <header class="header">
-            <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom mb-3">
                 <div class="container">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/jobspot_logo.svg" />JobSpot</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,10 +27,7 @@
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">About</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="Dashboard" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
@@ -64,7 +61,7 @@
                 <div class="col-md-6">
                     <hr class="light" />
                     <p><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></p>
-                    <p><a asp-area="" asp-controller="" asp-action="">About</a></p>
+                    <p><a asp-area="" asp-controller="Home" asp-action="About">About</a></p>
                     <p><a asp-area="Identity" asp-page="/Account/Register">Register</a></p>
                     <p><a asp-area="Identity" asp-page="/Account/Login">Login</a></p>
                 </div>
