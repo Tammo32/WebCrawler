@@ -24,10 +24,7 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
-		JobSpotAplicationContext DbContext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
-		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
-		   .Options);
-		private string jobSearchId = "bb077f00-be48-406b-87c9-9a0d3f0a57dd";
+		private List<Jobs> jobList = null;
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
@@ -57,26 +54,71 @@ namespace JobSpotAplication.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult MyJobs(int? page = 1)
+		public async Task<IActionResult> MyJobs(int? page = 1)
 		{
-			
-			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			//jobSearchId = DbContext.jobSearchResults.Find().ID.Where(DbContext.jobSearchResults.Find("bb077f00-be48-406b-87c9-9a0d3f0a57dd") == userId);
-			// Page the transactions, maximum of 4 per page.
-			const int pageSize = 10;
+			// Page the transactions, maximum of 10 per page.
+			const int pageSize = 4;
 
-			var pagedList = new SqlConnector().GetJobsByJobSearchResults( jobSearchId , userId).ToPagedListAsync((int)page, pageSize);
+			if(jobList != null)
+            {
+				var List = await jobList.ToPagedListAsync((int)page, pageSize);
+
+				//Make the account available to the view
+				ViewData["MyJobs"] = true;
+				return View("Index", List);
+			}
+
+			JobSpotAplicationContext DbContext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
+		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
+		   .Options);
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			
+			List<BridgeData> bridgeList = new List<BridgeData>();
+			//Unable to nest the foreach loops, getting the error "context already exists". Work around was to create a 
+			//list of the bridge data and then loop through that.
+			foreach (Jobs_JobSearchResults_Bridge bridgeJob in DbContext.Jobs_JobSearchResults_Bridge)
+            {
+				if(bridgeJob.UserID == userId)
+                {
+					var jobs = new BridgeData();
+					jobs.JobID = bridgeJob.JobID;
+					jobs.UserID = bridgeJob.UserID;
+					bridgeList.Add(jobs);		
+                }
+            }
+			var distinctBridgeList = bridgeList.Distinct().ToList();
+
+
+			jobList = new List<Jobs>();
+			foreach (BridgeData bridgeListJob in distinctBridgeList)
+            {
+
+				foreach (Jobs jobs in DbContext.Jobs)
+				{
+					if (jobs.JobID == bridgeListJob.JobID)
+					{
+						jobList.Add(jobs);
+					}
+				}
+			}
+			DbContext.Dispose();
+			var pagedList = await jobList.ToPagedListAsync((int)page, pageSize);
 
 			//Make the account available to the view
-			//ViewBag.JobSearchResultsLayout = await DbContext.Jobs.FindAsync(userId);
 			ViewData["MyJobs"] = true;
-			DbContext.Dispose();
 			return View("Index", pagedList);
-
-			//return View("Index", new JobResults());
 		}
 
-		[HttpPost]
+		public async Task<IActionResult> MyJobs(PagedList<Jobs> myJobs, int? page = 1)
+		{
+			// Page the transactions, maximum of 10 per page.
+			const int pageSize = 4;
+			var list = await myJobs.ToPagedListAsync((int)page, pageSize);
+			return View("Index", list);
+		
+		}
+
+			[HttpPost]
 		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary, string Frequency)
 		{
 			SqlConnector db = new SqlConnector();
@@ -96,7 +138,7 @@ namespace JobSpotAplication.Controllers
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			jobSearchId = Guid.NewGuid().ToString();
+			var jobSearchId = Guid.NewGuid().ToString();
 
 			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
 			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);

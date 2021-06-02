@@ -48,13 +48,13 @@
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="# " class="">
+                        <a id="Favourites" asp-controller="Dashboard" asp-action="MyJobs" class="">
                             <i class="fas fa-bookmark"></i>
-                            <span class="nav-label">Favourites</span>
+                            <span class="nav-label">My Jobs</span>
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="#" class="">
+                        <a id="ManageAccount" class="" asp-area="Identity" asp-page="/Account/Manage/Index">
                             <i class="far fa-user-circle"></i>
                             <span class="nav-label">Manage Account</span>
                         </a>
@@ -67,10 +67,9 @@
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="#">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="nav-label">Sign Out</span>
-                        </a>
+                        <form class="nav-label" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button class="nav-label" type="submit"><i class="fas fa-sign-out-alt"></i><span class="nav-label">Sign Out</span></button>
+                        </form>
                     </li>
                 </ul>
             </nav>
@@ -86,6 +85,14 @@
                     @if (ViewData["DisplayScheduleForm"] != null)
                     {
                         <partial name="_ScheduleJobForm" />
+                    }
+                    else if (ViewData["DisplayJobSearchResults"] != null)
+                    {
+                        <partial name="_JobSearchResultsLayout" />
+                    }
+                    else if (ViewData["MyJobs"] != null)
+                    {
+                        <partial name="_MyJobs" />
                     }
                     else
                     {
