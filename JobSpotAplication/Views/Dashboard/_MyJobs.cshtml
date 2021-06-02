@@ -3,7 +3,7 @@
 @using X.PagedList.Web.Common
 @model IPagedList<Jobs>
 
-    <h1 class="h2">A list of you recent searches</h1>
+    <h1 class="h2">A list of your recent searches</h1>
 
     <div>
         @Html.PagedListPager(Model, page => Url.Action("MyJobs", new { page }),

@@ -22,21 +22,19 @@ namespace JobSpotAplication.Controllers
 	[Authorize]
 	public class DashboardController : Controller
 	{
-		private readonly ILogger<DashboardController> _logger;
-		private readonly UserManager<IdentityUser> _userManager;
 
-		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
+		public DashboardController()
 		{
-			_logger = logger;
-			_userManager = userManager;
+
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
 			return View(new JobSearch());
 		}
 
-
+		[HttpGet]
 		public IActionResult JobSearch()
 		{
 			ViewData["DisplaySearchForm"] = true;
@@ -66,20 +64,12 @@ namespace JobSpotAplication.Controllers
 			//Unable to nest the foreach loops, getting the error "context already exists". Work around was to create a 
 			//list of the bridge data and then loop through that.
 			List<BridgeData> bridgeList = new List<BridgeData>();
-			foreach (Jobs_JobSearchResults_Bridge bridgeJob in DbContext.Jobs_JobSearchResults_Bridge)
-            {
-				if(bridgeJob.UserID == userId)
-                {
-					var jobs = new BridgeData();
-					jobs.JobID = bridgeJob.JobID;
-					jobs.UserID = bridgeJob.UserID;
-					bridgeList.Add(jobs);		
-                }
-            }
+
+			var list = GetBridgeData(userId, DbContext, bridgeList);
 
 			List<Jobs> jobList = null;
 			jobList = new List<Jobs>();
-			foreach (BridgeData bridgeListJob in bridgeList)
+			foreach (BridgeData bridgeListJob in list)
             {
 				var jobResult = DbContext.Jobs.Where(x => x.JobID == bridgeListJob.JobID);
 				var jobs = jobResult.FirstOrDefault();
@@ -94,16 +84,7 @@ namespace JobSpotAplication.Controllers
 			return View("Index", pagedList);
 		}
 
-		public async Task<IActionResult> MyJobs(PagedList<Jobs> myJobs, int? page = 1)
-		{
-			// Page the transactions, maximum of 10 per page.
-			const int pageSize = 4;
-			var list = await myJobs.ToPagedListAsync((int)page, pageSize);
-			return View("Index", list);
-		
-		}
-
-			[HttpPost]
+		[HttpPost]
 		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary, string Frequency)
 		{
 			SqlConnector db = new SqlConnector();
@@ -196,5 +177,24 @@ namespace JobSpotAplication.Controllers
 				["salaryType"] = salaryType
 			};
 		}
+
+		private List<BridgeData> GetBridgeData(string userId, JobSpotAplicationContext DbContext, List<BridgeData> bridgeList)
+        {
+			foreach (Jobs_JobSearchResults_Bridge bridgeJob in DbContext.Jobs_JobSearchResults_Bridge)
+			{
+				if (bridgeJob.UserID == userId)
+				{
+					var jobs = new BridgeData();
+					jobs.JobID = bridgeJob.JobID;
+					jobs.UserID = bridgeJob.UserID;
+					bridgeList.Add(jobs);
+				}
+				if (bridgeList.Count == 50)
+                {
+					return bridgeList;
+                }
+			}
+			return bridgeList;
+        }
 	}
 }
