@@ -24,7 +24,6 @@ namespace JobSpotAplication.Controllers
 	{
 		private readonly ILogger<DashboardController> _logger;
 		private readonly UserManager<IdentityUser> _userManager;
-		private List<Jobs> jobList = null;
 
 		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
 		{
@@ -59,23 +58,14 @@ namespace JobSpotAplication.Controllers
 			// Page the transactions, maximum of 10 per page.
 			const int pageSize = 4;
 
-			if(jobList != null)
-            {
-				var List = await jobList.ToPagedListAsync((int)page, pageSize);
-
-				//Make the account available to the view
-				ViewData["MyJobs"] = true;
-				return View("Index", List);
-			}
-
 			JobSpotAplicationContext DbContext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
 		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
 		   .Options);
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			
-			List<BridgeData> bridgeList = new List<BridgeData>();
+
 			//Unable to nest the foreach loops, getting the error "context already exists". Work around was to create a 
 			//list of the bridge data and then loop through that.
+			List<BridgeData> bridgeList = new List<BridgeData>();
 			foreach (Jobs_JobSearchResults_Bridge bridgeJob in DbContext.Jobs_JobSearchResults_Bridge)
             {
 				if(bridgeJob.UserID == userId)
@@ -86,21 +76,16 @@ namespace JobSpotAplication.Controllers
 					bridgeList.Add(jobs);		
                 }
             }
-			var distinctBridgeList = bridgeList.Distinct().ToList();
 
-
+			List<Jobs> jobList = null;
 			jobList = new List<Jobs>();
-			foreach (BridgeData bridgeListJob in distinctBridgeList)
+			foreach (BridgeData bridgeListJob in bridgeList)
             {
-
-				foreach (Jobs jobs in DbContext.Jobs)
-				{
-					if (jobs.JobID == bridgeListJob.JobID)
-					{
-						jobList.Add(jobs);
-					}
-				}
+				var jobResult = DbContext.Jobs.Where(x => x.JobID == bridgeListJob.JobID);
+				var jobs = jobResult.FirstOrDefault();
+				jobList.Add(jobs);		
 			}
+
 			DbContext.Dispose();
 			var pagedList = await jobList.ToPagedListAsync((int)page, pageSize);
 
