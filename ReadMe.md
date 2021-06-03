@@ -27,7 +27,6 @@
         </ul>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -234,11 +233,8 @@
      </li>
 </ol>
 
-<h2 id="usage">Usage</h2>
-<p>Demonstrate how the project is used, include screenshots and step by step instructions here.</p>
-
 <h2 id="license">License</h2>
-<p></p>
+<p>Please see: https://creativecommons.org/licenses/by/4.0/</p>
 
 <h2 id="contact">Contact</h2>
 <ul>
