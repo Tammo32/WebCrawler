@@ -153,6 +153,7 @@ h2,
 .sidebar-menu-icon {
   display: flex;
   align-items: center;
+  z-index: 10000;
 }
 
 .nav > li > a:focus,
