@@ -10,10 +10,9 @@ namespace JobSpotAplication.Models
     public class Jobs_JobSearchResults_Bridge
     {
         [Key]
-        public int BridgeID { get; set; }
+        public string ID { get; set; }
         [ForeignKey("Jobs")]
         public string JobID { get; set; }
-        public virtual Jobs Jobs { get; set; }
         [ForeignKey("AspNetUser")]
         public string UserID { get; set; }
    

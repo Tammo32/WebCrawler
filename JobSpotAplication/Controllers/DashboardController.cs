@@ -8,7 +8,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using X.PagedList;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using WebScraper;
 using WebScraper.DataAccess;
 using WebScraper.Models;
@@ -19,31 +22,23 @@ namespace JobSpotAplication.Controllers
 	[Authorize]
 	public class DashboardController : Controller
 	{
-		private readonly ILogger<DashboardController> _logger;
-		private readonly UserManager<IdentityUser> _userManager;
-		private readonly JobSpotAplicationContext _context;
 
-		public DashboardController(ILogger<DashboardController> logger, UserManager<IdentityUser> userManager)
+		public DashboardController()
 		{
-			_logger = logger;
-			_userManager = userManager;
 
-			var contextOptions = new DbContextOptionsBuilder<JobSpotAplicationContext>()
-		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
-		   .Options;
-
-			var context = new JobSpotAplicationContext(contextOptions);
-			_context = context;
 		}
 
+		[HttpGet]
 		public IActionResult Index()
 		{
 			return View(new JobSearch());
 		}
 
-
+		[HttpGet]
 		public IActionResult JobSearch()
 		{
+			ViewData["DisplaySearchForm"] = true;
+
 			return View(new JobSearch());
 		}
 
@@ -55,8 +50,42 @@ namespace JobSpotAplication.Controllers
 			return View("Index", new ScheduleViewModel());
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> MyJobs(int? page = 1)
+		{
+			// Page the transactions, maximum of 10 per page.
+			const int pageSize = 4;
+
+			JobSpotAplicationContext DbContext = new JobSpotAplicationContext(new DbContextOptionsBuilder<JobSpotAplicationContext>()
+		   .UseSqlServer(GlobalConfig.ConnectionString("DefaultConnection"))
+		   .Options);
+			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			//Unable to nest the foreach loops, getting the error "context already exists". Work around was to create a 
+			//list of the bridge data and then loop through that.
+			List<BridgeData> bridgeList = new List<BridgeData>();
+
+			var list = GetBridgeData(userId, DbContext, bridgeList);
+
+			List<Jobs> jobList = null;
+			jobList = new List<Jobs>();
+			foreach (BridgeData bridgeListJob in list)
+            {
+				var jobResult = DbContext.Jobs.Where(x => x.JobID == bridgeListJob.JobID);
+				var jobs = jobResult.FirstOrDefault();
+				jobList.Add(jobs);		
+			}
+
+			DbContext.Dispose();
+			var pagedList = await jobList.ToPagedListAsync((int)page, pageSize);
+
+			//Make the account available to the view
+			ViewData["MyJobs"] = true;
+			return View("Index", pagedList);
+		}
+
 		[HttpPost]
-		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary)
+		public IActionResult ScheduleJobSearch(string Keywords, string Location, string Commitment, string Salary, string Frequency)
 		{
 			SqlConnector db = new SqlConnector();
 			Dictionary<string, string> searchParams = new Dictionary<string, string>()
@@ -75,7 +104,10 @@ namespace JobSpotAplication.Controllers
 			// Grab UserID
 			string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			string jobSearchId = Guid.NewGuid().ToString();
+			var jobSearchId = Guid.NewGuid().ToString();
+
+			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
+			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
 
 			db.SaveJobSearchQuery(jobSearchId, userId, seekUrl);
 			db.SaveJobSearchQuery(jobSearchId, userId, indeedUrl);
@@ -145,5 +177,24 @@ namespace JobSpotAplication.Controllers
 				["salaryType"] = salaryType
 			};
 		}
+
+		private List<BridgeData> GetBridgeData(string userId, JobSpotAplicationContext DbContext, List<BridgeData> bridgeList)
+        {
+			foreach (Jobs_JobSearchResults_Bridge bridgeJob in DbContext.Jobs_JobSearchResults_Bridge)
+			{
+				if (bridgeJob.UserID == userId)
+				{
+					var jobs = new BridgeData();
+					jobs.JobID = bridgeJob.JobID;
+					jobs.UserID = bridgeJob.UserID;
+					bridgeList.Add(jobs);
+				}
+				if (bridgeList.Count == 50)
+                {
+					return bridgeList;
+                }
+			}
+			return bridgeList;
+        }
 	}
 }

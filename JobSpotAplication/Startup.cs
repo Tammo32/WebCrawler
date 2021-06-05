@@ -32,7 +32,7 @@ namespace JobSpotAplication
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
                 // Enable lazy loading- load all relivent data at once.
-                options.UseLazyLoadingProxies();
+                //options.UseLazyLoadingProxies();
             });
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -91,9 +91,11 @@ namespace JobSpotAplication
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -111,9 +113,10 @@ namespace JobSpotAplication
 
             
             EmailSchedule emailSchedule = new EmailSchedule();
+            WebScrapeSchedule scrapeSchedule = new WebScrapeSchedule();
 
             RecurringJob.AddOrUpdate("email", () => emailSchedule.ScheduleEmail(), Cron.Daily);
-            RecurringJob.AddOrUpdate("webscrape", () => Console.WriteLine(), Cron.Daily);
+            RecurringJob.AddOrUpdate("webscrape", () => scrapeSchedule.ScheduleScrape(), Cron.Daily);
 
             app.UseEndpoints(endpoints =>
             {

@@ -18,7 +18,7 @@ namespace JobSpotAplication.Controllers
         {
             _logger = logger;
         }
-        
+
         public IActionResult Index()
         {
             string userId = User.FindFirstValue(ClaimTypes.Name);

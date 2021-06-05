@@ -55,7 +55,7 @@ namespace WebScraper.DataAccess
 
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnectionString("DefaultConnection")))
 			{
-				
+
 				connection.Open();
 				using (var trans = connection.BeginTransaction())
 				{
@@ -152,7 +152,7 @@ namespace WebScraper.DataAccess
 				{
 					var result = db.SaveJobEntry(job);
 				}
-			 }
+			}
 		}
 
 		public List<JobEntryModel> GetJobsByJobSearchResults(string jsrId, string userId)
@@ -166,7 +166,7 @@ namespace WebScraper.DataAccess
 			//	var result = connection.Execute("dbo.spJobs_GetAllJobsByJobSearchResults", p, commandType: CommandType.StoredProcedure);
 			//}
 
-			var sql = 
+			var sql =
 				"SELECT j.Title, j.Company, j.Availability, j.Description, j.Salary, j.Url FROM dbo.Jobs j " +
 				"INNER JOIN dbo.Jobs_JobSearchResults_Bridge jsrb ON jsrb.JobID = j.JobID " +
 				"INNER JOIN dbo.JobSearchResults jsr ON jsr.UserID = jsrb.UserID " +
@@ -186,6 +186,8 @@ namespace WebScraper.DataAccess
 			}
 			return jobs;
 		}
+
+		
 
 		public void SaveMultipleJobEntriesTransaction(List<JobEntryModel> jobs)
 		{

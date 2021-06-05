@@ -27,13 +27,13 @@
 
 
     @RenderBody()
-
     <div class="container-fluid">
         <div class="row">
             <nav id="sidebar-nav" class="d-md-block sidebar position-fixed">
                 <div class="nav-logo">
                     <a asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/logo.svg" alt="jobSpot logo">JobSpot</a>
                 </div>
+                
                 <ul id="sidebar-nav" class="nav nav-sections flex-column">
                     <li class="sidebar-option">
                         <a id="JobSearch" asp-controller="Dashboard" asp-action="Index" class="sidebar-active">
@@ -48,13 +48,13 @@
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="# " class="">
+                        <a id="Favourites" asp-controller="Dashboard" asp-action="MyJobs" class="">
                             <i class="fas fa-bookmark"></i>
-                            <span class="nav-label">Favourites</span>
+                            <span class="nav-label">My Jobs</span>
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="#" class="">
+                        <a id="ManageAccount" class="" asp-area="Identity" asp-page="/Account/Manage/Index">
                             <i class="far fa-user-circle"></i>
                             <span class="nav-label">Manage Account</span>
                         </a>
@@ -67,25 +67,33 @@
                         </a>
                     </li>
                     <li class="sidebar-option">
-                        <a href="#">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="nav-label">Sign Out</span>
-                        </a>
+                        <form class="nav-label" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button class="nav-label" type="submit"><i class="fas fa-sign-out-alt"></i><span class="nav-label">Sign Out</span></button>
+                        </form>
                     </li>
                 </ul>
             </nav>
 
             <main class="dashboard-content" role="main">
-                <nav class="navbar top-nav sticky-top flex-md-nowrap">
+                <nav class="navbar top-nav sticky-top">
                     <div class="sidebar-menu-icon">
                         <i class="fas fa-bars menu-button" style="font-size:28px;"></i>
-                        <span class="menu-label">Dashboard</span>
+                        <div class="menu-label">Dashboard</div>
                     </div>
+                    <div style="position: absolute; right: 2em;">Hello @User.Identity.Name!</div>
                 </nav>
                 <div id="partial-view-loader" class="d-flex justify-content-between flex-wrap align-items-center pb-2 mb-3 border-bottom padding">
                     @if (ViewData["DisplayScheduleForm"] != null)
                     {
                         <partial name="_ScheduleJobForm" />
+                    }
+                    else if (ViewData["DisplayJobSearchResults"] != null)
+                    {
+                        <partial name="_JobSearchResultsLayout" />
+                    }
+                    else if (ViewData["MyJobs"] != null)
+                    {
+                        <partial name="_MyJobs" />
                     }
                     else
                     {
@@ -107,11 +115,11 @@
     -->
     <!--Script to adjust side nav based on initial screensize, and when resizing to smaller screens-->
     <script>
-        
+
         function checkWidth() {
             if ($(window).width() < 700) {
                 $('.sidebar').addClass('active');
-            } 
+            }
         }
 
         $(document).ready(checkWidth);
